@@ -3096,7 +3096,7 @@ void Phototonic::dropOp(Qt::KeyboardModifiers keyMods, bool dirOp, QString copyM
         QString dirOnly = copyMoveDirPath.right(
                 copyMoveDirPath.size() - copyMoveDirPath.lastIndexOf(QDir::separator()) - 1);
 
-        QString question = tr("Move directory %1 to %2?").arg(dirOnly).arg(destDir);
+        QString question = tr("Move directory %1 to %2?").arg(dirOnly, destDir);
 
         MessageBox moveDirMessageBox(this);
         moveDirMessageBox.setText(question);
