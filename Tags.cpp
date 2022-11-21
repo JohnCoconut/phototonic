@@ -311,14 +311,7 @@ void ImageTags::setActiveViewMode(TagsDisplayMode mode) {
 bool ImageTags::isImageFilteredOut(QString imageFileName) {
     QSet<QString> imageTags = metadataCache->getImageTags(imageFileName);
 
-    QSetIterator<QString> filteredTagsIt(imageFilteringTags);
-    while (filteredTagsIt.hasNext()) {
-        if (imageTags.contains(filteredTagsIt.next())) {
-            return negateFilterEnabled;
-        }
-    }
-
-    return !negateFilterEnabled;
+    return imageTags.intersects(imageFilteringTags) ? negateFilterEnabled : !negateFilterEnabled;
 }
 
 void ImageTags::resetTagsState() {
