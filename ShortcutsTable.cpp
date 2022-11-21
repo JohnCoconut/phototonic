@@ -107,7 +107,7 @@ void ShortcutsTable::keyPressEvent(QKeyEvent *keyEvent) {
 
 bool ShortcutsTable::confirmOverwriteShortcut(QString action, QString shortcut) {
     MessageBox msgBox(this);
-    msgBox.setText(tr("%1 is already assigned to %2, reassign shortcut?").arg(shortcut).arg(action));
+    msgBox.setText(tr("%1 is already assigned to %2, reassign shortcut?").arg(shortcut, action));
     msgBox.setWindowTitle(tr("Overwrite Shortcut"));
     msgBox.setIcon(MessageBox::Warning);
     msgBox.setStandardButtons(MessageBox::Yes | MessageBox::Cancel);

@@ -96,7 +96,7 @@ void CopyMoveDialog::execute(ThumbsViewer *thumbView, QString &destDir, bool pas
             destFile = destDir + QDir::separator() + currFile;
 
             opLabel->setText((Settings::isCopyOperation ? tr("Copying \"%1\" to \"%2\".") : tr("Moving \"%1\" to \"%2\"."))
-                                     .arg(sourceFile).arg(destFile));
+                                     .arg(sourceFile, destFile));
             QApplication::processEvents();
 
             res = CopyMoveDialog::copyOrMoveFile(Settings::isCopyOperation, currFile, sourceFile, destFile, destDir);
@@ -117,7 +117,7 @@ void CopyMoveDialog::execute(ThumbsViewer *thumbView, QString &destDir, bool pas
             destFile = destDir + QDir::separator() + currFile;
 
             opLabel->setText((Settings::isCopyOperation ?
-                              tr("Copying %1 to %2.") : tr("Moving %1 to %2.")).arg(sourceFile).arg(destFile));
+                              tr("Copying %1 to %2.") : tr("Moving %1 to %2.")).arg(sourceFile, destFile));
             QApplication::processEvents();
 
             res = copyOrMoveFile(Settings::isCopyOperation, currFile, sourceFile, destFile, destDir);
