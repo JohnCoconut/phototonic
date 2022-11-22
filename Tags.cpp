@@ -49,10 +49,10 @@ ImageTags::ImageTags(QWidget *parent, ThumbsViewer *thumbsViewer, const std::sha
     currentDisplayMode = SelectionTagsDisplay;
     dirFilteringActive = false;
 
-    connect(tagsTree, SIGNAL(itemChanged(QTreeWidgetItem * , int)),
-            this, SLOT(saveLastChangedTag(QTreeWidgetItem * , int)));
-    connect(tagsTree, SIGNAL(itemClicked(QTreeWidgetItem * , int)),
-            this, SLOT(tagClicked(QTreeWidgetItem * , int)));
+    connect(tagsTree, SIGNAL(itemChanged(QTreeWidgetItem*,int)),
+            this, SLOT(saveLastChangedTag(QTreeWidgetItem*,int)));
+    connect(tagsTree, SIGNAL(itemClicked(QTreeWidgetItem*,int)),
+            this, SLOT(tagClicked(QTreeWidgetItem*,int)));
 
     tagsTree->setContextMenuPolicy(Qt::CustomContextMenu);
     connect(tagsTree, SIGNAL(customContextMenuRequested(QPoint)), SLOT(showMenu(QPoint)));
