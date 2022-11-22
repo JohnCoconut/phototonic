@@ -463,19 +463,18 @@ void ImageTags::addNewTag() {
         return;
     }
 
-    QSetIterator<QString> knownTagsIt(Settings::knownTags);
-    while (knownTagsIt.hasNext()) {
-        QString tag = knownTagsIt.next();
-        if (newTagName == tag) {
-            MessageBox msgBox(this);
-            msgBox.critical(tr("Error"), tr("Tag ") + newTagName + tr(" already exists"));
-            return;
-        }
-    }
-
-    addTag(newTagName, false);
+    int oldSize = Settings::knownTags.size();
     Settings::knownTags.insert(newTagName);
-    redrawTagTree();
+    int newSize = Settings::knownTags.size();
+
+    if (oldSize == newSize) {
+        MessageBox msgBox(this);
+        msgBox.critical(tr("Error"), tr("Tag ") + newTagName + tr(" already exists"));
+        return;
+    } else {
+        addTag(newTagName, false);
+        redrawTagTree();
+    }
 }
 
 void ImageTags::removeTag() {
