@@ -2,7 +2,17 @@
 
 ### Notice
 
-This project is unmaintained. See Geeqie for an alternative.
+The [upstream project](https://github.com/oferkv/phototonic) is currently unmaintained. This is a friendly fork.
+Phototonic is a fantastic image viewer, simple yet elegant. As a long-time user, I am grateful for the hardwork that oferkv has done.
+
+To keep the project going on, I am willing to take effort to maintain this fork.
+
+At the moment, I have some plans to `modernize` the code base, including but not limited to the following:
+
++ Add github actions
++ Add clazy and clang-tidy to do static analysis
+
+All contributions are welcome.
 
 ### About
 
