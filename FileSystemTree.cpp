@@ -37,14 +37,10 @@ FileSystemTree::FileSystemTree(QWidget *parent) : QTreeView(parent) {
             scrollTo(currentIndex());
         }, Qt::QueuedConnection);
 
-    connect(this, SIGNAL(expanded(
-                                 const QModelIndex &)),
-            this, SLOT(resizeTreeColumn(
-                               const QModelIndex &)));
-    connect(this, SIGNAL(collapsed(
-                                 const QModelIndex &)),
-            this, SLOT(resizeTreeColumn(
-                               const QModelIndex &)));
+    connect(this, SIGNAL(expanded(QModelIndex)),
+            this, SLOT(resizeTreeColumn(QModelIndex)));
+    connect(this, SIGNAL(collapsed(QModelIndex)),
+            this, SLOT(resizeTreeColumn(QModelIndex)));
 }
 
 QModelIndex FileSystemTree::getCurrentIndex() {

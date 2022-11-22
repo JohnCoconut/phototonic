@@ -106,12 +106,10 @@ CopyMoveToDialog::CopyMoveToDialog(QWidget *parent, QString thumbsPath, bool mov
     pathsTable->horizontalHeader()->setSectionResizeMode(QHeaderView::Stretch);
     pathsTable->setShowGrid(false);
 
-    connect(pathsTable->selectionModel(), SIGNAL(selectionChanged(QItemSelection, QItemSelection)),
-            this, SLOT(selection(QItemSelection, QItemSelection)));
-    connect(pathsTable, SIGNAL(doubleClicked(
-                                       const QModelIndex &)),
-            this, SLOT(pathDoubleClick(
-                               const QModelIndex &)));
+    connect(pathsTable->selectionModel(), SIGNAL(selectionChanged(QItemSelection,QItemSelection)),
+            this, SLOT(selection(QItemSelection,QItemSelection)));
+    connect(pathsTable, SIGNAL(doubleClicked(QModelIndex)),
+            this, SLOT(pathDoubleClick(QModelIndex)));
 
     QHBoxLayout *addRemoveHbox = new QHBoxLayout;
     QPushButton *addButton = new QPushButton(tr("Browse..."));

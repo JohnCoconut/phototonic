@@ -51,7 +51,7 @@ Phototonic::Phototonic(QStringList argumentsList, int filesStartAt, QWidget *par
     loadShortcuts();
     setupDocks();
 
-    connect(qApp, SIGNAL(focusChanged(QWidget * , QWidget * )), this, SLOT(updateActions()));
+    connect(qApp, SIGNAL(focusChanged(QWidget*,QWidget*)), this, SLOT(updateActions()));
 
     restoreGeometry(Settings::appSettings->value(Settings::optionGeometry).toByteArray());
     restoreState(Settings::appSettings->value(Settings::optionWindowState).toByteArray());
@@ -141,7 +141,7 @@ void Phototonic::createThumbsViewer() {
             Settings::optionThumbsSortFlags).toInt();
     thumbsViewer->thumbsSortFlags |= QDir::IgnoreCase;
 
-    connect(thumbsViewer->selectionModel(), SIGNAL(selectionChanged(QItemSelection, QItemSelection)),
+    connect(thumbsViewer->selectionModel(), SIGNAL(selectionChanged(QItemSelection,QItemSelection)),
             this, SLOT(updateActions()));
 
     imageInfoDock = new QDockWidget(tr("Image Info"), this);
@@ -900,8 +900,7 @@ void Phototonic::createToolBars() {
     filterLineEdit->setMinimumWidth(100);
     filterLineEdit->setMaximumWidth(200);
     connect(filterLineEdit, SIGNAL(returnPressed()), this, SLOT(setThumbsFilter()));
-    connect(filterLineEdit, SIGNAL(textChanged(
-                                           const QString&)), this, SLOT(clearThumbsFilter()));
+    connect(filterLineEdit, SIGNAL(textChanged(QString)), this, SLOT(clearThumbsFilter()));
     filterLineEdit->setClearButtonEnabled(true);
     filterLineEdit->addAction(filterAct, QLineEdit::LeadingPosition);
 
@@ -1024,23 +1023,23 @@ void Phototonic::createFileSystemDock() {
 
     connect(
             fileSystemTree,
-                SIGNAL(clicked(const QModelIndex&)),
+                SIGNAL(clicked(QModelIndex)),
             this,
-                SLOT(goSelectedDir(const QModelIndex &))
+                SLOT(goSelectedDir(QModelIndex))
         );
 
     connect(
             fileSystemTree->fileSystemModel,
-                SIGNAL(rowsRemoved(const QModelIndex &, int, int)),
+                SIGNAL(rowsRemoved(QModelIndex,int,int)),
             this,
-                SLOT(checkDirState(const QModelIndex &, int, int))
+                SLOT(checkDirState(QModelIndex,int,int))
         );
 
     connect(
             fileSystemTree,
-                SIGNAL(dropOp(Qt::KeyboardModifiers, bool, QString)),
+                SIGNAL(dropOp(Qt::KeyboardModifiers,bool,QString)),
             this,
-                SLOT(dropOp(Qt::KeyboardModifiers, bool, QString))
+                SLOT(dropOp(Qt::KeyboardModifiers,bool,QString))
         );
 
     fileSystemTree->setCurrentIndex(fileSystemTree->fileSystemModel->index(QDir::currentPath()));
@@ -1048,7 +1047,7 @@ void Phototonic::createFileSystemDock() {
 
     connect(
             fileSystemTree->selectionModel(),
-                SIGNAL(selectionChanged(QItemSelection, QItemSelection)),
+                SIGNAL(selectionChanged(QItemSelection,QItemSelection)),
             this,
                 SLOT(updateActions())
         );
@@ -1076,11 +1075,11 @@ void Phototonic::createBookmarksDock() {
 
     connect(bookmarksDock->toggleViewAction(), SIGNAL(triggered()), this, SLOT(setBookmarksDockVisibility()));
     connect(bookmarksDock, SIGNAL(visibilityChanged(bool)), this, SLOT(setBookmarksDockVisibility()));
-    connect(bookmarks, SIGNAL(itemClicked(QTreeWidgetItem * , int)),
-            this, SLOT(bookmarkClicked(QTreeWidgetItem * , int)));
+    connect(bookmarks, SIGNAL(itemClicked(QTreeWidgetItem*,int)),
+            this, SLOT(bookmarkClicked(QTreeWidgetItem*,int)));
     connect(removeBookmarkAction, SIGNAL(triggered()), bookmarks, SLOT(removeBookmark()));
-    connect(bookmarks, SIGNAL(dropOp(Qt::KeyboardModifiers, bool, QString)),
-            this, SLOT(dropOp(Qt::KeyboardModifiers, bool, QString)));
+    connect(bookmarks, SIGNAL(dropOp(Qt::KeyboardModifiers,bool,QString)),
+            this, SLOT(dropOp(Qt::KeyboardModifiers,bool,QString)));
 
     addDockWidget(Qt::LeftDockWidgetArea, bookmarksDock);
 
@@ -1225,7 +1224,7 @@ void Phototonic::runExternalApp() {
 
     QProcess *externalProcess = new QProcess();
     externalProcess->setProcessChannelMode(QProcess::ForwardedChannels);
-    connect(externalProcess, SIGNAL(finished(int, QProcess::ExitStatus)), externalProcess, SLOT(deleteLater()));
+    connect(externalProcess, SIGNAL(finished(int,QProcess::ExitStatus)), externalProcess, SLOT(deleteLater()));
     connect(externalProcess, SIGNAL(error(QProcess::ProcessError)), this, SLOT(externalAppError()));
     externalProcess->start(execCommand, arguments);
 }

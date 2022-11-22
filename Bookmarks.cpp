@@ -23,14 +23,10 @@ BookMarks::BookMarks(QWidget *parent) : QTreeWidget(parent) {
     setDragEnabled(false);
     setDragDropMode(QAbstractItemView::DropOnly);
 
-    connect(this, SIGNAL(expanded(
-                                 const QModelIndex &)),
-            this, SLOT(resizeTreeColumn(
-                               const QModelIndex &)));
-    connect(this, SIGNAL(collapsed(
-                                 const QModelIndex &)),
-            this, SLOT(resizeTreeColumn(
-                               const QModelIndex &)));
+    connect(this, SIGNAL(expanded(QModelIndex)),
+            this, SLOT(resizeTreeColumn(QModelIndex)));
+    connect(this, SIGNAL(collapsed(QModelIndex)),
+            this, SLOT(resizeTreeColumn(QModelIndex)));
 
     setColumnCount(1);
     setHeaderHidden(true);

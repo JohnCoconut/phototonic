@@ -252,9 +252,7 @@ SettingsDialog::SettingsDialog(QWidget *parent) : QDialog(parent) {
     QLineEdit *shortcutsFilterLineEdit = new QLineEdit;
     shortcutsFilterLineEdit->setClearButtonEnabled(true);
     shortcutsFilterLineEdit->setPlaceholderText(tr("Filter Items"));
-    connect(shortcutsFilterLineEdit, SIGNAL(textChanged(
-                                                    const QString&)), shortcutsTable, SLOT(setFilter(
-                                                                                                   const QString&)));
+    connect(shortcutsFilterLineEdit, SIGNAL(textChanged(QString)), shortcutsTable, SLOT(setFilter(QString)));
     keyboardSettingsLayout->addWidget(new QLabel(tr("Select an entry and press a key to set a new shortcut")));
     keyboardSettingsLayout->addWidget(shortcutsFilterLineEdit);
     keyboardSettingsLayout->addWidget(shortcutsTable);

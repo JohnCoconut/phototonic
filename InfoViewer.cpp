@@ -47,8 +47,7 @@ InfoView::InfoView(QWidget *parent) : QWidget(parent) {
 
     // Filter items
     filterLineEdit = new QLineEdit;
-    connect(filterLineEdit, SIGNAL(textChanged(
-                                           const QString&)), this, SLOT(filterItems()));
+    connect(filterLineEdit, SIGNAL(textChanged(QString)), this, SLOT(filterItems()));
     filterLineEdit->setClearButtonEnabled(true);
     filterLineEdit->setPlaceholderText(tr("Filter Items"));
     infoViewerLayout->addWidget(filterLineEdit);
