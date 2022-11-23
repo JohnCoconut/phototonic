@@ -351,9 +351,7 @@ void ImageTags::applyTagFiltering() {
 }
 
 void ImageTags::applyUserAction(QTreeWidgetItem *item) {
-    QList<QTreeWidgetItem *> tagsList;
-    tagsList << item;
-    applyUserAction(tagsList);
+    applyUserAction(QList<QTreeWidgetItem *>{item});
 }
 
 void ImageTags::applyUserAction(QList<QTreeWidgetItem *> tagsList) {
