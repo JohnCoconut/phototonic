@@ -1209,7 +1209,7 @@ void Phototonic::runExternalApp() {
         } else {
 
             QModelIndexList selectedIdxList = thumbsViewer->selectionModel()->selectedIndexes();
-            if (selectedIdxList.size() < 1) {
+            if (selectedIdxList.empty()) {
                 setStatus(tr("Invalid selection."));
                 return;
             }
@@ -1606,7 +1606,7 @@ void Phototonic::scaleImage() {
         toggleSlideShow();
     }
 
-    if (Settings::layoutMode == ThumbViewWidget && thumbsViewer->selectionModel()->selectedIndexes().size() < 1) {
+    if (Settings::layoutMode == ThumbViewWidget && thumbsViewer->selectionModel()->selectedIndexes().empty()) {
         setStatus(tr("No selection"));
         return;
     }
@@ -1839,7 +1839,7 @@ void Phototonic::loadCurrentImage(int currentRow) {
 
 void Phototonic::deleteImages(bool trash) {
     // Deleting selected thumbnails
-    if (thumbsViewer->selectionModel()->selectedIndexes().size() < 1) {
+    if (thumbsViewer->selectionModel()->selectedIndexes().empty()) {
         setStatus(tr("No selection"));
         return;
     }
@@ -1877,7 +1877,7 @@ void Phototonic::deleteImages(bool trash) {
     QList<int> rows;
     int row;
     QModelIndexList indexesList;
-    while ((indexesList = thumbsViewer->selectionModel()->selectedIndexes()).size()) {
+    while (!(indexesList = thumbsViewer->selectionModel()->selectedIndexes()).empty()) {
         QString fileNameFullPath = thumbsViewer->thumbsViewerModel->item(
                 indexesList.first().row())->data(thumbsViewer->FileNameRole).toString();
 
@@ -2124,7 +2124,7 @@ void Phototonic::setCopyCutActions(bool setEnabled) {
 
 void Phototonic::updateActions() {
     if (QApplication::focusWidget() == thumbsViewer) {
-        bool hasSelectedItems = thumbsViewer->selectionModel()->selectedIndexes().size() > 0;
+        bool hasSelectedItems = !thumbsViewer->selectionModel()->selectedIndexes().empty();
         setCopyCutActions(hasSelectedItems);
     } else if (QApplication::focusWidget() == bookmarks) {
         setCopyCutActions(false);
@@ -2496,7 +2496,7 @@ void Phototonic::loadShortcuts() {
     Settings::appSettings->beginGroup(Settings::optionShortcuts);
     QStringList groupKeys = Settings::appSettings->childKeys();
 
-    if (groupKeys.size()) {
+    if (!groupKeys.empty()) {
         if (groupKeys.contains(thumbsGoToTopAction->text())) {
             QMapIterator<QString, QAction *> key(Settings::actionKeys);
             while (key.hasNext()) {
@@ -3170,7 +3170,7 @@ void Phototonic::addPathHistoryRecord(QString dir) {
         return;
     }
 
-    if (pathHistoryList.size() && dir == pathHistoryList.at(currentHistoryIdx)) {
+    if (!pathHistoryList.empty() && dir == pathHistoryList.at(currentHistoryIdx)) {
         return;
     }
 
@@ -3508,7 +3508,7 @@ void Phototonic::setSaveDirectory(QString path) {
 
 QString Phototonic::getSelectedPath() {
     QModelIndexList selectedDirs = fileSystemTree->selectionModel()->selectedRows();
-    if (selectedDirs.size() && selectedDirs[0].isValid()) {
+    if (!selectedDirs.empty() && selectedDirs[0].isValid()) {
         QFileInfo dirInfo = QFileInfo(fileSystemTree->fileSystemModel->filePath(selectedDirs[0]));
         return dirInfo.absoluteFilePath();
     } else

@@ -20,7 +20,7 @@
 #include "Settings.h"
 
 void CopyMoveToDialog::selection(const QItemSelection &, const QItemSelection &) {
-    if (pathsTable->selectionModel()->selectedRows().size() > 0) {
+    if (!pathsTable->selectionModel()->selectedRows().empty()) {
         destinationLabel->setText(tr("Destination:") + " " +
                                   pathsTableModel->item(
                                           pathsTable->selectionModel()->selectedRows().at(0).row())->text());
@@ -43,7 +43,7 @@ void CopyMoveToDialog::copyOrMove() {
     savePaths();
 
     QModelIndexList indexesList;
-    if ((indexesList = pathsTable->selectionModel()->selectedIndexes()).size()) {
+    if (!(indexesList = pathsTable->selectionModel()->selectedIndexes()).empty()) {
         selectedPath = pathsTableModel->itemFromIndex(indexesList.first())->text();
         accept();
     } else {
@@ -73,7 +73,7 @@ void CopyMoveToDialog::add() {
 
 void CopyMoveToDialog::remove() {
     QModelIndexList indexesList;
-    if ((indexesList = pathsTable->selectionModel()->selectedIndexes()).size()) {
+    if (!(indexesList = pathsTable->selectionModel()->selectedIndexes()).empty()) {
         pathsTableModel->removeRow(indexesList.first().row());
     }
 }

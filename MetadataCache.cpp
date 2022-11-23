@@ -116,7 +116,7 @@ bool MetadataCache::loadImageMetadata(const QString &imageFullPath) {
     }
 
     ImageMetadata imageMetadata;
-    if (tags.size()) {
+    if (!tags.empty()) {
         imageMetadata.tags = tags;
     }
 
@@ -124,7 +124,7 @@ bool MetadataCache::loadImageMetadata(const QString &imageFullPath) {
         imageMetadata.orientation = orientation;
     }
 
-    if (tags.size() || orientation) {
+    if (!tags.empty() || orientation) {
         cache.insert(imageFullPath, imageMetadata);
     }
 

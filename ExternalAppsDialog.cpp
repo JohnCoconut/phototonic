@@ -104,7 +104,7 @@ void ExternalAppsDialog::entry() {
 
 void ExternalAppsDialog::remove() {
     QModelIndexList indexesList;
-    while ((indexesList = appsTable->selectionModel()->selectedIndexes()).size()) {
+    while (!(indexesList = appsTable->selectionModel()->selectedIndexes()).empty()) {
         appsTableModel->removeRow(indexesList.first().row());
     }
 }

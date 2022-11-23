@@ -335,7 +335,7 @@ QSet<QString> ImageTags::getCheckedTags(Qt::CheckState tagState) {
 
 void ImageTags::applyTagFiltering() {
     imageFilteringTags = getCheckedTags(Qt::Checked);
-    if (imageFilteringTags.size()) {
+    if (!imageFilteringTags.empty()) {
         dirFilteringActive = true;
         if (negateFilterEnabled) {
             tabs->setTabIcon(1, QIcon(":/images/tag_filter_negate.png"));
@@ -476,7 +476,7 @@ void ImageTags::addNewTag() {
 }
 
 void ImageTags::removeTag() {
-    if (!tagsTree->selectedItems().size()) {
+    if (tagsTree->selectedItems().empty()) {
         return;
     }
 

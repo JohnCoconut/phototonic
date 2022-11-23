@@ -190,7 +190,7 @@ void ThumbsViewer::setImageViewerWindowTitle() {
 
 bool ThumbsViewer::setCurrentIndexByName(QString &fileName) {
     QModelIndexList indexList = thumbsViewerModel->match(thumbsViewerModel->index(0, 0), FileNameRole, fileName);
-    if (indexList.size()) {
+    if (!indexList.empty()) {
         currentIndex = indexList[0];
         setCurrentRow(currentIndex.row());
         return true;
@@ -514,7 +514,7 @@ void ThumbsViewer::loadFileList() {
 
     imageTags->populateTagsTree();
 
-    if (thumbFileInfoList.size() && selectionModel()->selectedIndexes().size() == 0) {
+    if (!thumbFileInfoList.empty() && selectionModel()->selectedIndexes().empty()) {
         selectThumbByRow(0);
     }
 
@@ -765,7 +765,7 @@ void ThumbsViewer::initThumbs() {
 
     imageTags->populateTagsTree();
 
-    if (thumbFileInfoList.size() && selectionModel()->selectedIndexes().size() == 0) {
+    if (!thumbFileInfoList.empty() && selectionModel()->selectedIndexes().empty()) {
         selectThumbByRow(0);
     }
     phototonic->showBusyAnimation(false);

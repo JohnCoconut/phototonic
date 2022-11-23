@@ -42,7 +42,7 @@ void FileListWidget::resizeTreeColumn(const QModelIndex &) {
 void FileListWidget::dragEnterEvent(QDragEnterEvent *event) {
     QModelIndexList selectedDirs = selectionModel()->selectedRows();
 
-    if (selectedDirs.size() > 0) {
+    if (!selectedDirs.empty()) {
         dndOrigSelection = selectedDirs[0];
     }
     event->acceptProposedAction();

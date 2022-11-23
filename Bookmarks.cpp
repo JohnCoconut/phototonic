@@ -60,7 +60,7 @@ void BookMarks::removeBookmark() {
 void BookMarks::dragEnterEvent(QDragEnterEvent *event) {
     QModelIndexList selectedDirs = selectionModel()->selectedRows();
 
-    if (selectedDirs.size() > 0) {
+    if (!selectedDirs.empty()) {
         dndOrigSelection = selectedDirs[0];
     }
     event->acceptProposedAction();
