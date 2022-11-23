@@ -77,14 +77,14 @@ ThumbsViewer::ThumbsViewer(QWidget *parent, const std::shared_ptr<MetadataCache>
 
 void ThumbsViewer::setThumbColors() {
     QString backgroundColor = "background: rgb(%1, %2, %3); ";
-    backgroundColor = backgroundColor.arg(Settings::thumbsBackgroundColor.red(),
-                                          Settings::thumbsBackgroundColor.green(),
-                                          Settings::thumbsBackgroundColor.blue());
+    backgroundColor = backgroundColor.arg(Settings::thumbsBackgroundColor.red())
+            .arg(Settings::thumbsBackgroundColor.green())
+            .arg(Settings::thumbsBackgroundColor.blue());
 
     QString itemBackgroundColor = "background: rgba(%1, %2, %3, 0.5); ";
-    itemBackgroundColor = itemBackgroundColor.arg(Settings::thumbsBackgroundColor.red(),
-                                                  Settings::thumbsBackgroundColor.green(),
-                                                  Settings::thumbsBackgroundColor.blue());
+    itemBackgroundColor = itemBackgroundColor.arg(Settings::thumbsBackgroundColor.red())
+            .arg(Settings::thumbsBackgroundColor.green())
+            .arg(Settings::thumbsBackgroundColor.blue());
 
     QString backgroundRepeat;
     if (!Settings::thumbsRepeatBackgroundImage) {
@@ -340,8 +340,8 @@ void ThumbsViewer::onSelectionChanged() {
 
     if (selectedThumbs >= 1) {
         QString statusStr;
-        statusStr = tr("Selected %1 of %2").arg(QString::number(selectedThumbs),
-                                                tr(" %n image(s)", "", thumbsViewerModel->rowCount()));
+        statusStr = tr("Selected %1 of %2").arg(QString::number(selectedThumbs))
+                .arg(tr(" %n image(s)", "", thumbsViewerModel->rowCount()));
         phototonic->setStatus(statusStr);
     } else if (!selectedThumbs) {
         updateThumbsCount();
@@ -791,10 +791,11 @@ void ThumbsViewer::selectThumbByRow(int row) {
 void ThumbsViewer::updateFoundDupesState(int duplicates, int filesScanned, int originalImages)
 {
     QString state;
-    state = tr("Scanned %1, displaying %2 (%3 and %4)").arg(tr("%n image(s)", "", filesScanned),
-                                                            tr("%n image(s)", "", originalImages + duplicates),
-                                                            tr("%n original(s)", "", originalImages),
-                                                            tr("%n duplicate(s)", "", duplicates));
+    state = tr("Scanned %1, displaying %2 (%3 and %4)")
+                .arg(tr("%n image(s)", "", filesScanned))
+                .arg(tr("%n image(s)", "", originalImages + duplicates))
+                .arg(tr("%n original(s)", "", originalImages))
+                .arg(tr("%n duplicate(s)", "", duplicates));
     phototonic->setStatus(state);
 }
 
