@@ -42,7 +42,7 @@ public:
 
     int copyCutThumbsCount;
 
-    Phototonic(QStringList argumentsList, int filesStartAt, QWidget *parent = 0);
+    Phototonic(QStringList argumentsList, int filesStartAt, QWidget *parent = nullptr);
 
     QMenu *createPopupMenu();
 

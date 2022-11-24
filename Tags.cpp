@@ -97,9 +97,9 @@ void ImageTags::redrawTagTree() {
 
 void ImageTags::showMenu(QPoint point) {
     QTreeWidgetItem *item = tagsTree->itemAt(point);
-    addToSelectionAction->setEnabled(item != NULL);
-    removeFromSelectionAction->setEnabled(item != NULL);
-    removeTagAction->setEnabled(item != NULL);
+    addToSelectionAction->setEnabled(item != nullptr);
+    removeFromSelectionAction->setEnabled(item != nullptr);
+    removeTagAction->setEnabled(item != nullptr);
     tagsMenu->popup(tagsTree->viewport()->mapToGlobal(point));
 }
 
@@ -410,7 +410,7 @@ void ImageTags::tagClicked(QTreeWidgetItem *item, int) {
         } else {
             applyUserAction(item);
         }
-        lastChangedTagItem = 0;
+        lastChangedTagItem = nullptr;
     }
 }
 

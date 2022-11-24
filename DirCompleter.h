@@ -24,7 +24,7 @@
 class DirCompleter : public QCompleter {
 Q_OBJECT
 public:
-    DirCompleter(QObject *parent = 0);
+    DirCompleter(QObject *parent = nullptr);
 
     QString pathFromIndex(const QModelIndex &index) const;
 

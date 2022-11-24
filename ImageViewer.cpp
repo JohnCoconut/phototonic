@@ -132,7 +132,7 @@ ImageViewer::ImageViewer(QWidget *parent, const std::shared_ptr<MetadataCache> &
     Settings::mouseRotateEnabled = false;
 
     newImage = false;
-    cropRubberBand = 0;
+    cropRubberBand = nullptr;
 }
 
 static unsigned int getHeightByWidth(int imgWidth, int imgHeight, int newWidth) {
@@ -1172,7 +1172,7 @@ void ImageViewer::saveImageAs() {
         }
 
 
-        if (!viewerImage.save(fileName, 0, Settings::defaultSaveQuality)) {
+        if (!viewerImage.save(fileName, nullptr, Settings::defaultSaveQuality)) {
             MessageBox msgBox(this);
             msgBox.critical(tr("Error"), tr("Failed to save image."));
         } else {
