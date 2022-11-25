@@ -2,6 +2,7 @@
 #include <QDebug>
 #include <QtMath>
 #include <QElapsedTimer>
+#include <vector>
 
 namespace SmartCrop {
 
@@ -190,8 +191,8 @@ static inline qreal importance(const CropOptions &options, const QRectF &crop, q
     return s + d;
 }
 
-static QList<QRectF> generateCrops(const CropOptions &options, qreal width, qreal height) {
-    QList<QRectF> results;
+static std::vector<QRectF> generateCrops(const CropOptions &options, qreal width, qreal height) {
+    std::vector<QRectF> results;
     int minDimension = qMin(width, height);
     qreal cropWidth = options.cropWidth > 0 ? options.cropWidth : minDimension;
     qreal cropHeight = options.cropHeight > 0 ? options.cropHeight : minDimension;
@@ -202,7 +203,7 @@ static QList<QRectF> generateCrops(const CropOptions &options, qreal width, qrea
          ) {
         for (qreal y = 0; y + cropHeight * scale <= height; y += options.step) {
             for (qreal x = 0; x + cropWidth * scale <= width; x += options.step) {
-                results.append({x, y, cropWidth * scale, cropHeight * scale});
+                results.emplace_back(x, y, cropWidth * scale, cropHeight * scale);
             }
         }
     }
@@ -299,7 +300,7 @@ QRect smartCropRect(const QImage &input, CropOptions options)
     saturationDetect(options, image, filtered);
     QImage toScore = downSample(filtered, options.scoreDownSample);
 
-    QList<QRectF> crops = generateCrops(options, image.width(), image.height());
+    std::vector<QRectF> crops = generateCrops(options, image.width(), image.height());
 
     QRectF topCrop;
     qreal topScore = -1;
