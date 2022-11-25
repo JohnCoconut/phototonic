@@ -1479,7 +1479,7 @@ void Phototonic::zoomOut(const float multiplier) {
         return;
     }
 
-    Settings::imageZoomFactor = qMax(Settings::imageZoomFactor, 0.25f);
+    Settings::imageZoomFactor = qMax(Settings::imageZoomFactor, 0.25F);
 
     imageViewer->tempDisableResize = false;
     imageViewer->resizeImage();
@@ -1497,7 +1497,7 @@ void Phototonic::zoomIn(const float multiplier) {
         imageViewer->setFeedback(tr("Maximum zoom"));
         return;
     }
-    Settings::imageZoomFactor = qMin(Settings::imageZoomFactor, 16.f);
+    Settings::imageZoomFactor = qMin(Settings::imageZoomFactor, 16.F);
 
     imageViewer->tempDisableResize = false;
     imageViewer->resizeImage();

@@ -76,8 +76,8 @@ void ImageWidget::paintEvent(QPaintEvent *ev)
     QPainter painter(this);
 
     if (qFuzzyIsNull(m_rotation)) {
-        const float sx = qMax(-x() / scale, 0.f);
-        const float sy = qMax(-y() / scale, 0.f);
+        const float sx = qMax(-x() / scale, 0.F);
+        const float sy = qMax(-y() / scale, 0.F);
         const float sw = qMin<float>(width() / scale, m_image.width());
         const float sh = qMin<float>(height() / scale, m_image.height());
 

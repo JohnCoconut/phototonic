@@ -53,7 +53,7 @@ struct Histogram
 
     inline float compareChannel(const float hist1[256], const float hist2[256])
     {
-        float len1 = 0.f, len2 = 0.f, corr = 0.f;
+        float len1 = 0.F, len2 = 0.F, corr = 0.F;
 
         for (uint16_t i=0; i<256; i++) {
             len1 += hist1[i];
@@ -61,9 +61,9 @@ struct Histogram
             corr += std::sqrt(hist1[i] * hist2[i]);
         }
 
-        const float part1 = 1.f / std::sqrt(len1 * len2);
+        const float part1 = 1.F / std::sqrt(len1 * len2);
 
-        return std::sqrt(1.f - part1 * corr);
+        return std::sqrt(1.F - part1 * corr);
     }
 
     inline float compare(const Histogram &other)

@@ -923,9 +923,9 @@ static Histogram calcHist(const QImage &img)
         const uchar *line = image.scanLine(y);
         for (int x=0; x<image.width(); x++) {
             const int index = x * 3;
-            hist.red[line[index + 0]] += 1.f;
-            hist.green[line[index + 1]] += 1.f;
-            hist.blue[line[index + 2]] += 1.f;
+            hist.red[line[index + 0]] += 1.F;
+            hist.green[line[index + 1]] += 1.F;
+            hist.blue[line[index + 2]] += 1.F;
         }
     }
     return hist;
