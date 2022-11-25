@@ -35,9 +35,7 @@ BookMarks::BookMarks(QWidget *parent) : QTreeWidget(parent) {
 
 void BookMarks::reloadBookmarks() {
     clear();
-    QSetIterator<QString> it(Settings::bookmarkPaths);
-    while (it.hasNext()) {
-        QString itemPath = it.next();
+    for (const auto& itemPath : qAsConst(Settings::bookmarkPaths)) {
         QTreeWidgetItem *item = new QTreeWidgetItem(this);
         item->setText(0, QFileInfo(itemPath).fileName());
         item->setIcon(0, QIcon(":/images/bookmarks.png"));
