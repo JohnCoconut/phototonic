@@ -49,9 +49,7 @@ ImagePreview::ImagePreview(QWidget *parent) : QWidget(parent)
 }
 
 QPixmap& ImagePreview::loadImage(QString imageFileName) {
-    if (animation) {
-        delete animation;
-    }
+    delete animation;
 
     QImageReader imageReader(imageFileName);
 
