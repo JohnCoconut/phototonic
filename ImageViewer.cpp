@@ -58,7 +58,6 @@ class MyScrollArea : public QScrollArea {
 protected:
     void wheelEvent(QWheelEvent *event) override {
         event->ignore();
-        return;
     }
 };
 
@@ -667,10 +666,10 @@ QImage createImageWithOverlay(const QImage &baseImage, const QImage &overlayImag
 
 void ImageViewer::reload() {
     if (Settings::showImageName) {
-        if (viewerImageFullPath.left(1) == ":") {
-            setInfo("No Image");
-        } else if (viewerImageFullPath.isEmpty()) {
+        if (viewerImageFullPath.isEmpty()) {
             setInfo("Clipboard");
+        } else if (viewerImageFullPath.at(0) == ':') {
+            setInfo("No Image");
         } else {
             setInfo(QFileInfo(viewerImageFullPath).fileName());
         }

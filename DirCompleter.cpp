@@ -33,7 +33,7 @@ QString DirCompleter::pathFromIndex(const QModelIndex &index) const
 
 QStringList DirCompleter::splitPath(const QString &path) const
 {
-    if (path.startsWith("~")) {
+    if (path.startsWith('~')) {
         return QCompleter::splitPath(QString(path).replace(0, 1, QDir::homePath()));
     }
     return QCompleter::splitPath(path);

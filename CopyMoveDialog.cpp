@@ -19,7 +19,7 @@
 #include "CopyMoveDialog.h"
 
 static QString autoRename(QString &destDir, QString &currFile) {
-    int extSep = currFile.lastIndexOf(".");
+    int extSep = currFile.lastIndexOf('.');
     QString nameOnly = currFile.left(extSep);
     QString extOnly = currFile.right(currFile.size() - extSep - 1);
     QString newFile;

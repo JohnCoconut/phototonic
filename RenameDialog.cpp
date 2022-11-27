@@ -60,7 +60,7 @@ void RenameDialog::abort() {
 
 void RenameDialog::setFileName(QString name) {
     fileNameLineEdit->setText(name);
-    fileNameLineEdit->setSelection(0, name.lastIndexOf("."));
+    fileNameLineEdit->setSelection(0, name.lastIndexOf('.'));
 }
 
 QString RenameDialog::getFileName() {
