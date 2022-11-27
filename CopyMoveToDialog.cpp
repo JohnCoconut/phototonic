@@ -150,10 +150,9 @@ CopyMoveToDialog::CopyMoveToDialog(QWidget *parent, QString thumbsPath, bool mov
     setLayout(mainVbox);
 
     // Load paths list
-    QSetIterator<QString> it(Settings::bookmarkPaths);
-    while (it.hasNext()) {
-        QStandardItem *item = new QStandardItem(QIcon(":/images/bookmarks.png"), it.next());
-        pathsTableModel->insertRow(pathsTableModel->rowCount(), item);
+    for (const auto& bookmarkPath: qAsConst(Settings::bookmarkPaths) {
+        QStandardItem *item = new QStandardItem(QIcon(":/images/bookmarks.png"), bookmarkPath);
+        pathsTableModel->appendRow(item);
     }
     pathsTableModel->sort(0);
 }
