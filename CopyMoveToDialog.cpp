@@ -42,8 +42,7 @@ void CopyMoveToDialog::savePaths() {
 void CopyMoveToDialog::copyOrMove() {
     savePaths();
 
-    QModelIndexList indexesList;
-    if (!(indexesList = pathsTable->selectionModel()->selectedIndexes()).empty()) {
+    if (QModelIndexList indexesList = pathsTable->selectionModel()->selectedIndexes(); !indexesList.empty()) {
         selectedPath = pathsTableModel->itemFromIndex(indexesList.first())->text();
         accept();
     } else {
@@ -72,8 +71,7 @@ void CopyMoveToDialog::add() {
 }
 
 void CopyMoveToDialog::remove() {
-    QModelIndexList indexesList;
-    if (!(indexesList = pathsTable->selectionModel()->selectedIndexes()).empty()) {
+    if (QModelIndexList indexesList = pathsTable->selectionModel()->selectedIndexes(); !indexesList.empty()) {
         pathsTableModel->removeRow(indexesList.first().row());
     }
 }
