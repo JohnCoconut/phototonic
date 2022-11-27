@@ -64,7 +64,7 @@ void CopyMoveToDialog::add() {
     }
 
     QStandardItem *item = new QStandardItem(QIcon(":/images/bookmarks.png"), dirName);
-    pathsTableModel->insertRow(pathsTableModel->rowCount(), item);
+    pathsTableModel->appendRow(item);
 
     pathsTable->selectionModel()->clearSelection();
     pathsTable->selectionModel()->select(pathsTableModel->index(pathsTableModel->rowCount() - 1, 0),
