@@ -19,9 +19,6 @@
 #include "ProgressDialog.h"
 
 ProgressDialog::ProgressDialog(QWidget *parent) : QDialog(parent) {
-    opLabel = new QLabel("");
-    abortOp = false;
-
     cancelButton = new QPushButton(tr("Cancel"));
     cancelButton->setSizePolicy(QSizePolicy::Fixed, QSizePolicy::Fixed);
     connect(cancelButton, SIGNAL(clicked()), this, SLOT(abort()));

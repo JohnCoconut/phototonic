@@ -22,7 +22,6 @@
 #include <QtWidgets/qlabel.h>
 #include <QtWidgets/QWidget>
 #include <QtWidgets>
-#include "Settings.h"
 
 class ProgressDialog : public QDialog {
     Q_OBJECT
@@ -32,8 +31,8 @@ public slots:
     void abort();
 
 public:
-    QLabel *opLabel;
-    bool abortOp;
+    QLabel *opLabel = new QLabel("");
+    bool abortOp = false;
 
     ProgressDialog(QWidget *parent);
 
