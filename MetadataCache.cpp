@@ -52,10 +52,6 @@ void MetadataCache::setImageTags(const QString &imageFileName, QSet<QString> tag
 }
 
 void MetadataCache::addTagToImage(QString &imageFileName, QString &tagName) {
-    if (cache[imageFileName].tags.contains(tagName)) {
-        return;
-    }
-
     cache[imageFileName].tags.insert(tagName);
 }
 
