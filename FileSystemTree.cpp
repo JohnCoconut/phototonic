@@ -16,7 +16,13 @@
  *  along with Phototonic.  If not, see <http://www.gnu.org/licenses/>.
  */
 
+#include "FileSystemModel.h"
 #include "FileSystemTree.h"
+#include "Settings.h"
+
+#include <QDragEnterEvent>
+#include <QDropEvent>
+#include <QMimeData>
 
 FileSystemTree::FileSystemTree(QWidget *parent) : QTreeView(parent) {
     setAcceptDrops(true);
@@ -79,4 +85,3 @@ void FileSystemTree::setModelFlags() {
         fileSystemModel->setFilter(fileSystemModel->filter() | QDir::Hidden);
     }
 }
-

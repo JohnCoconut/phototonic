@@ -16,9 +16,15 @@
  *  along with Phototonic.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-#include <exiv2/exiv2.hpp>
-#include "Settings.h"
 #include "MetadataCache.h"
+#include "Settings.h"
+
+#include <QDebug>
+#include <QLabel>
+#include <QScrollArea>
+#include <QSpinBox>
+
+#include <exiv2/exiv2.hpp>
 
 void MetadataCache::updateImageTags(const QString &imageFileName, QSet<QString> tags) {
     cache[imageFileName].tags = tags;
@@ -126,4 +132,3 @@ bool MetadataCache::loadImageMetadata(const QString &imageFullPath) {
 
     return true;
 }
-

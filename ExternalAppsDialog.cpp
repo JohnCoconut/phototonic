@@ -16,9 +16,15 @@
  *  along with Phototonic.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-#include <QtWidgets/QWidget>
 #include "ExternalAppsDialog.h"
 #include "Settings.h"
+
+#include <QFileInfo>
+#include <QFileDialog>
+#include <QHBoxLayout>
+#include <QHeaderView>
+#include <QPushButton>
+
 
 ExternalAppsDialog::ExternalAppsDialog(QWidget *parent) : QDialog(parent) {
     setWindowTitle(tr("Manage External Applications"));

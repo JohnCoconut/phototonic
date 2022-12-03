@@ -16,10 +16,11 @@
  *  along with Phototonic.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-#include "Tags.h"
-#include "Settings.h"
-#include "ProgressDialog.h"
 #include "MessageBox.h"
+#include "ProgressDialog.h"
+#include "Settings.h"
+#include "Tags.h"
+#include "ThumbsViewer.h"
 
 ImageTags::ImageTags(QWidget *parent, ThumbsViewer *thumbsViewer, const std::shared_ptr<MetadataCache> &metadataCache) : QWidget(parent) {
     tagsTree = new QTreeWidget;
@@ -511,4 +512,3 @@ void ImageTags::removeTag() {
         applyTagFiltering();
     }
 }
-

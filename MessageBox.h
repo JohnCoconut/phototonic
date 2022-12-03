@@ -19,7 +19,7 @@
 #ifndef MESSAGE_BOX_H
 #define MESSAGE_BOX_H
 
-#include <QtWidgets/QtWidgets>
+#include <QMessageBox>
 
 class MessageBox : public QMessageBox {
 Q_OBJECT
@@ -32,7 +32,6 @@ public:
     void warning(const QString &title, const QString &message);
 
     void about();
-
 };
 
 #endif // MESSAGE_BOX_H

@@ -16,13 +16,18 @@
  *  along with Phototonic.  If not, see <http://www.gnu.org/licenses/>.
  */
 
+#include "ImagePreview.h"
+#include "ImageViewer.h"
+#include "InfoViewer.h"
+#include "Phototonic.h"
+#include "Settings.h"
+#include "SmartCrop.h"
+#include "Tags.h"
+#include "ThumbsViewer.h"
+
 #include <QMimeDatabase>
 #include <QProgressDialog>
 #include <QRandomGenerator>
-
-#include "ThumbsViewer.h"
-#include "Phototonic.h"
-#include "SmartCrop.h"
 
 #define BATCH_SIZE 10
 

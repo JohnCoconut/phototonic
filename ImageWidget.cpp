@@ -17,7 +17,7 @@
  */
 
 #include "ImageWidget.h"
-#include <QDebug>
+
 #include <QPainter>
 #include <QPaintEvent>
 

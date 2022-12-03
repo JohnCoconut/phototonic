@@ -19,7 +19,8 @@
 #ifndef META_DATA_CACHE_H
 #define META_DATA_CACHE_H
 
-#include <QtWidgets>
+#include <QMap>
+#include <QSet>
 
 class ImageMetadata {
 public:
@@ -28,7 +29,6 @@ public:
 };
 
 class MetadataCache {
-
 private:
     QMap<QString, ImageMetadata> cache;
 
@@ -50,7 +50,6 @@ public:
     bool loadImageMetadata(const QString &imageFullPath);
 
     long getImageOrientation(const QString &imageFileName);
-
 };
 
 #endif // META_DATA_CACHE_H

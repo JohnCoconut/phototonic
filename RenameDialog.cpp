@@ -16,11 +16,11 @@
  *  along with Phototonic.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-#include <QtWidgets/qboxlayout.h>
-#include <QtGui/qicon.h>
-#include <QtWidgets/qlabel.h>
-#include <QtWidgets/QtWidgets>
 #include "RenameDialog.h"
+
+#include <QHBoxLayout>
+#include <QLabel>
+#include <QPushButton>
 
 RenameDialog::RenameDialog(QWidget *parent) : QDialog(parent) {
     setWindowTitle(tr("Rename Image"));

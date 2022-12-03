@@ -19,7 +19,11 @@
 #ifndef CROPRUBBERBAND_H
 #define CROPRUBBERBAND_H
 
-#include <QtWidgets>
+#include <QMouseEvent>
+#include <QPoint>
+#include <QRubberBand>
+#include <QShowEvent>
+#include <QWidget>
 
 class CropRubberBand : public QWidget {
     Q_OBJECT
@@ -34,7 +38,6 @@ protected:
     void keyPressEvent(QKeyEvent *event) override;
     void mousePressEvent(QMouseEvent *event) override;
     void mouseMoveEvent(QMouseEvent *event) override;
-
 
 private:
     QRubberBand *rubberband;

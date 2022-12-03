@@ -17,6 +17,17 @@
  */
 
 #include "SettingsDialog.h"
+#include "Settings.h"
+#include "ShortcutsTable.h"
+
+#include <QColorDialog>
+#include <QFileDialog>
+#include <QGroupBox>
+#include <QLabel>
+#include <QLineEdit>
+#include <QPushButton>
+#include <QRadioButton>
+#include <QVBoxLayout>
 
 SettingsDialog::SettingsDialog(QWidget *parent) : QDialog(parent) {
     setWindowTitle(tr("Preferences"));

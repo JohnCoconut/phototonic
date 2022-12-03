@@ -19,7 +19,12 @@
 #ifndef RESIZE_DIALOG_H
 #define RESIZE_DIALOG_H
 
-#include "ImageViewer.h"
+#include <QDialog>
+#include <QLabel>
+#include <QRadioButton>
+#include <QSpinBox>
+
+class ImageViewer;
 
 class ResizeDialog : public QDialog {
 Q_OBJECT

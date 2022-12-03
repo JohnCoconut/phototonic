@@ -16,10 +16,25 @@
  *  along with Phototonic.  If not, see <http://www.gnu.org/licenses/>.
  */
 
+#include "CropRubberband.h"
 #include "ImageViewer.h"
-#include "Phototonic.h"
+#include "ImageWidget.h"
 #include "MessageBox.h"
+#include "Phototonic.h"
 #include "Settings.h"
+#include "ThumbsViewer.h"
+
+#include <QApplication>
+#include <QClipboard>
+#include <QFileDialog>
+#include <QLoggingCategory>
+#include <QMovie>
+#include <QPainter>
+#include <QScrollBar>
+#include <QTimer>
+#include <QWheelEvent>
+
+#include <cmath>
 
 #define CLIPBOARD_IMAGE_NAME "clipboard.png"
 #define ROUND(x) ((int) ((x) + 0.5))
@@ -1247,4 +1262,3 @@ void ImageViewer::setBackgroundColor() {
 QPoint ImageViewer::getContextMenuPosition() {
     return contextMenuPosition;
 }
-

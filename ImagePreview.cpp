@@ -17,6 +17,7 @@
  */
 
 #include "ImagePreview.h"
+#include "ImageViewer.h"
 #include "Settings.h"
 #include "ThumbsViewer.h"
 

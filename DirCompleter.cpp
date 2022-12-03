@@ -16,8 +16,8 @@
  *  along with Phototonic.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-#include <QFileSystemModel>
 #include "DirCompleter.h"
+#include <QFileSystemModel>
 
 DirCompleter::DirCompleter(QObject *parent) : QCompleter(parent)
 {

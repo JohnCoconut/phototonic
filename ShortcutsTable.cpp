@@ -16,9 +16,13 @@
  *  along with Phototonic.  If not, see <http://www.gnu.org/licenses/>.
  */
 
+#include "MessageBox.h"
 #include "ShortcutsTable.h"
 #include "Settings.h"
-#include "MessageBox.h"
+
+#include <QHeaderView>
+#include <QKeyEvent>
+#include <QMenu>
 
 ShortcutsTable::ShortcutsTable() {
     keysModel = new QStandardItemModel(this);

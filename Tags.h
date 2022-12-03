@@ -19,10 +19,11 @@
 #ifndef TAGS_H
 #define TAGS_H
 
-#include <QtWidgets>
-#include <exiv2/exiv2.hpp>
-#include "ThumbsViewer.h"
 #include "MetadataCache.h"
+
+#include <QtWidgets>
+
+#include <exiv2/exiv2.hpp>
 
 class ThumbsViewer;
 
@@ -118,7 +119,6 @@ private slots:
 signals:
 
     void reloadThumbs();
-
 };
 
 #endif // TAGS_H

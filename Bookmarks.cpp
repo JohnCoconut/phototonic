@@ -17,6 +17,15 @@
  */
 
 #include "Bookmarks.h"
+#include "Settings.h"
+
+#include <QDragEnterEvent>
+#include <QDragLeaveEvent>
+#include <QDragMoveEvent>
+#include <QDropEvent>
+#include <QFileInfo>
+#include <QMimeData>
+#include <QModelIndex>
 
 BookMarks::BookMarks(QWidget *parent) : QTreeWidget(parent) {
     setAcceptDrops(true);
@@ -75,4 +84,3 @@ void BookMarks::dropEvent(QDropEvent *event) {
         emit dropOp(event->keyboardModifiers(), dirOp, event->mimeData()->urls().at(0).toLocalFile());
     }
 }
-

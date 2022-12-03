@@ -15,17 +15,14 @@
  *  You should have received a copy of the GNU General Public License
  *  along with Phototonic.  If not, see <http://www.gnu.org/licenses/>.
  */
-
-#include <QtWidgets>
-#include <QtWidgets/QtWidgets>
-#include "Settings.h"
-#include "FileSystemModel.h"
-
 #ifndef FILE_SYSTEM_TREE_H
 #define FILE_SYSTEM_TREE_H
 
-class FileSystemTree : public QTreeView {
+#include <QTreeView>
 
+class FileSystemModel;
+
+class FileSystemTree : public QTreeView {
 Q_OBJECT
 
 public:

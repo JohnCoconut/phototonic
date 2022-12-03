@@ -17,6 +17,7 @@
  */
 
 #include "GuideWidget.h"
+
 #include <QAction>
 #include <QMouseEvent>
 #include <QPainter>

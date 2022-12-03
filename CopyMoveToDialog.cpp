@@ -18,6 +18,10 @@
 
 #include "CopyMoveToDialog.h"
 #include "Settings.h"
+#include <QFileDialog>
+#include <QHeaderView>
+#include <QHBoxLayout>
+#include <QPushButton>
 
 void CopyMoveToDialog::selection(const QItemSelection &, const QItemSelection &) {
     if (!pathsTable->selectionModel()->selectedRows().empty()) {

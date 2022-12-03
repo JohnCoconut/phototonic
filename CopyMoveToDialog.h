@@ -19,9 +19,12 @@
 #ifndef COPY_MOVE_TO_DIALOG_H
 #define COPY_MOVE_TO_DIALOG_H
 
-#include <QtWidgets/qdialog.h>
-#include <QtGui/QtGui>
-#include <QtWidgets/QtWidgets>
+#include <QDialog>
+#include <QItemSelection>
+#include <QLabel>
+#include <QStandardItemModel>
+#include <QTableView>
+#include <QWidget>
 
 class CopyMoveToDialog : public QDialog {
 Q_OBJECT

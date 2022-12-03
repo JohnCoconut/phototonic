@@ -17,7 +17,13 @@
  */
 
 #include "InfoViewer.h"
-#include "ThumbsViewer.h"
+
+#include <QApplication>
+#include <QClipboard>
+#include <QHeaderView>
+#include <QLineEdit>
+#include <QMenu>
+#include <QVBoxLayout>
 
 InfoView::InfoView(QWidget *parent) : QWidget(parent) {
 

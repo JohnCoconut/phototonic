@@ -17,6 +17,9 @@
  */
 
 #include "CropRubberband.h"
+#include <QDebug>
+#include <QSizeGrip>
+#include <QVBoxLayout>
 
 CropRubberBand::CropRubberBand(QWidget *parent) : QWidget(parent) {
 
@@ -63,7 +66,7 @@ void CropRubberBand::keyPressEvent(QKeyEvent *event) {
     QPoint cursorPosGlobal = QCursor::pos();
     QPoint cursorPos = mapFromGlobal(cursorPosGlobal);
     QRect geom = geometry();
-qDebug() << "cursor" << cursorPos << "geom" << geom;
+    qDebug() << "cursor" << cursorPos << "geom" << geom;
     switch (event->key()) {
     case Qt::LeftArrow:
     case Qt::Key_H:

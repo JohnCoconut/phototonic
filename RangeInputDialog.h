@@ -7,8 +7,7 @@ namespace Ui {
 class RangeInputDialog;
 }
 
-class RangeInputDialog : public QDialog
-{
+class RangeInputDialog : public QDialog {
     Q_OBJECT
 
 public:

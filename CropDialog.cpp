@@ -17,7 +17,12 @@
  */
 
 #include "CropDialog.h"
+#include "ImageViewer.h"
 #include "Settings.h"
+#include <QHBoxLayout>
+#include <QLabel>
+#include <QPushButton>
+#include <QSlider>
 
 CropDialog::CropDialog(QWidget *parent, ImageViewer *imageViewer) : QDialog(parent) {
     setWindowTitle(tr("Cropping"));

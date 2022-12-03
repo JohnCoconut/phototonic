@@ -19,8 +19,12 @@
 #ifndef FILE_LIST_WIDGET_H
 #define FILE_LIST_WIDGET_H
 
-#include <QtWidgets>
-#include "Settings.h"
+#include <QDragEnterEvent>
+#include <QDragMoveEvent>
+#include <QDropEvent>
+#include <QModelIndex>
+#include <QTreeWidget>
+#include <QWidget>
 
 class FileListWidget : public QTreeWidget {
 Q_OBJECT

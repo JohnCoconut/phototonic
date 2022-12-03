@@ -19,8 +19,10 @@
 #ifndef EXTERNAL_APPS_DIALOG_H
 #define EXTERNAL_APPS_DIALOG_H
 
-#include <QtWidgets/QWidget>
-#include <QtWidgets/QtWidgets>
+#include <QDialog>
+#include <QStandardItemModel>
+#include <QTableView>
+#include <QWidget>
 
 class ExternalAppsDialog : public QDialog {
     Q_OBJECT

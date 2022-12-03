@@ -19,7 +19,8 @@
 #ifndef FILE_SYSTEM_MODEL_H
 #define FILE_SYSTEM_MODEL_H
 
-#include <QtWidgets/QtWidgets>
+#include <QFileSystemModel>
+#include <QModelIndex>
 
 class IconProvider;
 

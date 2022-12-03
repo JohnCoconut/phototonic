@@ -155,4 +155,3 @@ namespace Settings {
     bool upscalePreview;
     bool scrollZooms;
 }
-

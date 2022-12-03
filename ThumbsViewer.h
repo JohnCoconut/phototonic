@@ -19,24 +19,21 @@
 #ifndef THUMBS_VIEWER_H
 #define THUMBS_VIEWER_H
 
-#include <QtWidgets>
-#include <exiv2/exiv2.hpp>
-#include "Settings.h"
-#include "FileSystemTree.h"
-#include "Bookmarks.h"
-#include "InfoViewer.h"
-#include "Tags.h"
 #include "MetadataCache.h"
-#include "ImagePreview.h"
 
-class Phototonic;
+#include <QtWidgets>
 
+#include <exiv2/exiv2.hpp>
+
+class ImagePreview;
 class ImageViewer;
+class Phototonic;
 
 #define BAD_IMAGE_SIZE 64
 #define WINDOW_ICON_SIZE 48
 
 class ImageTags;
+class InfoView;
 
 struct DuplicateImage
 {
@@ -224,4 +221,3 @@ private slots:
 };
 
 #endif // THUMBS_VIEWER_H
-

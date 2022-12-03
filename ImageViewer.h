@@ -19,12 +19,18 @@
 #ifndef IMAGE_VIEWER_H
 #define IMAGE_VIEWER_H
 
-#include <QGraphicsDropShadowEffect>
-#include <exiv2/exiv2.hpp>
-#include "CropRubberband.h"
-#include "ImageWidget.h"
 #include "MetadataCache.h"
 
+#include <QGraphicsDropShadowEffect>
+#include <QLabel>
+#include <QMenu>
+#include <QPointer>
+#include <QScrollArea>
+
+#include <exiv2/exiv2.hpp>
+
+class CropRubberBand;
+class ImageWidget;
 class Phototonic;
 
 class ImageViewer : public QWidget {
@@ -168,4 +174,3 @@ private:
 };
 
 #endif // IMAGE_VIEWER_H
-

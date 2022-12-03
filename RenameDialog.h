@@ -19,8 +19,9 @@
 #ifndef RENAME_DIALOG_H
 #define RENAME_DIALOG_H
 
-#include <QtWidgets/qdialog.h>
-#include <QtWidgets/qlineedit.h>
+#include <QDialog>
+#include <QLineEdit>
+#include <QWidget>
 
 class RenameDialog : public QDialog {
 Q_OBJECT

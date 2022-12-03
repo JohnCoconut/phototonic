@@ -19,8 +19,12 @@
 #ifndef IMAGE_PREVIEW_H
 #define IMAGE_PREVIEW_H
 
-#include <QtWidgets>
-#include "ImageViewer.h"
+#include <QLabel>
+#include <QPointer>
+#include <QScrollArea>
+#include <QWidget>
+
+class ImageViewer;
 
 class ImagePreview : public QWidget {
 Q_OBJECT

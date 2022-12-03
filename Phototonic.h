@@ -19,20 +19,25 @@
 #ifndef PHOTOTONIC_H
 #define PHOTOTONIC_H
 
-#include <QtWidgets>
-#include "ImageViewer.h"
-#include "ThumbsViewer.h"
+#include "ColorsDialog.h"
 #include "CopyMoveToDialog.h"
 #include "CropDialog.h"
-#include "ColorsDialog.h"
+#include "MetadataCache.h"
 #include "ResizeDialog.h"
-#include "FileListWidget.h"
-#include "FileSystemTree.h"
-#include <QStackedLayout>
 
-#include <memory>
+#include <QActionGroup>
+#include <QMainWindow>
+#include <QPointer>
+#include <QStackedLayout>
+#include <QTreeWidgetItem>
 
 #define VERSION "Phototonic v2.1"
+
+class BookMarks;
+class ImageViewer;
+class ThumbsViewer;
+class FileListWidget;
+class FileSystemTree;
 
 class Phototonic : public QMainWindow {
 Q_OBJECT
@@ -540,4 +545,3 @@ private:
 };
 
 #endif // PHOTOTONIC_H
-

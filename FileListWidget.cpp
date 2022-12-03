@@ -18,6 +18,8 @@
 
 #include "FileListWidget.h"
 
+#include <QMimeData>
+
 FileListWidget::FileListWidget(QWidget *parent) : QTreeWidget(parent) {
     setAcceptDrops(true);
     setDragEnabled(false);
@@ -59,4 +61,3 @@ void FileListWidget::dropEvent(QDropEvent *event) {
         emit dropOp(event->keyboardModifiers(), dirOp, event->mimeData()->urls().at(0).toLocalFile());
     }
 }
-

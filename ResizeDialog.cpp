@@ -16,13 +16,14 @@
  *  along with Phototonic.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-#include <QtWidgets/QWidget>
-#include <QtWidgets/qboxlayout.h>
-#include <QtWidgets/qpushbutton.h>
-#include <QtWidgets/QtWidgets>
 #include "ImageViewer.h"
 #include "ResizeDialog.h"
 #include "Settings.h"
+
+#include <QCheckBox>
+#include <QGridLayout>
+#include <QHBoxLayout>
+#include <QPushButton>
 
 ResizeDialog::ResizeDialog(QWidget *parent, ImageViewer *imageViewer) : QDialog(parent) {
     setWindowTitle(tr("Scale Image"));

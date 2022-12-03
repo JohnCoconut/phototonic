@@ -17,6 +17,13 @@
  */
 
 #include "CopyMoveDialog.h"
+#include "Settings.h"
+#include "ThumbsViewer.h"
+#include <QApplication>
+#include <QDir>
+#include <QFile>
+#include <QPushButton>
+#include <QHBoxLayout>
 
 static QString autoRename(const QString &destDir, const QString &currFile) {
     int extSep = currFile.lastIndexOf('.');

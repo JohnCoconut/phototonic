@@ -19,9 +19,11 @@
 #ifndef SETTINGS_DIALOG_H
 #define SETTINGS_DIALOG_H
 
-#include <QtWidgets/QtWidgets>
-#include "Settings.h"
-#include "ShortcutsTable.h"
+#include <QCheckBox>
+#include <QDialog>
+#include <QRadioButton>
+#include <QSpinBox>
+#include <QToolButton>
 
 class SettingsDialog : public QDialog {
 Q_OBJECT
