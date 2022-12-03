@@ -41,10 +41,10 @@ static QString autoRename(const QString &destDir, const QString &currFile)
     return newFile;
 }
 
-int CopyMoveDialog::copyOrMoveFile(bool isCopy, const QString &srcFile, const QString &srcPath,
-                                   QString &dstPath, const QString &dstDir)
+bool CopyMoveDialog::copyOrMoveFile(bool isCopy, const QString &srcFile, const QString &srcPath,
+                                    QString &dstPath, const QString &dstDir)
 {
-    int res;
+    bool res = false;
 
     if (isCopy) {
         res = QFile::copy(srcPath, dstPath);

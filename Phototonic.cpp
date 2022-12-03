@@ -1484,9 +1484,9 @@ void Phototonic::copyOrMoveImages(bool isMoveOperation)
             QString destFile =
                 copyMoveToDialog->selectedPath + QDir::separator() + fileInfo.fileName();
 
-            int result = CopyMoveDialog::copyOrMoveFile(copyMoveToDialog->copyOp, fileName,
-                                                        imageViewer->viewerImageFullPath, destFile,
-                                                        copyMoveToDialog->selectedPath);
+            bool result = CopyMoveDialog::copyOrMoveFile(copyMoveToDialog->copyOp, fileName,
+                                                         imageViewer->viewerImageFullPath, destFile,
+                                                         copyMoveToDialog->selectedPath);
 
             if (!result) {
                 MessageBox msgBox(this);
