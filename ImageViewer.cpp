@@ -19,6 +19,7 @@
 #include "ImageViewer.h"
 #include "Phototonic.h"
 #include "MessageBox.h"
+#include "Settings.h"
 
 #define CLIPBOARD_IMAGE_NAME "clipboard.png"
 #define ROUND(x) ((int) ((x) + 0.5))
@@ -300,11 +301,11 @@ void ImageViewer::showEvent(QShowEvent *event) {
     resizeImage();
 }
 
-void ImageViewer::centerImage(QSize &imgSize) {
+void ImageViewer::centerImage(const QSize &imgSize) {
     scrollArea->ensureVisible(imgSize.width()/2, imgSize.height()/2, width()/2, height()/2);
 }
 
-void ImageViewer::rotateByExifRotation(QImage &image, QString &imageFullPath) {
+void ImageViewer::rotateByExifRotation(QImage &image, const QString &imageFullPath) {
     QTransform trans;
     long orientation = metadataCache->getImageOrientation(imageFullPath);
 
@@ -761,7 +762,7 @@ void ImageViewer::reload() {
     }
 }
 
-void ImageViewer::setInfo(QString infoString) {
+void ImageViewer::setInfo(const QString& infoString) {
     imageInfoLabel->setText(infoString);
     imageInfoLabel->adjustSize();
 }
@@ -771,7 +772,7 @@ void ImageViewer::unsetFeedback() {
     feedbackLabel->setVisible(false);
 }
 
-void ImageViewer::setFeedback(QString feedbackString, bool timeLimited) {
+void ImageViewer::setFeedback(const QString& feedbackString, bool timeLimited) {
     if (feedbackString.isEmpty())
         return;
     feedbackLabel->setText(feedbackString);
@@ -785,7 +786,7 @@ void ImageViewer::setFeedback(QString feedbackString, bool timeLimited) {
         QTimer::singleShot(3000, this, SLOT(unsetFeedback()));
 }
 
-void ImageViewer::loadImage(QString imageFileName) {
+void ImageViewer::loadImage(const QString& imageFileName) {
     newImage = false;
     tempDisableResize = false;
     viewerImageFullPath = imageFileName;

@@ -29,9 +29,9 @@ public:
 
     void clear();
 
-    void addEntry(QString &key, QString &value);
+    void addEntry(const QString &key, const QString &value);
 
-    void addTitleEntry(QString title);
+    void addTitleEntry(const QString& title);
 
 
 signals:
@@ -40,7 +40,7 @@ signals:
 
 public slots:
 
-    void showInfoViewMenu(QPoint pt);
+    void showInfoViewMenu(const QPoint& pt);
 
     void copyEntry();
 

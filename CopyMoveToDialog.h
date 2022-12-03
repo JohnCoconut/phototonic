@@ -27,7 +27,7 @@ class CopyMoveToDialog : public QDialog {
 Q_OBJECT
 
 public:
-    CopyMoveToDialog(QWidget *parent, QString thumbsPath, bool move);
+    CopyMoveToDialog(QWidget *parent, const QString& thumbsPath, bool move);
 
     QString selectedPath;
     bool copyOp;

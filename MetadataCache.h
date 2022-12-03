@@ -33,15 +33,15 @@ private:
     QMap<QString, ImageMetadata> cache;
 
 public:
-    void updateImageTags(QString &imageFileName, QSet<QString> tags);
+    void updateImageTags(const QString &imageFileName, QSet<QString> tags);
 
-    void addTagToImage(QString &imageFileName, QString &tagName);
+    void addTagToImage(const QString &imageFileName, const QString &tagName);
 
-    bool removeTagFromImage(QString &imageFileName, const QString &tagName);
+    bool removeTagFromImage(const QString &imageFileName, const QString &tagName);
 
-    void removeImage(QString &imageFileName);
+    void removeImage(const QString &imageFileName);
 
-    QSet<QString> &getImageTags(QString &imageFileName);
+    QSet<QString> &getImageTags(const QString &imageFileName);
 
     void setImageTags(const QString &imageFileName, QSet<QString> tags);
 
@@ -49,7 +49,7 @@ public:
 
     bool loadImageMetadata(const QString &imageFullPath);
 
-    long getImageOrientation(QString &imageFileName);
+    long getImageOrientation(const QString &imageFileName);
 
 };
 

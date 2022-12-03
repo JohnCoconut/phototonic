@@ -27,14 +27,14 @@ class ShortcutsTable : public QTableView {
 public:
     ShortcutsTable();
 
-    void addRow(QString action, QString description, QString shortcut);
+    void addRow(const QString& action, const QString& description, const QString& shortcut);
 
     void refreshShortcuts();
 
 public slots:
-    void setFilter(QString filter);
+    void setFilter(const QString& filter);
 
-    void showShortcutPopupMenu(QPoint point);
+    void showShortcutPopupMenu(const QPoint& point);
 
     void clearSelectedShortcut();
 
@@ -42,7 +42,7 @@ protected:
     void keyPressEvent(QKeyEvent *keyEvent);
 
 private:
-    bool confirmOverwriteShortcut(QString action, QString shortcut);
+    bool confirmOverwriteShortcut(const QString& action, const QString& shortcut);
 
     QStandardItemModel *keysModel;
     QModelIndex selectedEntry;

@@ -395,7 +395,7 @@ void SettingsDialog::pickColor() {
     }
 }
 
-void SettingsDialog::setButtonBgColor(QColor &color, QToolButton *button) {
+void SettingsDialog::setButtonBgColor(const QColor &color, QToolButton *button) {
     QString style = "background: rgb(%1, %2, %3);";
     style = style.arg(color.red()).arg(color.green()).arg(color.blue());
     button->setStyleSheet(style);

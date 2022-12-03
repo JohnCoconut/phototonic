@@ -188,7 +188,7 @@ void ThumbsViewer::setImageViewerWindowTitle() {
     phototonic->setWindowTitle(title);
 }
 
-bool ThumbsViewer::setCurrentIndexByName(QString &fileName) {
+bool ThumbsViewer::setCurrentIndexByName(const QString &fileName) {
     QModelIndexList indexList = thumbsViewerModel->match(thumbsViewerModel->index(0, 0), FileNameRole, fileName);
     if (!indexList.empty()) {
         currentIndex = indexList[0];
@@ -1271,7 +1271,7 @@ bool ThumbsViewer::loadThumb(int currThumb) {
     return true;
 }
 
-QStandardItem * ThumbsViewer::addThumb(QString &imageFullPath) {
+QStandardItem * ThumbsViewer::addThumb(const QString &imageFullPath) {
 
     metadataCache->loadImageMetadata(imageFullPath);
     if (imageTags->dirFilteringActive && imageTags->isImageFilteredOut(imageFullPath)) {

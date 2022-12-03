@@ -18,7 +18,7 @@
 
 #include "CopyMoveDialog.h"
 
-static QString autoRename(QString &destDir, QString &currFile) {
+static QString autoRename(const QString &destDir, const QString &currFile) {
     int extSep = currFile.lastIndexOf('.');
     QString nameOnly = currFile.left(extSep);
     QString extOnly = currFile.right(currFile.size() - extSep - 1);
@@ -33,7 +33,7 @@ static QString autoRename(QString &destDir, QString &currFile) {
     return newFile;
 }
 
-int CopyMoveDialog::copyOrMoveFile(bool isCopy, QString &srcFile, QString &srcPath, QString &dstPath, QString &dstDir) {
+int CopyMoveDialog::copyOrMoveFile(bool isCopy, const QString &srcFile, const QString &srcPath, QString &dstPath, const QString &dstDir) {
     int res;
 
     if (isCopy) {
@@ -78,7 +78,7 @@ CopyMoveDialog::CopyMoveDialog(QWidget *parent) : QDialog(parent) {
     setLayout(mainLayout);
 }
 
-void CopyMoveDialog::execute(ThumbsViewer *thumbView, QString &destDir, bool pasteInCurrDir) {
+void CopyMoveDialog::execute(ThumbsViewer *thumbView, const QString &destDir, bool pasteInCurrDir) {
     int res = 0;
     QString sourceFile;
     QFileInfo fileInfo;

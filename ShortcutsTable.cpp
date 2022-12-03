@@ -43,7 +43,7 @@ ShortcutsTable::ShortcutsTable() {
     shortcutsFilter.clear();
 }
 
-void ShortcutsTable::addRow(QString action, QString description, QString shortcut) {
+void ShortcutsTable::addRow(const QString& action, const QString& description, const QString& shortcut) {
     keysModel->appendRow(QList<QStandardItem *>() << new QStandardItem(description)
                                                   << new QStandardItem(shortcut)
                                                   << new QStandardItem(action));
@@ -105,7 +105,7 @@ void ShortcutsTable::keyPressEvent(QKeyEvent *keyEvent) {
     }
 }
 
-bool ShortcutsTable::confirmOverwriteShortcut(QString action, QString shortcut) {
+bool ShortcutsTable::confirmOverwriteShortcut(const QString& action, const QString& shortcut) {
     MessageBox msgBox(this);
     msgBox.setText(tr("%1 is already assigned to %2, reassign shortcut?").arg(shortcut).arg(action));
     msgBox.setWindowTitle(tr("Overwrite Shortcut"));
@@ -126,14 +126,14 @@ void ShortcutsTable::clearSelectedShortcut() {
     }
 }
 
-void ShortcutsTable::showShortcutPopupMenu(QPoint point) {
+void ShortcutsTable::showShortcutPopupMenu(const QPoint& point) {
     selectedEntry = indexAt(point);
     if (selectedEntry.isValid())
         shortcutsMenu->popup(viewport()->mapToGlobal(point));
 
 }
 
-void ShortcutsTable::setFilter(QString filter) {
+void ShortcutsTable::setFilter(const QString& filter) {
     this->shortcutsFilter = filter;
     refreshShortcuts();
 }

@@ -28,7 +28,7 @@ Q_OBJECT
 public:
     RenameDialog(QWidget *parent);
 
-    void setFileName(QString name);
+    void setFileName(const QString& name);
 
     QString getFileName();
 

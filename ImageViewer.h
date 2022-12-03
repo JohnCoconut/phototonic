@@ -21,7 +21,6 @@
 
 #include <QGraphicsDropShadowEffect>
 #include <exiv2/exiv2.hpp>
-#include "Settings.h"
 #include "CropRubberband.h"
 #include "ImageWidget.h"
 #include "MetadataCache.h"
@@ -66,7 +65,7 @@ public:
 
     ImageViewer(QWidget *parent, const std::shared_ptr<MetadataCache> &metadataCache);
 
-    void loadImage(QString imageFileName);
+    void loadImage(const QString& imageFileName);
 
     void clearImage();
 
@@ -86,11 +85,11 @@ public:
 
     void keyMoveEvent(int direction);
 
-    void rotateByExifRotation(QImage &image, QString &imageFullPath);
+    void rotateByExifRotation(QImage &image, const QString &imageFullPath);
 
-    void setInfo(QString infoString);
+    void setInfo(const QString& infoString);
 
-    void setFeedback(QString feedbackString, bool timeLimited = true);
+    void setFeedback(const QString& feedbackString, bool timeLimited = true);
 
     void setBackgroundColor();
 
@@ -158,7 +157,7 @@ private:
 
     void setMouseMoveData(bool lockMove, int lMouseX, int lMouseY);
 
-    void centerImage(QSize &imgSize);
+    void centerImage(const QSize &imgSize);
 
     void transform();
 

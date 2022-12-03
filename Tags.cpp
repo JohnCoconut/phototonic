@@ -126,7 +126,7 @@ void ImageTags::setTagIcon(QTreeWidgetItem *tagItem, TagIcons icon) {
     }
 }
 
-void ImageTags::addTag(QString tagName, bool tagChecked) {
+void ImageTags::addTag(const QString& tagName, bool tagChecked) {
     QTreeWidgetItem *tagItem = new QTreeWidgetItem();
     tagItem->setText(0, tagName);
     tagItem->setCheckState(0, tagChecked ? Qt::Checked : Qt::Unchecked);
@@ -134,7 +134,7 @@ void ImageTags::addTag(QString tagName, bool tagChecked) {
     tagsTree->addTopLevelItem(tagItem);
 }
 
-bool ImageTags::writeTagsToImage(QString &imageFileName, QSet<QString> &newTags) {
+bool ImageTags::writeTagsToImage(const QString &imageFileName, QSet<QString> &newTags) {
     QSet<QString> imageTags;
 
 #pragma clang diagnostic push
@@ -308,7 +308,7 @@ void ImageTags::setActiveViewMode(TagsDisplayMode mode) {
     negateAction->setVisible(currentDisplayMode == DirectoryTagsDisplay);
 }
 
-bool ImageTags::isImageFilteredOut(QString imageFileName) {
+bool ImageTags::isImageFilteredOut(const QString& imageFileName) {
     QSet<QString> imageTags = metadataCache->getImageTags(imageFileName);
 
     return imageTags.intersects(imageFilteringTags) ? negateFilterEnabled : !negateFilterEnabled;
@@ -354,7 +354,7 @@ void ImageTags::applyUserAction(QTreeWidgetItem *item) {
     applyUserAction(QList<QTreeWidgetItem *>{item});
 }
 
-void ImageTags::applyUserAction(QList<QTreeWidgetItem *> tagsList) {
+void ImageTags::applyUserAction(const QList<QTreeWidgetItem *>& tagsList) {
     ProgressDialog *progressDialog = new ProgressDialog(this);
     progressDialog->show();
 

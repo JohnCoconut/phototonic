@@ -58,10 +58,10 @@ static Trash::Result moveToTrashDir(const QString& filePath, const QDir& trashDi
             error = strerror(errno);
             return Trash::Error;
         }
-        const QString moveHere = trashFilesDir.filePath(fileName);
-        const QString deletionDate = QDateTime::currentDateTime().toString(Qt::ISODate);
-        const QString path = nonHomeStorage.isValid() ? QDir(nonHomeStorage.rootPath()).relativeFilePath(filePath) : filePath;
-        const QString escapedPath = QString::fromUtf8(QUrl::toPercentEncoding(path, "/"));
+        const QString& moveHere = trashFilesDir.filePath(fileName);
+        const QString& deletionDate = QDateTime::currentDateTime().toString(Qt::ISODate);
+        const QString& path = nonHomeStorage.isValid() ? QDir(nonHomeStorage.rootPath()).relativeFilePath(filePath) : filePath;
+        const QString& escapedPath = QString::fromUtf8(QUrl::toPercentEncoding(path, "/"));
         QFile infoFile;
         if (infoFile.open(fd, QIODevice::WriteOnly, QFileDevice::AutoCloseHandle)) {
             QTextStream out(&infoFile);

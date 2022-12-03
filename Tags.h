@@ -46,7 +46,7 @@ Q_OBJECT
 public:
     ImageTags(QWidget *parent, ThumbsViewer *thumbsViewer, const std::shared_ptr<MetadataCache> &metadataCache);
 
-    void addTag(QString tagName, bool tagChecked);
+    void addTag(const QString& tagName, bool tagChecked);
 
     void showTagsFilter();
 
@@ -54,7 +54,7 @@ public:
 
     void resetTagsState();
 
-    bool isImageFilteredOut(QString imagePath);
+    bool isImageFilteredOut(const QString& imagePath);
 
     void removeTag();
 
@@ -67,7 +67,7 @@ public:
     TagsDisplayMode currentDisplayMode;
 
 private:
-    bool writeTagsToImage(QString &imageFileName, QSet<QString> &tags);
+    bool writeTagsToImage(const QString &imageFileName, QSet<QString> &tags);
 
     QSet<QString> getCheckedTags(Qt::CheckState tagState);
 
@@ -77,7 +77,7 @@ private:
 
     void applyUserAction(QTreeWidgetItem *item);
 
-    void applyUserAction(QList<QTreeWidgetItem *> tagsList);
+    void applyUserAction(const QList<QTreeWidgetItem *>& tagsList);
 
     void redrawTagTree();
 

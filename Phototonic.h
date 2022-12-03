@@ -22,7 +22,6 @@
 #include <QtWidgets>
 #include "ImageViewer.h"
 #include "ThumbsViewer.h"
-#include "SettingsDialog.h"
 #include "CopyMoveToDialog.h"
 #include "CropDialog.h"
 #include "ColorsDialog.h"
@@ -42,7 +41,7 @@ public:
 
     int copyCutThumbsCount;
 
-    Phototonic(QStringList argumentsList, int filesStartAt, QWidget *parent = nullptr);
+    Phototonic(const QStringList& argumentsList, int filesStartAt, QWidget *parent = nullptr);
 
     QMenu *createPopupMenu();
 
@@ -76,11 +75,11 @@ public slots:
 
     void loadSelectedThumbImage(const QModelIndex &idx);
 
-    void loadImageFromCliArguments(QString cliFileName);
+    void loadImageFromCliArguments(const QString& cliFileName);
 
     void hideViewer();
 
-    void setSaveDirectory(QString path = QString());
+    void setSaveDirectory(const QString& path = QString());
 
 private slots:
 
@@ -485,9 +484,9 @@ private:
 
     void selectCurrentViewDir();
 
-    void processStartupArguments(QStringList argumentsList, int filesStartAt);
+    void processStartupArguments(const QStringList& argumentsList, int filesStartAt);
 
-    void loadStartupFileList(QStringList argumentsList, int filesStartAt);
+    void loadStartupFileList(const QStringList& argumentsList, int filesStartAt);
 
     void addMenuSeparator(QWidget *widget);
 
@@ -515,9 +514,9 @@ private:
 
     void readSettings();
 
-    void addPathHistoryRecord(QString dir);
+    void addPathHistoryRecord(const QString& dir);
 
-    bool isValidPath(QString &path);
+    bool isValidPath(const QString &path);
 
     QString getSelectedPath();
 
@@ -529,11 +528,11 @@ private:
 
     void showNewImageWarning();
 
-    bool removeDirectoryOperation(QString dirToDelete);
+    bool removeDirectoryOperation(const QString& dirToDelete);
 
     void setInterfaceEnabled(bool enable);
 
-    void addBookmark(QString path);
+    void addBookmark(const QString& path);
 
     void copyOrMoveImages(bool move);
 

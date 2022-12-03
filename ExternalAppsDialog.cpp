@@ -109,7 +109,7 @@ void ExternalAppsDialog::remove() {
     }
 }
 
-void ExternalAppsDialog::addTableModelItem(QStandardItemModel *model, QString &key, QString &val) {
+void ExternalAppsDialog::addTableModelItem(QStandardItemModel *model, const QString &key, const QString& val) {
     int atRow = model->rowCount();
     QStandardItem *itemKey = new QStandardItem(key);
     QStandardItem *itemKey2 = new QStandardItem(val);

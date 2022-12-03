@@ -111,7 +111,7 @@ public:
 
     void setThumbColors();
 
-    bool setCurrentIndexByName(QString &fileName);
+    bool setCurrentIndexByName(const QString &fileName);
 
     bool setCurrentIndexByRow(int row);
 
@@ -123,7 +123,7 @@ public:
 
     void selectCurrentIndex();
 
-    QStandardItem *addThumb(QString &imageFullPath);
+    QStandardItem *addThumb(const QString &imageFullPath);
 
     void abort(bool permanent = false);
 

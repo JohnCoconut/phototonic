@@ -32,8 +32,9 @@
 #include "RenameDialog.h"
 #include "Trashcan.h"
 #include "MessageBox.h"
+#include "SettingsDialog.h"
 
-Phototonic::Phototonic(QStringList argumentsList, int filesStartAt, QWidget *parent) : QMainWindow(parent) {
+Phototonic::Phototonic(const QStringList& argumentsList, int filesStartAt, QWidget *parent) : QMainWindow(parent) {
     Settings::appSettings = new QSettings("phototonic", "phototonic");
     setDockOptions(QMainWindow::AllowNestedDocks);
     readSettings();
@@ -81,7 +82,7 @@ Phototonic::Phototonic(QStringList argumentsList, int filesStartAt, QWidget *par
     }
 }
 
-void Phototonic::processStartupArguments(QStringList argumentsList, int filesStartAt) {
+void Phototonic::processStartupArguments(const QStringList& argumentsList, int filesStartAt) {
     if (argumentsList.size() > filesStartAt) {
         QFileInfo firstArgument(argumentsList.at(filesStartAt));
         if (firstArgument.isDir()) {
@@ -110,7 +111,7 @@ QIcon &Phototonic::getDefaultWindowIcon() {
     return defaultApplicationIcon;
 }
 
-void Phototonic::loadStartupFileList(QStringList argumentsList, int filesStartAt) {
+void Phototonic::loadStartupFileList(const QStringList& argumentsList, int filesStartAt) {
     Settings::filesList.clear();
     for (int i = filesStartAt; i < argumentsList.size(); i++) {
         QFile currentFileFullPath(argumentsList[i]);
@@ -1730,7 +1731,7 @@ void Phototonic::setMirrorQuad() {
     imageViewer->setFeedback(tr("Mirroring: Quad"));
 }
 
-bool Phototonic::isValidPath(QString &path) {
+bool Phototonic::isValidPath(const QString &path) {
     QDir checkPath(path);
     if (!checkPath.exists() || !checkPath.isReadable()) {
         return false;
@@ -2816,7 +2817,7 @@ void Phototonic::loadSelectedThumbImage(const QModelIndex &idx) {
     thumbsViewer->setImageViewerWindowTitle();
 }
 
-void Phototonic::loadImageFromCliArguments(QString cliFileName) {
+void Phototonic::loadImageFromCliArguments(const QString& cliFileName) {
     QFile imageFile(cliFileName);
     if (!imageFile.exists()) {
         MessageBox msgBox(this);
@@ -3164,7 +3165,7 @@ void Phototonic::checkDirState(const QModelIndex &, int, int) {
     }
 }
 
-void Phototonic::addPathHistoryRecord(QString dir) {
+void Phototonic::addPathHistoryRecord(const QString& dir) {
     if (!needHistoryRecord) {
         needHistoryRecord = true;
         return;
@@ -3499,7 +3500,7 @@ void Phototonic::createSubDirectory() {
     fileSystemTree->expand(selectedDirs[0]);
 }
 
-void Phototonic::setSaveDirectory(QString path) {
+void Phototonic::setSaveDirectory(const QString& path) {
     Settings::saveDirectory = path.isEmpty() ?
         QFileDialog::getExistingDirectory(this, tr("Directory to save images into:"),
             QString(), QFileDialog::ShowDirsOnly | QFileDialog::DontResolveSymlinks) :
@@ -3551,7 +3552,7 @@ void Phototonic::showNewImageWarning() {
     msgBox.warning(tr("Warning"), tr("Cannot perform action with temporary image."));
 }
 
-bool Phototonic::removeDirectoryOperation(QString dirToDelete) {
+bool Phototonic::removeDirectoryOperation(const QString& dirToDelete) {
     bool removeDirOk;
     QDir dir(dirToDelete);
 
@@ -3633,7 +3634,7 @@ void Phototonic::addNewBookmark() {
     addBookmark(getSelectedPath());
 }
 
-void Phototonic::addBookmark(QString path) {
+void Phototonic::addBookmark(const QString& path) {
     Settings::bookmarkPaths.insert(path);
     bookmarks->reloadBookmarks();
 }

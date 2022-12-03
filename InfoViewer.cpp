@@ -59,7 +59,7 @@ InfoView::InfoView(QWidget *parent) : QWidget(parent) {
     setLayout(infoViewerLayout);
 }
 
-void InfoView::showInfoViewMenu(QPoint pt) {
+void InfoView::showInfoViewMenu(const QPoint& pt) {
     selectedEntry = infoViewerTable->indexAt(pt);
     if (selectedEntry.isValid()) {
         infoMenu->popup(infoViewerTable->viewport()->mapToGlobal(pt));
@@ -70,7 +70,7 @@ void InfoView::clear() {
     imageInfoModel->clear();
 }
 
-void InfoView::addEntry(QString &key, QString &value) {
+void InfoView::addEntry(const QString &key, const QString &value) {
     if (!filterLineEdit->text().isEmpty() && !key.toLower().contains(filterLineEdit->text().toLower())) {
         return;
     }
@@ -85,7 +85,7 @@ void InfoView::addEntry(QString &key, QString &value) {
     }
 }
 
-void InfoView::addTitleEntry(QString title) {
+void InfoView::addTitleEntry(const QString& title) {
     int atRow = imageInfoModel->rowCount();
     QStandardItem *itemKey = new QStandardItem(title);
     imageInfoModel->insertRow(atRow, itemKey);

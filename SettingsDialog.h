@@ -77,7 +77,7 @@ private:
     QCheckBox *setWindowIconCheckBox;
     QCheckBox *upscalePreviewCheckBox;
 
-    void setButtonBgColor(QColor &color, QToolButton *button);
+    void setButtonBgColor(const QColor &color, QToolButton *button);
 };
 
 #endif // SETTINGS_DIALOG_H

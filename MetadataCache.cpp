@@ -20,23 +20,23 @@
 #include "Settings.h"
 #include "MetadataCache.h"
 
-void MetadataCache::updateImageTags(QString &imageFileName, QSet<QString> tags) {
+void MetadataCache::updateImageTags(const QString &imageFileName, QSet<QString> tags) {
     cache[imageFileName].tags = tags;
 }
 
-bool MetadataCache::removeTagFromImage(QString &imageFileName, const QString &tagName) {
+bool MetadataCache::removeTagFromImage(const QString &imageFileName, const QString &tagName) {
     return cache[imageFileName].tags.remove(tagName);
 }
 
-void MetadataCache::removeImage(QString &imageFileName) {
+void MetadataCache::removeImage(const QString &imageFileName) {
     cache.remove(imageFileName);
 }
 
-QSet<QString> &MetadataCache::getImageTags(QString &imageFileName) {
+QSet<QString> &MetadataCache::getImageTags(const QString &imageFileName) {
     return cache[imageFileName].tags;
 }
 
-long MetadataCache::getImageOrientation(QString &imageFileName) {
+long MetadataCache::getImageOrientation(const QString& imageFileName) {
     if (cache.contains(imageFileName) || loadImageMetadata(imageFileName)) {
         return cache[imageFileName].orientation;
     }
@@ -51,7 +51,7 @@ void MetadataCache::setImageTags(const QString &imageFileName, QSet<QString> tag
     cache.insert(imageFileName, imageMetadata);
 }
 
-void MetadataCache::addTagToImage(QString &imageFileName, QString &tagName) {
+void MetadataCache::addTagToImage(const QString &imageFileName, const QString &tagName) {
     cache[imageFileName].tags.insert(tagName);
 }
 

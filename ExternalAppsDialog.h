@@ -44,7 +44,7 @@ private:
     QTableView *appsTable;
     QStandardItemModel *appsTableModel;
 
-    void addTableModelItem(QStandardItemModel *model, QString &key, QString &val);
+    void addTableModelItem(QStandardItemModel *model, const QString &key, const QString &val);
 };
 
 #endif // EXTERNAL_APPS_DIALOG_H

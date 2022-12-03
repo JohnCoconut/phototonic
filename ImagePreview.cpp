@@ -48,7 +48,7 @@ ImagePreview::ImagePreview(QWidget *parent) : QWidget(parent)
     setLayout(mainLayout);
 }
 
-QPixmap& ImagePreview::loadImage(QString imageFileName) {
+QPixmap& ImagePreview::loadImage(const QString& imageFileName) {
     delete animation;
 
     QImageReader imageReader(imageFileName);

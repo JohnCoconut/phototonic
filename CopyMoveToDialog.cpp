@@ -76,7 +76,7 @@ void CopyMoveToDialog::remove() {
     }
 }
 
-CopyMoveToDialog::CopyMoveToDialog(QWidget *parent, QString thumbsPath, bool move) : QDialog(parent) {
+CopyMoveToDialog::CopyMoveToDialog(QWidget *parent, const QString& thumbsPath, bool move) : QDialog(parent) {
     copyOp = !move;
     if (move) {
         setWindowTitle(tr("Move to..."));
