@@ -21,7 +21,9 @@
 #include <QSizeGrip>
 #include <QVBoxLayout>
 
-CropRubberBand::CropRubberBand(QWidget *parent) : QWidget(parent) {
+CropRubberBand::CropRubberBand(QWidget *parent)
+    : QWidget(parent)
+{
 
     setWindowFlags(Qt::SubWindow);
 
@@ -58,11 +60,13 @@ CropRubberBand::CropRubberBand(QWidget *parent) : QWidget(parent) {
     rubberband->show();
 }
 
-void CropRubberBand::showEvent(QShowEvent *) {
+void CropRubberBand::showEvent(QShowEvent *)
+{
     setFocus();
 }
 
-void CropRubberBand::keyPressEvent(QKeyEvent *event) {
+void CropRubberBand::keyPressEvent(QKeyEvent *event)
+{
     QPoint cursorPosGlobal = QCursor::pos();
     QPoint cursorPos = mapFromGlobal(cursorPosGlobal);
     QRect geom = geometry();
@@ -131,12 +135,11 @@ void CropRubberBand::keyPressEvent(QKeyEvent *event) {
     }
 }
 
-void CropRubberBand::resizeEvent(QResizeEvent *) {
+void CropRubberBand::resizeEvent(QResizeEvent *)
+{
     rubberband->resize(size());
     emit selectionChanged(rubberband->geometry());
 }
-
-
 
 void CropRubberBand::mousePressEvent(QMouseEvent *event)
 {

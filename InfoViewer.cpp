@@ -25,11 +25,14 @@
 #include <QMenu>
 #include <QVBoxLayout>
 
-InfoView::InfoView(QWidget *parent) : QWidget(parent) {
+InfoView::InfoView(QWidget *parent)
+    : QWidget(parent)
+{
     infoViewerTable = new QTableView();
     infoViewerTable->setSelectionMode(QAbstractItemView::ExtendedSelection);
     infoViewerTable->verticalHeader()->setVisible(false);
-    infoViewerTable->verticalHeader()->setDefaultSectionSize(infoViewerTable->verticalHeader()->minimumSectionSize());
+    infoViewerTable->verticalHeader()->setDefaultSectionSize(
+        infoViewerTable->verticalHeader()->minimumSectionSize());
     infoViewerTable->horizontalHeader()->setVisible(false);
     infoViewerTable->horizontalHeader()->setSectionResizeMode(QHeaderView::ResizeToContents);
     infoViewerTable->setEditTriggers(QAbstractItemView::NoEditTriggers);
@@ -46,7 +49,8 @@ InfoView::InfoView(QWidget *parent) : QWidget(parent) {
     infoMenu = new QMenu("");
     infoMenu->addAction(copyAction);
     infoViewerTable->setContextMenuPolicy(Qt::CustomContextMenu);
-    connect(infoViewerTable, SIGNAL(customContextMenuRequested(QPoint)), SLOT(showInfoViewMenu(QPoint)));
+    connect(infoViewerTable, SIGNAL(customContextMenuRequested(QPoint)),
+            SLOT(showInfoViewMenu(QPoint)));
 
     QVBoxLayout *infoViewerLayout = new QVBoxLayout;
 
@@ -64,19 +68,23 @@ InfoView::InfoView(QWidget *parent) : QWidget(parent) {
     setLayout(infoViewerLayout);
 }
 
-void InfoView::showInfoViewMenu(const QPoint& pt) {
+void InfoView::showInfoViewMenu(const QPoint &pt)
+{
     selectedEntry = infoViewerTable->indexAt(pt);
     if (selectedEntry.isValid()) {
         infoMenu->popup(infoViewerTable->viewport()->mapToGlobal(pt));
     }
 }
 
-void InfoView::clear() {
+void InfoView::clear()
+{
     imageInfoModel->clear();
 }
 
-void InfoView::addEntry(const QString &key, const QString &value) {
-    if (!filterLineEdit->text().isEmpty() && !key.toLower().contains(filterLineEdit->text().toLower())) {
+void InfoView::addEntry(const QString &key, const QString &value)
+{
+    if (!filterLineEdit->text().isEmpty()
+        && !key.toLower().contains(filterLineEdit->text().toLower())) {
         return;
     }
 
@@ -90,7 +98,8 @@ void InfoView::addEntry(const QString &key, const QString &value) {
     }
 }
 
-void InfoView::addTitleEntry(const QString& title) {
+void InfoView::addTitleEntry(const QString &title)
+{
     int atRow = imageInfoModel->rowCount();
     QStandardItem *itemKey = new QStandardItem(title);
     imageInfoModel->insertRow(atRow, itemKey);
@@ -107,12 +116,14 @@ void InfoView::showEvent(QShowEvent *event)
     emit updateInfo();
 }
 
-void InfoView::copyEntry() {
+void InfoView::copyEntry()
+{
     if (selectedEntry.isValid()) {
         QApplication::clipboard()->setText(imageInfoModel->itemFromIndex(selectedEntry)->toolTip());
     }
 }
 
-void InfoView::filterItems() {
+void InfoView::filterItems()
+{
     emit updateInfo();
 }

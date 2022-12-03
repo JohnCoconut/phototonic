@@ -33,7 +33,7 @@ class ImageWidget;
 class Phototonic;
 
 class ImageViewer : public QWidget {
-Q_OBJECT
+    Q_OBJECT
 
 public:
     bool tempDisableResize;
@@ -45,7 +45,8 @@ public:
     QLabel *imageInfoLabel;
     CropRubberBand *cropRubberBand;
 
-    enum ZoomMethods {
+    enum ZoomMethods
+    {
         Disable = 0,
         WidthAndHeight,
         Width,
@@ -53,7 +54,8 @@ public:
         Disprop
     };
 
-    enum MirrorLayouts {
+    enum MirrorLayouts
+    {
         LayNone = 0,
         LayDual,
         LayTriple,
@@ -61,7 +63,8 @@ public:
         LayVDual
     };
 
-    enum Movement {
+    enum Movement
+    {
         MoveUp = 0,
         MoveDown,
         MoveLeft,
@@ -70,7 +73,7 @@ public:
 
     ImageViewer(QWidget *parent, const std::shared_ptr<MetadataCache> &metadataCache);
 
-    void loadImage(const QString& imageFileName);
+    void loadImage(const QString &imageFileName);
 
     void clearImage();
 
@@ -92,15 +95,13 @@ public:
 
     void rotateByExifRotation(QImage &image, const QString &imageFullPath);
 
-    void setInfo(const QString& infoString);
+    void setInfo(const QString &infoString);
 
-    void setFeedback(const QString& feedbackString, bool timeLimited = true);
+    void setFeedback(const QString &feedbackString, bool timeLimited = true);
 
     void setBackgroundColor();
 
-    QPoint getContextMenuPosition() {
-        return contextMenuPosition;
-    }
+    QPoint getContextMenuPosition() { return contextMenuPosition; }
 
 signals:
     void toolsUpdated();

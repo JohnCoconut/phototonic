@@ -16,8 +16,8 @@
  *  along with Phototonic.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-#include "ImageViewer.h"
 #include "ResizeDialog.h"
+#include "ImageViewer.h"
 #include "Settings.h"
 
 #include <QCheckBox>
@@ -25,7 +25,9 @@
 #include <QHBoxLayout>
 #include <QPushButton>
 
-ResizeDialog::ResizeDialog(QWidget *parent, ImageViewer *imageViewer) : QDialog(parent) {
+ResizeDialog::ResizeDialog(QWidget *parent, ImageViewer *imageViewer)
+    : QDialog(parent)
+{
     setWindowTitle(tr("Scale Image"));
     setWindowIcon(QIcon::fromTheme("transform-scale", QIcon(":/images/phototonic.png")));
     newWidth = newHeight = 0;
@@ -105,12 +107,14 @@ ResizeDialog::ResizeDialog(QWidget *parent, ImageViewer *imageViewer) : QDialog(
     widthSpinBox->setFocus(Qt::OtherFocusReason);
 }
 
-void ResizeDialog::setAspectLock() {
-    keepAspect = ((QCheckBox *) QObject::sender())->isChecked();
+void ResizeDialog::setAspectLock()
+{
+    keepAspect = ((QCheckBox *)QObject::sender())->isChecked();
     adjustSizes();
 }
 
-void ResizeDialog::setUnits() {
+void ResizeDialog::setUnits()
+{
     int newWidth;
     int newHeight;
 
@@ -134,7 +138,8 @@ void ResizeDialog::setUnits() {
     }
 }
 
-void ResizeDialog::adjustSizes() {
+void ResizeDialog::adjustSizes()
+{
     static bool busy = false;
     if (busy) {
         return;
@@ -145,7 +150,8 @@ void ResizeDialog::adjustSizes() {
         if (pixelUnits) {
             QSize imageSize(width, height);
             if (widthSpinBox->value() > lastWidth || heightSpinBox->value() > lastHeight) {
-                imageSize.scale(widthSpinBox->value(), heightSpinBox->value(), Qt::KeepAspectRatioByExpanding);
+                imageSize.scale(widthSpinBox->value(), heightSpinBox->value(),
+                                Qt::KeepAspectRatioByExpanding);
             } else {
                 imageSize.scale(widthSpinBox->value(), heightSpinBox->value(), Qt::KeepAspectRatio);
             }
@@ -162,7 +168,6 @@ void ResizeDialog::adjustSizes() {
             } else {
                 widthSpinBox->setValue(heightSpinBox->value());
             }
-
 
             lastWidth = widthSpinBox->value();
             lastHeight = heightSpinBox->value();
@@ -184,7 +189,8 @@ void ResizeDialog::adjustSizes() {
     busy = false;
 }
 
-void ResizeDialog::ok() {
+void ResizeDialog::ok()
+{
     if (newWidth || newHeight) {
         Settings::scaledWidth = newWidth;
         Settings::scaledHeight = newHeight;
@@ -193,6 +199,7 @@ void ResizeDialog::ok() {
     accept();
 }
 
-void ResizeDialog::abort() {
+void ResizeDialog::abort()
+{
     reject();
 }

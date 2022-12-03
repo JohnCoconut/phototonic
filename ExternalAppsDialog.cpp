@@ -19,14 +19,15 @@
 #include "ExternalAppsDialog.h"
 #include "Settings.h"
 
-#include <QFileInfo>
 #include <QFileDialog>
+#include <QFileInfo>
 #include <QHBoxLayout>
 #include <QHeaderView>
 #include <QPushButton>
 
-
-ExternalAppsDialog::ExternalAppsDialog(QWidget *parent) : QDialog(parent) {
+ExternalAppsDialog::ExternalAppsDialog(QWidget *parent)
+    : QDialog(parent)
+{
     setWindowTitle(tr("Manage External Applications"));
     setWindowIcon(QIcon::fromTheme("preferences-other", QIcon(":/images/phototonic.png")));
     resize(350, 250);
@@ -38,10 +39,11 @@ ExternalAppsDialog::ExternalAppsDialog(QWidget *parent) : QDialog(parent) {
     appsTableModel = new QStandardItemModel(this);
     appsTable->setModel(appsTableModel);
     appsTable->verticalHeader()->setVisible(false);
-    appsTable->verticalHeader()->setDefaultSectionSize(appsTable->verticalHeader()->minimumSectionSize());
+    appsTable->verticalHeader()->setDefaultSectionSize(
+        appsTable->verticalHeader()->minimumSectionSize());
     appsTableModel->setHorizontalHeaderItem(0, new QStandardItem(QString(tr("Name"))));
-    appsTableModel->setHorizontalHeaderItem(1,
-                                            new QStandardItem(QString(tr("Application path and arguments"))));
+    appsTableModel->setHorizontalHeaderItem(
+        1, new QStandardItem(QString(tr("Application path and arguments"))));
     appsTable->horizontalHeader()->setSectionResizeMode(0, QHeaderView::Interactive);
     appsTable->horizontalHeader()->setSectionResizeMode(1, QHeaderView::Stretch);
     appsTable->setShowGrid(false);
@@ -80,19 +82,22 @@ ExternalAppsDialog::ExternalAppsDialog(QWidget *parent) : QDialog(parent) {
     }
 }
 
-void ExternalAppsDialog::ok() {
+void ExternalAppsDialog::ok()
+{
     int row = appsTableModel->rowCount();
     Settings::externalApps.clear();
     for (int i = 0; i < row; ++i) {
         if (!appsTableModel->itemFromIndex(appsTableModel->index(i, 1))->text().isEmpty()) {
-            Settings::externalApps[appsTableModel->itemFromIndex(appsTableModel->index(i, 0))->text()] =
-                    appsTableModel->itemFromIndex(appsTableModel->index(i, 1))->text();
+            Settings::externalApps[appsTableModel->itemFromIndex(appsTableModel->index(i, 0))
+                                       ->text()] =
+                appsTableModel->itemFromIndex(appsTableModel->index(i, 1))->text();
         }
     }
     accept();
 }
 
-void ExternalAppsDialog::add() {
+void ExternalAppsDialog::add()
+{
     QString fileName = QFileDialog::getOpenFileName(this, tr("Choose Application"), "", "");
     if (fileName.isEmpty())
         return;
@@ -102,20 +107,24 @@ void ExternalAppsDialog::add() {
     addTableModelItem(appsTableModel, appName, fileName);
 }
 
-void ExternalAppsDialog::entry() {
+void ExternalAppsDialog::entry()
+{
     int atRow = appsTableModel->rowCount();
     QStandardItem *itemKey = new QStandardItem(QString(tr("New Application")));
     appsTableModel->insertRow(atRow, itemKey);
 }
 
-void ExternalAppsDialog::remove() {
+void ExternalAppsDialog::remove()
+{
     QModelIndexList indexesList;
     while (!(indexesList = appsTable->selectionModel()->selectedIndexes()).empty()) {
         appsTableModel->removeRow(indexesList.first().row());
     }
 }
 
-void ExternalAppsDialog::addTableModelItem(QStandardItemModel *model, const QString &key, const QString& val) {
+void ExternalAppsDialog::addTableModelItem(QStandardItemModel *model, const QString &key,
+                                           const QString &val)
+{
     int atRow = model->rowCount();
     QStandardItem *itemKey = new QStandardItem(key);
     QStandardItem *itemKey2 = new QStandardItem(val);

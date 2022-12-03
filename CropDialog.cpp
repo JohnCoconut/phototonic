@@ -24,7 +24,9 @@
 #include <QPushButton>
 #include <QSlider>
 
-CropDialog::CropDialog(QWidget *parent, ImageViewer *imageViewer) : QDialog(parent) {
+CropDialog::CropDialog(QWidget *parent, ImageViewer *imageViewer)
+    : QDialog(parent)
+{
     setWindowTitle(tr("Cropping"));
     setWindowIcon(QIcon(":/images/crop.png"));
     resize(350, 100);
@@ -92,7 +94,6 @@ CropDialog::CropDialog(QWidget *parent, ImageViewer *imageViewer) : QDialog(pare
     mainGbox->addWidget(bottomSlide, 3, 1, 1, 1);
     mainGbox->addWidget(bottomSpinBox, 3, 2, 1, 1);
 
-
     QVBoxLayout *mainVbox = new QVBoxLayout;
     mainVbox->addLayout(mainGbox);
     mainVbox->addLayout(buttonsHbox);
@@ -122,7 +123,8 @@ CropDialog::CropDialog(QWidget *parent, ImageViewer *imageViewer) : QDialog(pare
     connect(rightSpinBox, SIGNAL(valueChanged(int)), this, SLOT(applyCrop(int)));
 }
 
-void CropDialog::applyCrop(int) {
+void CropDialog::applyCrop(int)
+{
     Settings::cropLeftPercent = leftSpinBox->value();
     Settings::cropTopPercent = topSpinBox->value();
     Settings::cropWidthPercent = rightSpinBox->value();
@@ -130,13 +132,15 @@ void CropDialog::applyCrop(int) {
     imageViewer->refresh();
 }
 
-void CropDialog::ok() {
+void CropDialog::ok()
+{
     Settings::dialogLastX = pos().x();
     Settings::dialogLastY = pos().y();
     accept();
 }
 
-void CropDialog::reset() {
+void CropDialog::reset()
+{
     leftSpinBox->setValue(0);
     rightSpinBox->setValue(0);
     topSpinBox->setValue(0);

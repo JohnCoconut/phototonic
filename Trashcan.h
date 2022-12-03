@@ -21,18 +21,10 @@
 #include <QString>
 
 namespace Trash {
-    using Result = enum
-    {
-        Success,
-        Error,
-        NeedsUserInput
-    };
+using Result = enum { Success, Error, NeedsUserInput };
 
-    using Options = enum
-    {
-        NoOptions = 0,
-        ForceDeletionToHomeTrash = 1
-    };
+using Options = enum { NoOptions = 0, ForceDeletionToHomeTrash = 1 };
 
-    Trash::Result moveToTrash(const QString &filePath, QString &error, Options trashOptions = NoOptions);
+Trash::Result moveToTrash(const QString &filePath, QString &error,
+                          Options trashOptions = NoOptions);
 }

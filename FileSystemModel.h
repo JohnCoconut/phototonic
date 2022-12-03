@@ -25,7 +25,7 @@ class IconProvider;
 
 class FileSystemModel : public QFileSystemModel {
 
-Q_OBJECT
+    Q_OBJECT
 
 public:
     FileSystemModel(QObject *parent = nullptr);

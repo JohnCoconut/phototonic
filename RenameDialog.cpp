@@ -22,7 +22,9 @@
 #include <QLabel>
 #include <QPushButton>
 
-RenameDialog::RenameDialog(QWidget *parent) : QDialog(parent) {
+RenameDialog::RenameDialog(QWidget *parent)
+    : QDialog(parent)
+{
     setWindowTitle(tr("Rename Image"));
 
     QHBoxLayout *buttonsLayout = new QHBoxLayout;
@@ -50,15 +52,18 @@ RenameDialog::RenameDialog(QWidget *parent) : QDialog(parent) {
     setMinimumWidth(480);
 }
 
-void RenameDialog::ok() {
+void RenameDialog::ok()
+{
     accept();
 }
 
-void RenameDialog::abort() {
+void RenameDialog::abort()
+{
     reject();
 }
 
-void RenameDialog::setFileName(const QString& name) {
+void RenameDialog::setFileName(const QString &name)
+{
     fileNameLineEdit->setText(name);
     fileNameLineEdit->setSelection(0, name.lastIndexOf('.'));
 }

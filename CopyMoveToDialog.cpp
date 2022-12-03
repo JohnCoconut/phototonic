@@ -19,34 +19,40 @@
 #include "CopyMoveToDialog.h"
 #include "Settings.h"
 #include <QFileDialog>
-#include <QHeaderView>
 #include <QHBoxLayout>
+#include <QHeaderView>
 #include <QPushButton>
 
-void CopyMoveToDialog::selection(const QItemSelection &, const QItemSelection &) {
+void CopyMoveToDialog::selection(const QItemSelection &, const QItemSelection &)
+{
     if (!pathsTable->selectionModel()->selectedRows().empty()) {
-        destinationLabel->setText(tr("Destination:") + " " +
-                                  pathsTableModel->item(
-                                          pathsTable->selectionModel()->selectedRows().at(0).row())->text());
+        destinationLabel->setText(
+            tr("Destination:") + " "
+            + pathsTableModel->item(pathsTable->selectionModel()->selectedRows().at(0).row())
+                  ->text());
     }
 }
 
-void CopyMoveToDialog::pathDoubleClick(const QModelIndex &) {
+void CopyMoveToDialog::pathDoubleClick(const QModelIndex &)
+{
     copyOrMove();
 }
 
-void CopyMoveToDialog::savePaths() {
+void CopyMoveToDialog::savePaths()
+{
     Settings::bookmarkPaths.clear();
     for (int i = 0; i < pathsTableModel->rowCount(); ++i) {
-        Settings::bookmarkPaths.insert
-                (pathsTableModel->itemFromIndex(pathsTableModel->index(i, 0))->text());
+        Settings::bookmarkPaths.insert(
+            pathsTableModel->itemFromIndex(pathsTableModel->index(i, 0))->text());
     }
 }
 
-void CopyMoveToDialog::copyOrMove() {
+void CopyMoveToDialog::copyOrMove()
+{
     savePaths();
 
-    if (QModelIndexList indexesList = pathsTable->selectionModel()->selectedIndexes(); !indexesList.empty()) {
+    if (QModelIndexList indexesList = pathsTable->selectionModel()->selectedIndexes();
+        !indexesList.empty()) {
         selectedPath = pathsTableModel->itemFromIndex(indexesList.first())->text();
         accept();
     } else {
@@ -54,14 +60,17 @@ void CopyMoveToDialog::copyOrMove() {
     }
 }
 
-void CopyMoveToDialog::justClose() {
+void CopyMoveToDialog::justClose()
+{
     savePaths();
     reject();
 }
 
-void CopyMoveToDialog::add() {
+void CopyMoveToDialog::add()
+{
     QString dirName = QFileDialog::getExistingDirectory(this, tr("Choose Directory"), currentPath,
-                                                        QFileDialog::ShowDirsOnly | QFileDialog::DontResolveSymlinks);
+                                                        QFileDialog::ShowDirsOnly
+                                                            | QFileDialog::DontResolveSymlinks);
     if (dirName.isEmpty()) {
         return;
     }
@@ -74,13 +83,17 @@ void CopyMoveToDialog::add() {
                                          QItemSelectionModel::Select);
 }
 
-void CopyMoveToDialog::remove() {
-    if (QModelIndexList indexesList = pathsTable->selectionModel()->selectedIndexes(); !indexesList.empty()) {
+void CopyMoveToDialog::remove()
+{
+    if (QModelIndexList indexesList = pathsTable->selectionModel()->selectedIndexes();
+        !indexesList.empty()) {
         pathsTableModel->removeRow(indexesList.first().row());
     }
 }
 
-CopyMoveToDialog::CopyMoveToDialog(QWidget *parent, const QString& thumbsPath, bool move) : QDialog(parent) {
+CopyMoveToDialog::CopyMoveToDialog(QWidget *parent, const QString &thumbsPath, bool move)
+    : QDialog(parent)
+{
     copyOp = !move;
     if (move) {
         setWindowTitle(tr("Move to..."));
@@ -103,15 +116,15 @@ CopyMoveToDialog::CopyMoveToDialog(QWidget *parent, const QString& thumbsPath, b
     pathsTable->setModel(pathsTableModel);
     pathsTable->verticalHeader()->setVisible(false);
     pathsTable->horizontalHeader()->setVisible(false);
-    pathsTable->verticalHeader()->setDefaultSectionSize(pathsTable->verticalHeader()->
-            minimumSectionSize());
+    pathsTable->verticalHeader()->setDefaultSectionSize(
+        pathsTable->verticalHeader()->minimumSectionSize());
     pathsTable->horizontalHeader()->setSectionResizeMode(QHeaderView::Stretch);
     pathsTable->setShowGrid(false);
 
-    connect(pathsTable->selectionModel(), SIGNAL(selectionChanged(QItemSelection,QItemSelection)),
-            this, SLOT(selection(QItemSelection,QItemSelection)));
-    connect(pathsTable, SIGNAL(doubleClicked(QModelIndex)),
-            this, SLOT(pathDoubleClick(QModelIndex)));
+    connect(pathsTable->selectionModel(), SIGNAL(selectionChanged(QItemSelection, QItemSelection)),
+            this, SLOT(selection(QItemSelection, QItemSelection)));
+    connect(pathsTable, SIGNAL(doubleClicked(QModelIndex)), this,
+            SLOT(pathDoubleClick(QModelIndex)));
 
     QHBoxLayout *addRemoveHbox = new QHBoxLayout;
     QPushButton *addButton = new QPushButton(tr("Browse..."));
@@ -152,7 +165,7 @@ CopyMoveToDialog::CopyMoveToDialog(QWidget *parent, const QString& thumbsPath, b
     setLayout(mainVbox);
 
     // Load paths list
-    for (const auto& bookmarkPath: qAsConst(Settings::bookmarkPaths)) {
+    for (const auto &bookmarkPath : qAsConst(Settings::bookmarkPaths)) {
         QStandardItem *item = new QStandardItem(QIcon(":/images/bookmarks.png"), bookmarkPath);
         pathsTableModel->appendRow(item);
     }

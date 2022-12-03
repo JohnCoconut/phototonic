@@ -26,7 +26,7 @@
 #include <QWidget>
 
 class FileListWidget : public QTreeWidget {
-Q_OBJECT
+    Q_OBJECT
 
 public:
     FileListWidget(QWidget *parent);

@@ -26,7 +26,7 @@
 class ImageViewer;
 
 class ResizeDialog : public QDialog {
-Q_OBJECT
+    Q_OBJECT
 
 public:
     ResizeDialog(QWidget *parent, ImageViewer *imageViewer);

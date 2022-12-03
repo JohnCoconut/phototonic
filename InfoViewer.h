@@ -23,7 +23,7 @@
 #include <QWidget>
 
 class InfoView : public QWidget {
-Q_OBJECT
+    Q_OBJECT
 
 public:
     InfoView(QWidget *parent);
@@ -32,8 +32,7 @@ public:
 
     void addEntry(const QString &key, const QString &value);
 
-    void addTitleEntry(const QString& title);
-
+    void addTitleEntry(const QString &title);
 
 signals:
 
@@ -41,7 +40,7 @@ signals:
 
 public slots:
 
-    void showInfoViewMenu(const QPoint& pt);
+    void showInfoViewMenu(const QPoint &pt);
 
     void copyEntry();
 
@@ -58,5 +57,4 @@ private:
     QModelIndex selectedEntry;
     QMenu *infoMenu;
     QLineEdit *filterLineEdit;
-
 };

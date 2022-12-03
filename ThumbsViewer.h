@@ -51,7 +51,7 @@ struct Histogram
     {
         float len1 = 0.F, len2 = 0.F, corr = 0.F;
 
-        for (uint16_t i=0; i<256; i++) {
+        for (uint16_t i = 0; i < 256; i++) {
             len1 += hist1[i];
             len2 += hist2[i];
             corr += std::sqrt(hist1[i] * hist2[i]);
@@ -64,18 +64,18 @@ struct Histogram
 
     inline float compare(const Histogram &other)
     {
-        return compareChannel(red, other.red) +
-            compareChannel(green, other.green) +
-            compareChannel(blue, other.blue);
+        return compareChannel(red, other.red) + compareChannel(green, other.green)
+            + compareChannel(blue, other.blue);
     }
 };
 Q_DECLARE_METATYPE(Histogram);
 
 class ThumbsViewer : public QListView {
-Q_OBJECT
+    Q_OBJECT
 
 public:
-    enum UserRoles {
+    enum UserRoles
+    {
         FileNameRole = Qt::UserRole + 1,
         SortRole,
         LoadedRole,
@@ -85,7 +85,8 @@ public:
         TimeRole,
         HistogramRole
     };
-    enum ThumbnailLayouts {
+    enum ThumbnailLayouts
+    {
         Classic,
         Squares,
         Compact
@@ -181,7 +182,8 @@ private:
 
     QString thumbnailFileName(const QString &path) const;
     QString locateThumbnail(const QString &path) const;
-    void storeThumbnail(const QString &originalPath, QImage thumbnail, const QSize &originalSize) const;
+    void storeThumbnail(const QString &originalPath, QImage thumbnail,
+                        const QSize &originalSize) const;
 
     QFileInfo thumbFileInfo;
     QFileInfoList thumbFileInfoList;

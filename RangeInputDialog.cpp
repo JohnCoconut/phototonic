@@ -1,9 +1,9 @@
 #include "RangeInputDialog.h"
 #include "ui_RangeInputDialog.h"
 
-RangeInputDialog::RangeInputDialog(QWidget *parent) :
-    QDialog(parent),
-    ui(new Ui::RangeInputDialog)
+RangeInputDialog::RangeInputDialog(QWidget *parent)
+    : QDialog(parent)
+    , ui(new Ui::RangeInputDialog)
 {
     ui->setupUi(this);
 }

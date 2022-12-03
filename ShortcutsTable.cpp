@@ -16,15 +16,16 @@
  *  along with Phototonic.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-#include "MessageBox.h"
 #include "ShortcutsTable.h"
+#include "MessageBox.h"
 #include "Settings.h"
 
 #include <QHeaderView>
 #include <QKeyEvent>
 #include <QMenu>
 
-ShortcutsTable::ShortcutsTable() {
+ShortcutsTable::ShortcutsTable()
+{
     keysModel = new QStandardItemModel(this);
     setModel(keysModel);
     setSelectionBehavior(QAbstractItemView::SelectRows);
@@ -47,13 +48,16 @@ ShortcutsTable::ShortcutsTable() {
     shortcutsFilter.clear();
 }
 
-void ShortcutsTable::addRow(const QString& action, const QString& description, const QString& shortcut) {
-    keysModel->appendRow(QList<QStandardItem *>() << new QStandardItem(description)
-                                                  << new QStandardItem(shortcut)
-                                                  << new QStandardItem(action));
+void ShortcutsTable::addRow(const QString &action, const QString &description,
+                            const QString &shortcut)
+{
+    keysModel->appendRow(QList<QStandardItem *>()
+                         << new QStandardItem(description) << new QStandardItem(shortcut)
+                         << new QStandardItem(action));
 }
 
-void ShortcutsTable::keyPressEvent(QKeyEvent *keyEvent) {
+void ShortcutsTable::keyPressEvent(QKeyEvent *keyEvent)
+{
     if (!this->selectedIndexes().count()) {
         return;
     }
@@ -70,18 +74,19 @@ void ShortcutsTable::keyPressEvent(QKeyEvent *keyEvent) {
 
     if ((keyEvent->key() >= Qt::Key_Shift && keyEvent->key() <= Qt::Key_ScrollLock)
         || (keyEvent->key() >= Qt::Key_Super_L && keyEvent->key() <= Qt::Key_Direction_R)
-        || keyEvent->key() == Qt::Key_AltGr
-        || keyEvent->key() < 0) {
+        || keyEvent->key() == Qt::Key_AltGr || keyEvent->key() < 0) {
         return;
     }
 
     keyText = QKeySequence(keyEvent->key()).toString();
     keySequenceText = modifierText + keyText;
 
-    if ((keyEvent->modifiers() & Qt::AltModifier) &&
-        (keyEvent->key() > Qt::Key_0 && keyEvent->key() <= Qt::Key_Colon)) {
+    if ((keyEvent->modifiers() & Qt::AltModifier)
+        && (keyEvent->key() > Qt::Key_0 && keyEvent->key() <= Qt::Key_Colon)) {
         MessageBox msgBox(this);
-        msgBox.warning(tr("Set shortcut"), tr("%1 is reserved for launching external applications.").arg(keySequenceText));
+        msgBox.warning(
+            tr("Set shortcut"),
+            tr("%1 is reserved for launching external applications.").arg(keySequenceText));
         return;
     }
 
@@ -103,15 +108,18 @@ void ShortcutsTable::keyPressEvent(QKeyEvent *keyEvent) {
 
     int row = selectedIndexes().first().row();
     keysModel->item(row, 1)->setText(keySequenceText);
-    Settings::actionKeys.value(keysModel->item(row, 2)->text())->setShortcut(QKeySequence(keySequenceText));
+    Settings::actionKeys.value(keysModel->item(row, 2)->text())
+        ->setShortcut(QKeySequence(keySequenceText));
     if (needToRefreshShortCuts) {
         refreshShortcuts();
     }
 }
 
-bool ShortcutsTable::confirmOverwriteShortcut(const QString& action, const QString& shortcut) {
+bool ShortcutsTable::confirmOverwriteShortcut(const QString &action, const QString &shortcut)
+{
     MessageBox msgBox(this);
-    msgBox.setText(tr("%1 is already assigned to %2, reassign shortcut?").arg(shortcut).arg(action));
+    msgBox.setText(
+        tr("%1 is already assigned to %2, reassign shortcut?").arg(shortcut).arg(action));
     msgBox.setWindowTitle(tr("Overwrite Shortcut"));
     msgBox.setIcon(MessageBox::Warning);
     msgBox.setStandardButtons(MessageBox::Yes | MessageBox::Cancel);
@@ -122,27 +130,31 @@ bool ShortcutsTable::confirmOverwriteShortcut(const QString& action, const QStri
     return (msgBox.exec() == MessageBox::Yes);
 }
 
-void ShortcutsTable::clearSelectedShortcut() {
+void ShortcutsTable::clearSelectedShortcut()
+{
     if (selectedEntry.isValid()) {
-        QStandardItemModel *itemsModel = (QStandardItemModel *) model();
+        QStandardItemModel *itemsModel = (QStandardItemModel *)model();
         itemsModel->item(selectedEntry.row(), 1)->setText("");
-        Settings::actionKeys.value(itemsModel->item(selectedEntry.row(), 2)->text())->setShortcut(QKeySequence(""));
+        Settings::actionKeys.value(itemsModel->item(selectedEntry.row(), 2)->text())
+            ->setShortcut(QKeySequence(""));
     }
 }
 
-void ShortcutsTable::showShortcutPopupMenu(const QPoint& point) {
+void ShortcutsTable::showShortcutPopupMenu(const QPoint &point)
+{
     selectedEntry = indexAt(point);
     if (selectedEntry.isValid())
         shortcutsMenu->popup(viewport()->mapToGlobal(point));
-
 }
 
-void ShortcutsTable::setFilter(const QString& filter) {
+void ShortcutsTable::setFilter(const QString &filter)
+{
     this->shortcutsFilter = filter;
     refreshShortcuts();
 }
 
-void ShortcutsTable::refreshShortcuts() {
+void ShortcutsTable::refreshShortcuts()
+{
     keysModel->clear();
     keysModel->setHorizontalHeaderItem(0, new QStandardItem(tr("Action")));
     keysModel->setHorizontalHeaderItem(1, new QStandardItem(tr("Shortcut")));
@@ -150,7 +162,8 @@ void ShortcutsTable::refreshShortcuts() {
     while (it.hasNext()) {
         it.next();
         if (!shortcutsFilter.isEmpty()
-            && !Settings::actionKeys.value(it.key())->text().toLower().contains(shortcutsFilter.toLower())) {
+            && !Settings::actionKeys.value(it.key())->text().toLower().contains(
+                shortcutsFilter.toLower())) {
             continue;
         }
         addRow(it.key(), Settings::actionKeys.value(it.key())->text(),

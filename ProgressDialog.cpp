@@ -18,11 +18,13 @@
 
 #include "ProgressDialog.h"
 
-#include <QPushButton>
 #include <QHBoxLayout>
+#include <QPushButton>
 #include <QVBoxLayout>
 
-ProgressDialog::ProgressDialog(QWidget *parent) : QDialog(parent) {
+ProgressDialog::ProgressDialog(QWidget *parent)
+    : QDialog(parent)
+{
     cancelButton = new QPushButton(tr("Cancel"));
     cancelButton->setSizePolicy(QSizePolicy::Fixed, QSizePolicy::Fixed);
     connect(cancelButton, SIGNAL(clicked()), this, SLOT(abort()));
@@ -39,6 +41,7 @@ ProgressDialog::ProgressDialog(QWidget *parent) : QDialog(parent) {
     setLayout(mainLayout);
 }
 
-void ProgressDialog::abort() {
+void ProgressDialog::abort()
+{
     abortOp = true;
 }

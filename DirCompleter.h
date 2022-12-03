@@ -21,7 +21,7 @@
 #include <QCompleter>
 
 class DirCompleter : public QCompleter {
-Q_OBJECT
+    Q_OBJECT
 public:
     DirCompleter(QObject *parent = nullptr);
 

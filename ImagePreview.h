@@ -26,12 +26,12 @@
 class ImageViewer;
 
 class ImagePreview : public QWidget {
-Q_OBJECT
+    Q_OBJECT
 
 public:
     ImagePreview(QWidget *parent);
 
-    QPixmap &loadImage(const QString& imageFileName);
+    QPixmap &loadImage(const QString &imageFileName);
 
     void resizeImagePreview();
 
@@ -51,5 +51,4 @@ private:
     QPixmap previewPixmap;
     ImageViewer *imageViewer;
     QPointer<QMovie> animation;
-
 };

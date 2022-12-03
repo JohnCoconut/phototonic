@@ -29,7 +29,9 @@
 #include <QRadioButton>
 #include <QVBoxLayout>
 
-SettingsDialog::SettingsDialog(QWidget *parent) : QDialog(parent) {
+SettingsDialog::SettingsDialog(QWidget *parent)
+    : QDialog(parent)
+{
     setWindowTitle(tr("Preferences"));
     setWindowIcon(QIcon::fromTheme("preferences-system", QIcon(":/images/phototonic.png")));
 
@@ -97,7 +99,8 @@ SettingsDialog::SettingsDialog(QWidget *parent) : QDialog(parent) {
     enableAnimCheckBox->setChecked(Settings::enableAnimations);
 
     // Enable image Exif rotation
-    enableExifCheckBox = new QCheckBox(tr("Rotate image according to Exif orientation value"), this);
+    enableExifCheckBox =
+        new QCheckBox(tr("Rotate image according to Exif orientation value"), this);
     enableExifCheckBox->setChecked(Settings::exifRotationEnabled);
 
     // Image name
@@ -153,9 +156,9 @@ SettingsDialog::SettingsDialog(QWidget *parent) : QDialog(parent) {
     thumbsBackgroundImageLineEdit->setClearButtonEnabled(true);
     thumbsBackgroundImageLineEdit->setMinimumWidth(200);
 
-
     QToolButton *chooseThumbsBackImageButton = new QToolButton();
-    chooseThumbsBackImageButton->setIcon(QIcon::fromTheme("document-open", QIcon(":/images/open.png")));
+    chooseThumbsBackImageButton->setIcon(
+        QIcon::fromTheme("document-open", QIcon(":/images/open.png")));
     chooseThumbsBackImageButton->setFixedSize(26, 26);
     chooseThumbsBackImageButton->setIconSize(QSize(16, 16));
     connect(chooseThumbsBackImageButton, SIGNAL(clicked()), this, SLOT(pickBackgroundImage()));
@@ -181,7 +184,8 @@ SettingsDialog::SettingsDialog(QWidget *parent) : QDialog(parent) {
     thumbPagesReadLayout->addWidget(thumbPagesSpinBox);
     thumbPagesReadLayout->addStretch(1);
 
-    enableThumbExifCheckBox = new QCheckBox(tr("Rotate thumbnail according to Exif orientation value"), this);
+    enableThumbExifCheckBox =
+        new QCheckBox(tr("Rotate thumbnail according to Exif orientation value"), this);
     enableThumbExifCheckBox->setChecked(Settings::exifThumbRotationEnabled);
 
     // Upscale preview image
@@ -202,7 +206,8 @@ SettingsDialog::SettingsDialog(QWidget *parent) : QDialog(parent) {
     thumbsOptsBox->addStretch(1);
 
     // Mouse settings
-    reverseMouseCheckBox = new QCheckBox(tr("Swap mouse double-click and middle-click actions"), this);
+    reverseMouseCheckBox =
+        new QCheckBox(tr("Swap mouse double-click and middle-click actions"), this);
     reverseMouseCheckBox->setChecked(Settings::reverseMouseBehavior);
 
     scrollZoomCheckBox = new QCheckBox(tr("Use scroll wheel for zooming in image viewer"), this);
@@ -213,7 +218,8 @@ SettingsDialog::SettingsDialog(QWidget *parent) : QDialog(parent) {
     deleteConfirmCheckBox->setChecked(Settings::deleteConfirm);
 
     // Startup directory
-    QGroupBox *startupDirGroupBox = new QGroupBox(tr("Startup directory if not specified by command line"));
+    QGroupBox *startupDirGroupBox =
+        new QGroupBox(tr("Startup directory if not specified by command line"));
     startupDirectoryRadioButtons[Settings::RememberLastDir] = new QRadioButton(tr("Remember last"));
     startupDirectoryRadioButtons[Settings::DefaultDir] = new QRadioButton(tr("Default"));
     startupDirectoryRadioButtons[Settings::SpecifiedDir] = new QRadioButton(tr("Specify:"));
@@ -263,15 +269,18 @@ SettingsDialog::SettingsDialog(QWidget *parent) : QDialog(parent) {
     QLineEdit *shortcutsFilterLineEdit = new QLineEdit;
     shortcutsFilterLineEdit->setClearButtonEnabled(true);
     shortcutsFilterLineEdit->setPlaceholderText(tr("Filter Items"));
-    connect(shortcutsFilterLineEdit, SIGNAL(textChanged(QString)), shortcutsTable, SLOT(setFilter(QString)));
-    keyboardSettingsLayout->addWidget(new QLabel(tr("Select an entry and press a key to set a new shortcut")));
+    connect(shortcutsFilterLineEdit, SIGNAL(textChanged(QString)), shortcutsTable,
+            SLOT(setFilter(QString)));
+    keyboardSettingsLayout->addWidget(
+        new QLabel(tr("Select an entry and press a key to set a new shortcut")));
     keyboardSettingsLayout->addWidget(shortcutsFilterLineEdit);
     keyboardSettingsLayout->addWidget(shortcutsTable);
     keyboardSettingsLayout->addLayout(filterShortcutsLayout);
     keyboardGroupBox->setLayout(keyboardSettingsLayout);
 
     // Set window icon
-    setWindowIconCheckBox = new QCheckBox(tr("Set the application icon according to the current image"), this);
+    setWindowIconCheckBox =
+        new QCheckBox(tr("Set the application icon according to the current image"), this);
     setWindowIconCheckBox->setChecked(Settings::setWindowIcon);
 
     QVBoxLayout *generalSettingsLayout = new QVBoxLayout;
@@ -343,13 +352,15 @@ SettingsDialog::SettingsDialog(QWidget *parent) : QDialog(parent) {
     setLayout(mainLayout);
 }
 
-void SettingsDialog::saveSettings() {
+void SettingsDialog::saveSettings()
+{
     unsigned int i;
 
     for (i = 0; i < nZoomRadios; ++i) {
         if (fitLargeRadios[i]->isChecked()) {
             Settings::zoomOutFlags = i;
-            Settings::appSettings->setValue(Settings::optionViewerZoomOutFlags, (int) Settings::zoomOutFlags);
+            Settings::appSettings->setValue(Settings::optionViewerZoomOutFlags,
+                                            (int)Settings::zoomOutFlags);
             break;
         }
     }
@@ -357,7 +368,8 @@ void SettingsDialog::saveSettings() {
     for (i = 0; i < nZoomRadios; ++i) {
         if (fitSmallRadios[i]->isChecked()) {
             Settings::zoomInFlags = i;
-            Settings::appSettings->setValue(Settings::optionViewerZoomInFlags, (int) Settings::zoomInFlags);
+            Settings::appSettings->setValue(Settings::optionViewerZoomInFlags,
+                                            (int)Settings::zoomInFlags);
             break;
         }
     }
@@ -367,7 +379,7 @@ void SettingsDialog::saveSettings() {
     Settings::thumbsTextColor = thumbsTextColor;
     Settings::thumbsBackgroundImage = thumbsBackgroundImageLineEdit->text();
     Settings::thumbsRepeatBackgroundImage = thumbsRepeatBackgroundImageCheckBox->isChecked();
-    Settings::thumbsPagesReadCount = (unsigned int) thumbPagesSpinBox->value();
+    Settings::thumbsPagesReadCount = (unsigned int)thumbPagesSpinBox->value();
     Settings::wrapImageList = wrapListCheckBox->isChecked();
     Settings::defaultSaveQuality = saveQualitySpinBox->value();
     Settings::slideShowDelay = slideDelaySpinBox->value();
@@ -394,11 +406,13 @@ void SettingsDialog::saveSettings() {
     accept();
 }
 
-void SettingsDialog::abort() {
+void SettingsDialog::abort()
+{
     reject();
 }
 
-void SettingsDialog::pickColor() {
+void SettingsDialog::pickColor()
+{
     QColor userColor = QColorDialog::getColor(Settings::viewerBackgroundColor, this);
     if (userColor.isValid()) {
         setButtonBgColor(userColor, backgroundColorButton);
@@ -406,21 +420,26 @@ void SettingsDialog::pickColor() {
     }
 }
 
-void SettingsDialog::setButtonBgColor(const QColor &color, QToolButton *button) {
+void SettingsDialog::setButtonBgColor(const QColor &color, QToolButton *button)
+{
     QString style = "background: rgb(%1, %2, %3);";
     style = style.arg(color.red()).arg(color.green()).arg(color.blue());
     button->setStyleSheet(style);
 }
 
-void SettingsDialog::pickThumbsColor() {
-    QColor userColor = QColorDialog::getColor(Settings::thumbsBackgroundColor, this, tr("Select background color"), QColorDialog::ShowAlphaChannel);
+void SettingsDialog::pickThumbsColor()
+{
+    QColor userColor =
+        QColorDialog::getColor(Settings::thumbsBackgroundColor, this, tr("Select background color"),
+                               QColorDialog::ShowAlphaChannel);
     if (userColor.isValid()) {
         setButtonBgColor(userColor, thumbsColorPickerButton);
         thumbsBackgroundColor = userColor;
     }
 }
 
-void SettingsDialog::pickThumbsTextColor() {
+void SettingsDialog::pickThumbsTextColor()
+{
     QColor userColor = QColorDialog::getColor(Settings::thumbsTextColor, this);
     if (userColor.isValid()) {
         setButtonBgColor(userColor, thumbsLabelColorButton);
@@ -428,15 +447,18 @@ void SettingsDialog::pickThumbsTextColor() {
     }
 }
 
-void SettingsDialog::pickStartupDir() {
+void SettingsDialog::pickStartupDir()
+{
     QString dirName = QFileDialog::getExistingDirectory(this, tr("Choose Startup Directory"), "",
-                                                        QFileDialog::ShowDirsOnly | QFileDialog::DontResolveSymlinks);
+                                                        QFileDialog::ShowDirsOnly
+                                                            | QFileDialog::DontResolveSymlinks);
     startupDirLineEdit->setText(dirName);
 }
 
-void SettingsDialog::pickBackgroundImage() {
-    QString dirName = QFileDialog::getOpenFileName(this, tr("Open File"), "",
-                                                   tr("Images") +
-                                                   " (*.jpg *.jpeg *.jpe *.png *.bmp *.tiff *.tif *.ppm *.xbm *.xpm)");
+void SettingsDialog::pickBackgroundImage()
+{
+    QString dirName = QFileDialog::getOpenFileName(
+        this, tr("Open File"), "",
+        tr("Images") + " (*.jpg *.jpeg *.jpe *.png *.bmp *.tiff *.tif *.ppm *.xbm *.xpm)");
     thumbsBackgroundImageLineEdit->setText(dirName);
 }

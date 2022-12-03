@@ -27,24 +27,25 @@
 #include <QMimeData>
 #include <QModelIndex>
 
-BookMarks::BookMarks(QWidget *parent) : QTreeWidget(parent) {
+BookMarks::BookMarks(QWidget *parent)
+    : QTreeWidget(parent)
+{
     setAcceptDrops(true);
     setDragEnabled(false);
     setDragDropMode(QAbstractItemView::DropOnly);
 
-    connect(this, SIGNAL(expanded(QModelIndex)),
-            this, SLOT(resizeTreeColumn(QModelIndex)));
-    connect(this, SIGNAL(collapsed(QModelIndex)),
-            this, SLOT(resizeTreeColumn(QModelIndex)));
+    connect(this, SIGNAL(expanded(QModelIndex)), this, SLOT(resizeTreeColumn(QModelIndex)));
+    connect(this, SIGNAL(collapsed(QModelIndex)), this, SLOT(resizeTreeColumn(QModelIndex)));
 
     setColumnCount(1);
     setHeaderHidden(true);
     reloadBookmarks();
 }
 
-void BookMarks::reloadBookmarks() {
+void BookMarks::reloadBookmarks()
+{
     clear();
-    for (const auto& itemPath : qAsConst(Settings::bookmarkPaths)) {
+    for (const auto &itemPath : qAsConst(Settings::bookmarkPaths)) {
         QTreeWidgetItem *item = new QTreeWidgetItem(this);
         item->setText(0, QFileInfo(itemPath).fileName());
         item->setIcon(0, QIcon(":/images/bookmarks.png"));
@@ -53,18 +54,21 @@ void BookMarks::reloadBookmarks() {
     }
 }
 
-void BookMarks::resizeTreeColumn(const QModelIndex &) {
+void BookMarks::resizeTreeColumn(const QModelIndex &)
+{
     resizeColumnToContents(0);
 }
 
-void BookMarks::removeBookmark() {
+void BookMarks::removeBookmark()
+{
     if (selectedItems().size() == 1) {
         Settings::bookmarkPaths.remove(selectedItems().at(0)->toolTip(0));
         reloadBookmarks();
     }
 }
 
-void BookMarks::dragEnterEvent(QDragEnterEvent *event) {
+void BookMarks::dragEnterEvent(QDragEnterEvent *event)
+{
     QModelIndexList selectedDirs = selectionModel()->selectedRows();
 
     if (!selectedDirs.empty()) {
@@ -73,14 +77,17 @@ void BookMarks::dragEnterEvent(QDragEnterEvent *event) {
     event->acceptProposedAction();
 }
 
-void BookMarks::dragMoveEvent(QDragMoveEvent *event) {
+void BookMarks::dragMoveEvent(QDragMoveEvent *event)
+{
     setCurrentIndex(indexAt(event->pos()));
 }
 
-void BookMarks::dropEvent(QDropEvent *event) {
+void BookMarks::dropEvent(QDropEvent *event)
+{
     if (event->source()) {
         QString fileSystemTreeStr("FileSystemTree");
         bool dirOp = (event->source()->metaObject()->className() == fileSystemTreeStr);
-        emit dropOp(event->keyboardModifiers(), dirOp, event->mimeData()->urls().at(0).toLocalFile());
+        emit dropOp(event->keyboardModifiers(), dirOp,
+                    event->mimeData()->urls().at(0).toLocalFile());
     }
 }

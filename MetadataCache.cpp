@@ -26,23 +26,28 @@
 
 #include <exiv2/exiv2.hpp>
 
-void MetadataCache::updateImageTags(const QString &imageFileName, QSet<QString> tags) {
+void MetadataCache::updateImageTags(const QString &imageFileName, QSet<QString> tags)
+{
     cache[imageFileName].tags = tags;
 }
 
-bool MetadataCache::removeTagFromImage(const QString &imageFileName, const QString &tagName) {
+bool MetadataCache::removeTagFromImage(const QString &imageFileName, const QString &tagName)
+{
     return cache[imageFileName].tags.remove(tagName);
 }
 
-void MetadataCache::removeImage(const QString &imageFileName) {
+void MetadataCache::removeImage(const QString &imageFileName)
+{
     cache.remove(imageFileName);
 }
 
-QSet<QString> &MetadataCache::getImageTags(const QString &imageFileName) {
+QSet<QString> &MetadataCache::getImageTags(const QString &imageFileName)
+{
     return cache[imageFileName].tags;
 }
 
-long MetadataCache::getImageOrientation(const QString& imageFileName) {
+long MetadataCache::getImageOrientation(const QString &imageFileName)
+{
     if (cache.contains(imageFileName) || loadImageMetadata(imageFileName)) {
         return cache[imageFileName].orientation;
     }
@@ -50,22 +55,26 @@ long MetadataCache::getImageOrientation(const QString& imageFileName) {
     return 0;
 }
 
-void MetadataCache::setImageTags(const QString &imageFileName, QSet<QString> tags) {
+void MetadataCache::setImageTags(const QString &imageFileName, QSet<QString> tags)
+{
     ImageMetadata imageMetadata;
 
     imageMetadata.tags = tags;
     cache.insert(imageFileName, imageMetadata);
 }
 
-void MetadataCache::addTagToImage(const QString &imageFileName, const QString &tagName) {
+void MetadataCache::addTagToImage(const QString &imageFileName, const QString &tagName)
+{
     cache[imageFileName].tags.insert(tagName);
 }
 
-void MetadataCache::clear() {
+void MetadataCache::clear()
+{
     cache.clear();
 }
 
-bool MetadataCache::loadImageMetadata(const QString &imageFullPath) {
+bool MetadataCache::loadImageMetadata(const QString &imageFullPath)
+{
 #pragma clang diagnostic push
 #pragma clang diagnostic ignored "-Wdeprecated-declarations"
     Exiv2::Image::AutoPtr exifImage;
@@ -86,36 +95,38 @@ bool MetadataCache::loadImageMetadata(const QString &imageFullPath) {
         return false;
     }
 
-    if (exifImage->supportsMetadata(Exiv2::mdExif)) try {
-        Exiv2::ExifData::const_iterator it = Exiv2::orientation(exifImage->exifData());
-        if (it != exifImage->exifData().end()) {
-            orientation = it->toLong();
-        }
-    } catch (Exiv2::Error &error) {
-        qWarning() << "Failed to read Exif metadata" << error.what();
-    }
-
-    if (exifImage->supportsMetadata(Exiv2::mdIptc)) try {
-        Exiv2::IptcData &iptcData = exifImage->iptcData();
-        if (!iptcData.empty()) {
-            QString key;
-            Exiv2::IptcData::iterator end = iptcData.end();
-
-            // Finds the first ID, but we need to loop over the rest in case there are more
-            Exiv2::IptcData::iterator iptcIt = iptcData.findId(Exiv2::IptcDataSets::Keywords);
-            for (; iptcIt != end; ++iptcIt) {
-                if (iptcIt->tag() != Exiv2::IptcDataSets::Keywords) {
-                    continue;
-                }
-
-                QString tagName = QString::fromUtf8(iptcIt->toString().c_str());
-                tags.insert(tagName);
-                Settings::knownTags.insert(tagName);
+    if (exifImage->supportsMetadata(Exiv2::mdExif))
+        try {
+            Exiv2::ExifData::const_iterator it = Exiv2::orientation(exifImage->exifData());
+            if (it != exifImage->exifData().end()) {
+                orientation = it->toLong();
             }
+        } catch (Exiv2::Error &error) {
+            qWarning() << "Failed to read Exif metadata" << error.what();
         }
-    } catch (Exiv2::Error &error) {
-        qWarning() << "Failed to read Iptc metadata";
-    }
+
+    if (exifImage->supportsMetadata(Exiv2::mdIptc))
+        try {
+            Exiv2::IptcData &iptcData = exifImage->iptcData();
+            if (!iptcData.empty()) {
+                QString key;
+                Exiv2::IptcData::iterator end = iptcData.end();
+
+                // Finds the first ID, but we need to loop over the rest in case there are more
+                Exiv2::IptcData::iterator iptcIt = iptcData.findId(Exiv2::IptcDataSets::Keywords);
+                for (; iptcIt != end; ++iptcIt) {
+                    if (iptcIt->tag() != Exiv2::IptcDataSets::Keywords) {
+                        continue;
+                    }
+
+                    QString tagName = QString::fromUtf8(iptcIt->toString().c_str());
+                    tags.insert(tagName);
+                    Settings::knownTags.insert(tagName);
+                }
+            }
+        } catch (Exiv2::Error &error) {
+            qWarning() << "Failed to read Iptc metadata";
+        }
 
     ImageMetadata imageMetadata;
     if (!tags.empty()) {

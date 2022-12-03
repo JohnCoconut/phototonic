@@ -24,7 +24,7 @@
 class ThumbsViewer;
 
 class CopyMoveDialog : public QDialog {
-Q_OBJECT
+    Q_OBJECT
 
 public slots:
 
@@ -33,7 +33,8 @@ public slots:
 public:
     CopyMoveDialog(QWidget *parent);
 
-    static int copyOrMoveFile(bool isCopy, const QString &srcFile, const QString &srcPath, QString &dstPath, const QString &dstDir);
+    static int copyOrMoveFile(bool isCopy, const QString &srcFile, const QString &srcPath,
+                              QString &dstPath, const QString &dstDir);
 
     void execute(ThumbsViewer *thumbView, const QString &destDir, bool pasteInCurrDir);
 

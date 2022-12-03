@@ -19,7 +19,8 @@
 #include "FileSystemModel.h"
 #include "IconProvider.h"
 
-FileSystemModel::FileSystemModel(QObject *parent) : QFileSystemModel(parent)
+FileSystemModel::FileSystemModel(QObject *parent)
+    : QFileSystemModel(parent)
 {
     m_iconProvider = new IconProvider;
     setIconProvider(m_iconProvider);
@@ -30,7 +31,8 @@ FileSystemModel::~FileSystemModel()
     delete m_iconProvider;
 }
 
-bool FileSystemModel::hasChildren(const QModelIndex &parent) const {
+bool FileSystemModel::hasChildren(const QModelIndex &parent) const
+{
     if (parent.column() > 0) {
         return false;
     }
@@ -43,5 +45,7 @@ bool FileSystemModel::hasChildren(const QModelIndex &parent) const {
         return false;
     }
 
-    return QDirIterator(filePath(parent), filter() | QDir::NoDotAndDotDot, QDirIterator::NoIteratorFlags).hasNext();
+    return QDirIterator(filePath(parent), filter() | QDir::NoDotAndDotDot,
+                        QDirIterator::NoIteratorFlags)
+        .hasNext();
 }

@@ -26,7 +26,6 @@ class ImageViewer;
 
 class ColorsDialog : public QDialog {
     Q_OBJECT
-
 public:
     ColorsDialog(QWidget *parent, ImageViewer *imageViewer);
 

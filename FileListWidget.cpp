@@ -20,28 +20,33 @@
 
 #include <QMimeData>
 
-FileListWidget::FileListWidget(QWidget *parent) : QTreeWidget(parent) {
+FileListWidget::FileListWidget(QWidget *parent)
+    : QTreeWidget(parent)
+{
     setAcceptDrops(true);
     setDragEnabled(false);
     setDragDropMode(QAbstractItemView::DropOnly);
     setColumnCount(1);
     setHeaderHidden(true);
     addFileListEntry();
-    setMaximumHeight((int) (QFontMetrics(font()).height() * 1.6));
+    setMaximumHeight((int)(QFontMetrics(font()).height() * 1.6));
 }
 
-void FileListWidget::addFileListEntry() {
+void FileListWidget::addFileListEntry()
+{
     QTreeWidgetItem *item = new QTreeWidgetItem(this);
     item->setText(0, "File List");
     item->setIcon(0, style()->standardIcon(QStyle::SP_FileDialogDetailedView));
     insertTopLevelItem(0, item);
 }
 
-void FileListWidget::resizeTreeColumn(const QModelIndex &) {
+void FileListWidget::resizeTreeColumn(const QModelIndex &)
+{
     resizeColumnToContents(0);
 }
 
-void FileListWidget::dragEnterEvent(QDragEnterEvent *event) {
+void FileListWidget::dragEnterEvent(QDragEnterEvent *event)
+{
     QModelIndexList selectedDirs = selectionModel()->selectedRows();
 
     if (!selectedDirs.empty()) {
@@ -50,14 +55,17 @@ void FileListWidget::dragEnterEvent(QDragEnterEvent *event) {
     event->acceptProposedAction();
 }
 
-void FileListWidget::dragMoveEvent(QDragMoveEvent *event) {
+void FileListWidget::dragMoveEvent(QDragMoveEvent *event)
+{
     setCurrentIndex(indexAt(event->pos()));
 }
 
-void FileListWidget::dropEvent(QDropEvent *event) {
+void FileListWidget::dropEvent(QDropEvent *event)
+{
     if (event->source()) {
         QString fileSystemTreeStr("FileSystemTree");
         bool dirOp = (event->source()->metaObject()->className() == fileSystemTreeStr);
-        emit dropOp(event->keyboardModifiers(), dirOp, event->mimeData()->urls().at(0).toLocalFile());
+        emit dropOp(event->keyboardModifiers(), dirOp,
+                    event->mimeData()->urls().at(0).toLocalFile());
     }
 }

@@ -23,12 +23,12 @@
 #include <QWidget>
 
 class RenameDialog : public QDialog {
-Q_OBJECT
+    Q_OBJECT
 
 public:
     RenameDialog(QWidget *parent);
 
-    void setFileName(const QString& name);
+    void setFileName(const QString &name);
 
     QString getFileName() { return fileNameLineEdit->text(); }
 

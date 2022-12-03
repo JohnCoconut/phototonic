@@ -23,7 +23,8 @@
 
 #include <QMovie>
 
-ImagePreview::ImagePreview(QWidget *parent) : QWidget(parent)
+ImagePreview::ImagePreview(QWidget *parent)
+    : QWidget(parent)
 {
 
     imageLabel = new QLabel;
@@ -49,15 +50,16 @@ ImagePreview::ImagePreview(QWidget *parent) : QWidget(parent)
     setLayout(mainLayout);
 }
 
-QPixmap& ImagePreview::loadImage(const QString& imageFileName) {
+QPixmap &ImagePreview::loadImage(const QString &imageFileName)
+{
     delete animation;
 
     QImageReader imageReader(imageFileName);
 
     if (!imageReader.size().isValid()) {
-        previewPixmap = QIcon::fromTheme("image-missing",
-                                         QIcon(":/images/error_image.png")).pixmap(BAD_IMAGE_SIZE, BAD_IMAGE_SIZE);
-    } else if (Settings::enableAnimations && imageReader.supportsAnimation()){
+        previewPixmap = QIcon::fromTheme("image-missing", QIcon(":/images/error_image.png"))
+                            .pixmap(BAD_IMAGE_SIZE, BAD_IMAGE_SIZE);
+    } else if (Settings::enableAnimations && imageReader.supportsAnimation()) {
         animation = new QMovie(imageFileName);
         animation->setParent(imageLabel);
         animation->start();
@@ -83,7 +85,8 @@ QPixmap& ImagePreview::loadImage(const QString& imageFileName) {
     return previewPixmap;
 }
 
-void ImagePreview::clear() {
+void ImagePreview::clear()
+{
     imageLabel->clear();
 }
 
@@ -91,7 +94,8 @@ void ImagePreview::resizeImagePreview()
 {
     QSize previewSizePixmap = previewPixmap.size();
 
-    if (Settings::upscalePreview || previewSizePixmap.width() > scrollArea->width() || previewSizePixmap.height() > scrollArea->height()) {
+    if (Settings::upscalePreview || previewSizePixmap.width() > scrollArea->width()
+        || previewSizePixmap.height() > scrollArea->height()) {
         previewSizePixmap.scale(scrollArea->width(), scrollArea->height(), Qt::KeepAspectRatio);
     }
 
@@ -99,20 +103,24 @@ void ImagePreview::resizeImagePreview()
     imageLabel->adjustSize();
 }
 
-void ImagePreview::resizeEvent(QResizeEvent *event) {
+void ImagePreview::resizeEvent(QResizeEvent *event)
+{
     QWidget::resizeEvent(event);
     resizeImagePreview();
 }
 
-void ImagePreview::setBackgroundColor() {
+void ImagePreview::setBackgroundColor()
+{
     QString bgColor = "background: rgb(%1, %2, %3); ";
     bgColor = bgColor.arg(Settings::thumbsBackgroundColor.red())
-            .arg(Settings::thumbsBackgroundColor.green()).arg(Settings::thumbsBackgroundColor.blue());
+                  .arg(Settings::thumbsBackgroundColor.green())
+                  .arg(Settings::thumbsBackgroundColor.blue());
 
     QString ss = "QWidget { " + bgColor + " }";
     scrollArea->setStyleSheet(ss);
 }
 
-void ImagePreview::setImageViewer(ImageViewer *imageViewer) {
+void ImagePreview::setImageViewer(ImageViewer *imageViewer)
+{
     this->imageViewer = imageViewer;
 }

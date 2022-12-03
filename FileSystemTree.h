@@ -23,7 +23,7 @@
 class FileSystemModel;
 
 class FileSystemTree : public QTreeView {
-Q_OBJECT
+    Q_OBJECT
 
 public:
     FileSystemTree(QWidget *parent);

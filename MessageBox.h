@@ -21,7 +21,7 @@
 #include <QMessageBox>
 
 class MessageBox : public QMessageBox {
-Q_OBJECT
+    Q_OBJECT
 
 public:
     MessageBox(QWidget *parent);

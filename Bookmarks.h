@@ -21,7 +21,7 @@
 #include <QTreeWidget>
 
 class BookMarks : public QTreeWidget {
-Q_OBJECT
+    Q_OBJECT
 
 public:
     BookMarks(QWidget *parent);

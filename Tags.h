@@ -26,12 +26,14 @@
 
 class ThumbsViewer;
 
-enum TagsDisplayMode {
+enum TagsDisplayMode
+{
     DirectoryTagsDisplay,
     SelectionTagsDisplay
 };
 
-enum TagIcons {
+enum TagIcons
+{
     TagIconDisabled,
     TagIconEnabled,
     TagIconMultiple,
@@ -41,12 +43,13 @@ enum TagIcons {
 };
 
 class ImageTags : public QWidget {
-Q_OBJECT
+    Q_OBJECT
 
 public:
-    ImageTags(QWidget *parent, ThumbsViewer *thumbsViewer, const std::shared_ptr<MetadataCache> &metadataCache);
+    ImageTags(QWidget *parent, ThumbsViewer *thumbsViewer,
+              const std::shared_ptr<MetadataCache> &metadataCache);
 
-    void addTag(const QString& tagName, bool tagChecked);
+    void addTag(const QString &tagName, bool tagChecked);
 
     void showTagsFilter();
 
@@ -54,7 +57,7 @@ public:
 
     void resetTagsState();
 
-    bool isImageFilteredOut(const QString& imagePath);
+    bool isImageFilteredOut(const QString &imagePath);
 
     void removeTag();
 
@@ -77,7 +80,7 @@ private:
 
     void applyUserAction(QTreeWidgetItem *item);
 
-    void applyUserAction(const QList<QTreeWidgetItem *>& tagsList);
+    void applyUserAction(const QList<QTreeWidgetItem *> &tagsList);
 
     void redrawTagTree();
 

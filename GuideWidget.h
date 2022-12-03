@@ -22,8 +22,7 @@
 
 class QAction;
 
-class GuideWidget : public QWidget
-{
+class GuideWidget : public QWidget {
     Q_OBJECT
 public:
     explicit GuideWidget(QWidget *parent = nullptr, bool vertical = false);

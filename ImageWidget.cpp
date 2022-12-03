@@ -18,10 +18,11 @@
 
 #include "ImageWidget.h"
 
-#include <QPainter>
 #include <QPaintEvent>
+#include <QPainter>
 
-ImageWidget::ImageWidget(QWidget *parent) : QWidget(parent)
+ImageWidget::ImageWidget(QWidget *parent)
+    : QWidget(parent)
 {
 }
 
@@ -64,10 +65,15 @@ void ImageWidget::paintEvent(QPaintEvent *ev)
         QRectF sourceRect(sx, sy, sw, sh);
         QRectF targetRect = rect();
         targetRect &= ev->rect();
-        sourceRect &= QRectF(ev->rect().x() / scale, ev->rect().y() / scale, ev->rect().width() / scale, ev->rect().height() / scale);
+        sourceRect &= QRectF(ev->rect().x() / scale, ev->rect().y() / scale,
+                             ev->rect().width() / scale, ev->rect().height() / scale);
 
         if (sourceRect.width() * sourceRect.height() < 500 * 500) {
-            painter.drawImage(targetRect.topLeft(), m_image.copy(sourceRect.toRect()).scaled(targetRect.toRect().size(), Qt::KeepAspectRatioByExpanding, Qt::SmoothTransformation));
+            painter.drawImage(targetRect.topLeft(),
+                              m_image.copy(sourceRect.toRect())
+                                  .scaled(targetRect.toRect().size(),
+                                          Qt::KeepAspectRatioByExpanding,
+                                          Qt::SmoothTransformation));
 
         } else {
             painter.drawImage(targetRect, m_image, sourceRect);
@@ -82,8 +88,8 @@ void ImageWidget::paintEvent(QPaintEvent *ev)
     painter.translate(center * -1);
     QPoint upperLeft;
     if (width() > m_image.width() * scale)
-        upperLeft.setX(center.x() - scale*m_image.width() / 2);
+        upperLeft.setX(center.x() - scale * m_image.width() / 2);
     if (height() > m_image.height() * scale)
-        upperLeft.setY(center.y() - scale*m_image.height() / 2);
+        upperLeft.setY(center.y() - scale * m_image.height() / 2);
     painter.drawImage(upperLeft, m_image);
 }

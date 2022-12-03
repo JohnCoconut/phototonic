@@ -16,8 +16,8 @@
  *  along with Phototonic.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-#include "ImageViewer.h"
 #include "ColorsDialog.h"
+#include "ImageViewer.h"
 #include "Settings.h"
 #include <QDialog>
 #include <QGroupBox>
@@ -25,8 +25,9 @@
 #include <QLabel>
 #include <QPushButton>
 
-
-ColorsDialog::ColorsDialog(QWidget *parent, ImageViewer *imageViewer) : QDialog(parent) {
+ColorsDialog::ColorsDialog(QWidget *parent, ImageViewer *imageViewer)
+    : QDialog(parent)
+{
     setWindowTitle(tr("Colors"));
     setWindowIcon(QIcon(":/images/colors.png"));
     resize(350, 300);
@@ -203,7 +204,8 @@ ColorsDialog::ColorsDialog(QWidget *parent, ImageViewer *imageViewer) : QDialog(
     applyColors(0);
 }
 
-void ColorsDialog::applyColors(int) {
+void ColorsDialog::applyColors(int)
+{
     if (brightSlider->value() >= 0) {
         Settings::brightVal = (brightSlider->value() * 500 / 100) + 100;
     } else {
@@ -237,13 +239,15 @@ void ColorsDialog::applyColors(int) {
     imageViewer->refresh();
 }
 
-void ColorsDialog::ok() {
+void ColorsDialog::ok()
+{
     Settings::dialogLastX = pos().x();
     Settings::dialogLastY = pos().y();
     accept();
 }
 
-void ColorsDialog::reset() {
+void ColorsDialog::reset()
+{
     hueSlider->setValue(0);
     colorizeCheckBox->setChecked(false);
     rNegateCheckBox->setChecked(false);
@@ -268,37 +272,44 @@ void ColorsDialog::reset() {
     imageViewer->refresh();
 }
 
-void ColorsDialog::enableColorize(int state) {
+void ColorsDialog::enableColorize(int state)
+{
     Settings::colorizeEnabled = state;
     imageViewer->refresh();
 }
 
-void ColorsDialog::redNegative(int state) {
+void ColorsDialog::redNegative(int state)
+{
     Settings::rNegateEnabled = state;
     imageViewer->refresh();
 }
 
-void ColorsDialog::greenNegative(int state) {
+void ColorsDialog::greenNegative(int state)
+{
     Settings::gNegateEnabled = state;
     imageViewer->refresh();
 }
 
-void ColorsDialog::blueNegative(int state) {
+void ColorsDialog::blueNegative(int state)
+{
     Settings::bNegateEnabled = state;
     imageViewer->refresh();
 }
 
-void ColorsDialog::setRedChannel() {
+void ColorsDialog::setRedChannel()
+{
     Settings::hueRedChannel = redCheckBox->isChecked();
     imageViewer->refresh();
 }
 
-void ColorsDialog::setGreenChannel() {
+void ColorsDialog::setGreenChannel()
+{
     Settings::hueGreenChannel = greenCheckBox->isChecked();
     imageViewer->refresh();
 }
 
-void ColorsDialog::setBlueChannel() {
+void ColorsDialog::setBlueChannel()
+{
     Settings::hueBlueChannel = blueCheckBox->isChecked();
     imageViewer->refresh();
 }

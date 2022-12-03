@@ -19,7 +19,8 @@
 #include "DirCompleter.h"
 #include <QFileSystemModel>
 
-DirCompleter::DirCompleter(QObject *parent) : QCompleter(parent)
+DirCompleter::DirCompleter(QObject *parent)
+    : QCompleter(parent)
 {
     QFileSystemModel *model = new QFileSystemModel;
     model->setFilter(QDir::AllDirs | QDir::Dirs | QDir::NoDotAndDotDot);

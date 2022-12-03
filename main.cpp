@@ -23,7 +23,8 @@
 #include <QLibraryInfo>
 #include <QTranslator>
 
-int main(int argc, char *argv[]) {
+int main(int argc, char *argv[])
+{
     QApplication QApp(argc, argv);
     QLocale locale = QLocale::system();
     QCoreApplication::setApplicationVersion(VERSION);
@@ -36,14 +37,18 @@ int main(int argc, char *argv[]) {
                                  QCoreApplication::translate("main", "files or directory to open"),
                                  QCoreApplication::translate("main", "[FILE...] | [DIRECTORY]"));
 
-    QCommandLineOption langOption(QStringList() << "l" << "lang",
-                                             QCoreApplication::translate("main", "start with a specific translation"),
-                                             QCoreApplication::translate("main", "language"));
+    QCommandLineOption langOption(
+        QStringList() << "l"
+                      << "lang",
+        QCoreApplication::translate("main", "start with a specific translation"),
+        QCoreApplication::translate("main", "language"));
     parser.addOption(langOption);
 
-    QCommandLineOption targetDirectoryOption(QStringList() << "o" << "output-directory",
-            QCoreApplication::translate("main", "Copy all modified images into <directory>."),
-            QCoreApplication::translate("main", "directory"));
+    QCommandLineOption targetDirectoryOption(
+        QStringList() << "o"
+                      << "output-directory",
+        QCoreApplication::translate("main", "Copy all modified images into <directory>."),
+        QCoreApplication::translate("main", "directory"));
     parser.addOption(targetDirectoryOption);
 
     parser.process(QApp);
