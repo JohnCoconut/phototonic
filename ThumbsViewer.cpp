@@ -590,7 +590,8 @@ void ThumbsViewer::applyFilter() {
     // Not threadsafe, but whatever
     if (imageTypeGlobs.isEmpty()) {
         QMimeDatabase db;
-        for (const QByteArray &type : QImageReader::supportedMimeTypes()) {
+        const auto& localSupportedMimeTypes = QImageReader::supportedMimeTypes();
+        for (const QByteArray& type : localSupportedMimeTypes) {
             imageTypeGlobs.append(db.mimeTypeForName(type).globPatterns());
         }
     }
