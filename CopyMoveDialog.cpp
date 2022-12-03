@@ -25,6 +25,8 @@
 #include <QHBoxLayout>
 #include <QPushButton>
 
+#include <limits>
+
 static QString autoRename(const QString &destDir, const QString &currFile)
 {
     int extSep = currFile.lastIndexOf('.');
@@ -36,7 +38,8 @@ static QString autoRename(const QString &destDir, const QString &currFile)
     do {
         newFile = QString(nameOnly + "_copy_%1." + extOnly).arg(idx);
         ++idx;
-    } while (idx && (QFile::exists(destDir + QDir::separator() + newFile)));
+    } while (idx <= std::numeric_limits<int>::max()
+             && (QFile::exists(destDir + QDir::separator() + newFile)));
 
     return newFile;
 }
