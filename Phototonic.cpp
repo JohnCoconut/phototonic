@@ -322,7 +322,6 @@ void Phototonic::createImageViewer()
     imageViewer->ImagePopUpMenu->addAction(copyImageAction);
     imageViewer->ImagePopUpMenu->addAction(pasteImageAction);
     imageViewer->ImagePopUpMenu->addAction(CloseImageAction);
-    imageViewer->ImagePopUpMenu->addAction(exitAction);
 
     addMenuSeparator(imageViewer->ImagePopUpMenu);
     imageViewer->ImagePopUpMenu->addAction(settingsAction);
