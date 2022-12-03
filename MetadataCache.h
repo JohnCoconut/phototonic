@@ -16,8 +16,7 @@
  *  along with Phototonic.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-#ifndef META_DATA_CACHE_H
-#define META_DATA_CACHE_H
+#pragma once
 
 #include <QMap>
 #include <QSet>
@@ -51,6 +50,3 @@ public:
 
     long getImageOrientation(const QString &imageFileName);
 };
-
-#endif // META_DATA_CACHE_H
-

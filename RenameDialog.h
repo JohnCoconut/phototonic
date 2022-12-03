@@ -16,8 +16,7 @@
  *  along with Phototonic.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-#ifndef RENAME_DIALOG_H
-#define RENAME_DIALOG_H
+#pragma once
 
 #include <QDialog>
 #include <QLineEdit>
@@ -41,5 +40,3 @@ public slots:
 private:
     QLineEdit *fileNameLineEdit;
 };
-
-#endif // RENAME_DIALOG_H

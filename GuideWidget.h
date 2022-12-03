@@ -16,8 +16,7 @@
  *  along with Phototonic.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-#ifndef GUIDEWIDGET_H
-#define GUIDEWIDGET_H
+#pragma once
 
 #include <QWidget>
 
@@ -40,5 +39,3 @@ private:
     bool m_vertical;
     static QAction *m_deleteAction;
 };
-
-#endif // GUIDEWIDGET_H

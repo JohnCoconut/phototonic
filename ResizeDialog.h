@@ -16,8 +16,7 @@
  *  along with Phototonic.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-#ifndef RESIZE_DIALOG_H
-#define RESIZE_DIALOG_H
+#pragma once
 
 #include <QDialog>
 #include <QLabel>
@@ -61,5 +60,3 @@ private:
     QLabel *newSizePixelsLabel;
     ImageViewer *imageViewer;
 };
-
-#endif // RESIZE_DIALOG_H

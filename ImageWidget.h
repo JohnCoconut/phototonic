@@ -16,8 +16,7 @@
  *  along with Phototonic.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-#ifndef IMAGEWIDGET_H
-#define IMAGEWIDGET_H
+#pragma once
 
 #include <QWidget>
 
@@ -50,5 +49,3 @@ private:
     QImage m_image;
     qreal m_rotation = 0;
 };
-
-#endif // IMAGEWIDGET_H

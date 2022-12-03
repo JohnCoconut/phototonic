@@ -16,8 +16,7 @@
  *  along with Phototonic.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-#ifndef PHOTOTONIC_H
-#define PHOTOTONIC_H
+#pragma once
 
 #include "ColorsDialog.h"
 #include "CopyMoveToDialog.h"
@@ -543,5 +542,3 @@ private:
 
     void setViewerKeyEventsEnabled(bool enabled);
 };
-
-#endif // PHOTOTONIC_H

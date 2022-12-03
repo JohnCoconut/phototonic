@@ -16,8 +16,7 @@
  *  along with Phototonic.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-#ifndef COPY_MOVE_TO_DIALOG_H
-#define COPY_MOVE_TO_DIALOG_H
+#pragma once
 
 #include <QDialog>
 #include <QItemSelection>
@@ -57,5 +56,3 @@ private:
 
     void savePaths();
 };
-
-#endif // COPY_MOVE_TO_DIALOG_H

@@ -16,8 +16,7 @@
  *  along with Phototonic.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-#ifndef DIR_COMPLETER_H
-#define DIR_COMPLETER_H
+#pragma once
 
 #include <QCompleter>
 
@@ -32,5 +31,3 @@ public slots:
 
     QStringList splitPath(const QString &path) const;
 };
-
-#endif // DIR_COMPLETER_H

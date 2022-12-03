@@ -16,8 +16,7 @@
  *  along with Phototonic.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-#ifndef CROPRUBBERBAND_H
-#define CROPRUBBERBAND_H
+#pragma once
 
 #include <QMouseEvent>
 #include <QPoint>
@@ -45,6 +44,3 @@ private:
 
     void resizeEvent(QResizeEvent *) override;
 };
-
-#endif // CROPRUBBERBAND_H
-

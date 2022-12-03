@@ -16,8 +16,7 @@
  *  along with Phototonic.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-#ifndef IMAGE_VIEWER_H
-#define IMAGE_VIEWER_H
+#pragma once
 
 #include "MetadataCache.h"
 
@@ -175,5 +174,3 @@ private:
 
     void setImage(const QImage &image);
 };
-
-#endif // IMAGE_VIEWER_H

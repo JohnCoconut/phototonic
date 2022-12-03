@@ -16,8 +16,7 @@
  *  along with Phototonic.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-#ifndef BOOKMARKS_H
-#define BOOKMARKS_H
+#pragma once
 
 #include <QTreeWidget>
 
@@ -51,6 +50,3 @@ signals:
 
     void dropOp(Qt::KeyboardModifiers keyMods, bool dirOp, QString cpMvDirPath);
 };
-
-#endif // BOOKMARKS_H
-

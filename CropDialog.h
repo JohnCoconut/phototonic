@@ -16,8 +16,7 @@
  *  along with Phototonic.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-#ifndef CROP_DIALOG_H
-#define CROP_DIALOG_H
+#pragma once
 
 #include <QDialog>
 #include <QSpinBox>
@@ -45,5 +44,3 @@ private:
     QSpinBox *rightSpinBox;
     ImageViewer *imageViewer;
 };
-
-#endif // CROP_DIALOG_H

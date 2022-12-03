@@ -16,8 +16,7 @@
  *  along with Phototonic.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-#ifndef SETTINGS_H
-#define SETTINGS_H
+#pragma once
 
 #define THUMB_SIZE_MIN 25
 #define THUMB_SIZE_MAX 512
@@ -172,5 +171,3 @@ namespace Settings {
     extern bool upscalePreview;
     extern bool scrollZooms;
 }
-
-#endif // SETTINGS_H

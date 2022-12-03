@@ -16,8 +16,7 @@
  *  along with Phototonic.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-#ifndef INFO_VIEWER_H
-#define INFO_VIEWER_H
+#pragma once
 
 #include <QStandardItemModel>
 #include <QTableView>
@@ -61,5 +60,3 @@ private:
     QLineEdit *filterLineEdit;
 
 };
-
-#endif // INFO_VIEWER_H

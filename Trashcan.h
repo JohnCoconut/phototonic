@@ -16,8 +16,7 @@
  *  along with Phototonic.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-#ifndef TRASHCAN_H
-#define TRASHCAN_H
+#pragma once
 
 #include <QString>
 
@@ -37,5 +36,3 @@ namespace Trash {
 
     Trash::Result moveToTrash(const QString &filePath, QString &error, Options trashOptions = NoOptions);
 }
-
-#endif // TRASHCAN_H

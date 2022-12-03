@@ -16,8 +16,7 @@
  *  along with Phototonic.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-#ifndef FILE_SYSTEM_MODEL_H
-#define FILE_SYSTEM_MODEL_H
+#pragma once
 
 #include <QFileSystemModel>
 #include <QModelIndex>
@@ -36,6 +35,3 @@ public:
 private:
     IconProvider *m_iconProvider;
 };
-
-#endif // FILE_SYSTEM_MODEL_H
-

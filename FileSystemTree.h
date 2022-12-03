@@ -15,8 +15,8 @@
  *  You should have received a copy of the GNU General Public License
  *  along with Phototonic.  If not, see <http://www.gnu.org/licenses/>.
  */
-#ifndef FILE_SYSTEM_TREE_H
-#define FILE_SYSTEM_TREE_H
+
+#pragma once
 
 #include <QTreeView>
 
@@ -52,6 +52,3 @@ private slots:
 
     void resizeTreeColumn(const QModelIndex &);
 };
-
-#endif // FILE_SYSTEM_TREE_H
-

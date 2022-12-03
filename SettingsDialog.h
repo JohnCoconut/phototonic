@@ -16,8 +16,7 @@
  *  along with Phototonic.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-#ifndef SETTINGS_DIALOG_H
-#define SETTINGS_DIALOG_H
+#pragma once
 
 #include <QCheckBox>
 #include <QDialog>
@@ -81,6 +80,3 @@ private:
 
     void setButtonBgColor(const QColor &color, QToolButton *button);
 };
-
-#endif // SETTINGS_DIALOG_H
-

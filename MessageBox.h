@@ -16,8 +16,7 @@
  *  along with Phototonic.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-#ifndef MESSAGE_BOX_H
-#define MESSAGE_BOX_H
+#pragma once
 
 #include <QMessageBox>
 
@@ -33,5 +32,3 @@ public:
 
     void about();
 };
-
-#endif // MESSAGE_BOX_H

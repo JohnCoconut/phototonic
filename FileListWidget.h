@@ -16,8 +16,7 @@
  *  along with Phototonic.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-#ifndef FILE_LIST_WIDGET_H
-#define FILE_LIST_WIDGET_H
+#pragma once
 
 #include <QDragEnterEvent>
 #include <QDragMoveEvent>
@@ -52,6 +51,3 @@ signals:
 
     void dropOp(Qt::KeyboardModifiers keyMods, bool dirOp, QString cpMvDirPath);
 };
-
-#endif // FILE_LIST_WIDGET_H
-

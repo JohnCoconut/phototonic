@@ -1,5 +1,4 @@
-#ifndef RANGEINPUTDIALOG_H
-#define RANGEINPUTDIALOG_H
+#pragma once
 
 #include <QDialog>
 
@@ -20,5 +19,3 @@ public:
 private:
     Ui::RangeInputDialog *ui;
 };
-
-#endif // RANGEINPUTDIALOG_H

@@ -16,8 +16,7 @@
  *  along with Phototonic.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-#ifndef IMAGE_PREVIEW_H
-#define IMAGE_PREVIEW_H
+#pragma once
 
 #include <QLabel>
 #include <QPointer>
@@ -54,5 +53,3 @@ private:
     QPointer<QMovie> animation;
 
 };
-
-#endif // IMAGE_PREVIEW_H

@@ -16,8 +16,7 @@
  *  along with Phototonic.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-#ifndef THUMBS_VIEWER_H
-#define THUMBS_VIEWER_H
+#pragma once
 
 #include "MetadataCache.h"
 
@@ -219,5 +218,3 @@ private slots:
 
     void loadAllThumbs();
 };
-
-#endif // THUMBS_VIEWER_H

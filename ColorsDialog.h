@@ -16,8 +16,7 @@
  *  along with Phototonic.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-#ifndef COLORS_DIALOG_H
-#define COLORS_DIALOG_H
+#pragma once
 
 #include <QCheckBox>
 #include <QDialog>
@@ -71,5 +70,3 @@ private:
     QCheckBox *gNegateCheckBox;
     QCheckBox *bNegateCheckBox;
 };
-
-#endif // COLORS_DIALOG_H

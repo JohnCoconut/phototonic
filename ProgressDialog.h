@@ -16,8 +16,7 @@
  *  along with Phototonic.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-#ifndef PROGRESS_DIALOG_H
-#define PROGRESS_DIALOG_H
+#pragma once
 
 #include <QDialog>
 #include <QLabel>
@@ -39,5 +38,3 @@ public:
 private:
     QPushButton *cancelButton;
 };
-
-#endif // PROGRESS_DIALOG_H

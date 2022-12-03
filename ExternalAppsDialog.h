@@ -16,8 +16,7 @@
  *  along with Phototonic.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-#ifndef EXTERNAL_APPS_DIALOG_H
-#define EXTERNAL_APPS_DIALOG_H
+#pragma once
 
 #include <QDialog>
 #include <QStandardItemModel>
@@ -48,5 +47,3 @@ private:
 
     void addTableModelItem(QStandardItemModel *model, const QString &key, const QString &val);
 };
-
-#endif // EXTERNAL_APPS_DIALOG_H

@@ -16,8 +16,7 @@
  *  along with Phototonic.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-#ifndef TAGS_H
-#define TAGS_H
+#pragma once
 
 #include "MetadataCache.h"
 
@@ -120,6 +119,3 @@ signals:
 
     void reloadThumbs();
 };
-
-#endif // TAGS_H
-

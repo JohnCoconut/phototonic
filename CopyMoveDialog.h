@@ -16,8 +16,7 @@
  *  along with Phototonic.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-#ifndef COPY_MOVE_DIALOG_H
-#define COPY_MOVE_DIALOG_H
+#pragma once
 
 #include <QDialog>
 #include <QLabel>
@@ -46,5 +45,3 @@ private:
     QPushButton *cancelButton;
     bool abortOp;
 };
-
-#endif // COPY_MOVE_DIALOG_H

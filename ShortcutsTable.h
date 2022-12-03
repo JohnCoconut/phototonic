@@ -16,8 +16,7 @@
  *  along with Phototonic.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-#ifndef SHORTCUTS_TABLE_H
-#define SHORTCUTS_TABLE_H
+#pragma once
 
 #include <QStandardItemModel>
 #include <QTableView>
@@ -51,5 +50,3 @@ private:
     QAction *clearAction;
     QString shortcutsFilter;
 };
-
-#endif // SHORTCUTS_TABLE_H
