@@ -237,7 +237,7 @@ void ThumbsViewer::updateImageInfoViewer(int row) {
     infoView->addEntry(key, val);
 
     key = tr("Modified");
-    val = imageInfo.lastModified().toString(Qt::SystemLocaleShortDate);
+    val = QLocale::system().toString(imageInfo.lastModified(), QLocale::ShortFormat);
     infoView->addEntry(key, val);
 
     if (imageInfoReader.size().isValid()) {
