@@ -305,8 +305,8 @@ void ThumbsViewer::updateImageInfoViewer(int row)
         Exiv2::ExifData::const_iterator end = exifData.end();
         infoView->addTitleEntry("Exif");
         for (Exiv2::ExifData::const_iterator md = exifData.begin(); md != end; ++md) {
-            key = QString::fromUtf8(md->tagName().c_str());
-            val = QString::fromUtf8(md->print().c_str());
+            key = QString::fromStdString(md->tagName());
+            val = QString::fromStdString(md->print());
             infoView->addEntry(key, val);
         }
     }
@@ -316,8 +316,8 @@ void ThumbsViewer::updateImageInfoViewer(int row)
         Exiv2::IptcData::iterator end = iptcData.end();
         infoView->addTitleEntry("IPTC");
         for (Exiv2::IptcData::iterator md = iptcData.begin(); md != end; ++md) {
-            key = QString::fromUtf8(md->tagName().c_str());
-            val = QString::fromUtf8(md->print().c_str());
+            key = QString::fromStdString(md->tagName());
+            val = QString::fromStdString(md->print());
             infoView->addEntry(key, val);
         }
     }
