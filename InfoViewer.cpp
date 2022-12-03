@@ -100,9 +100,8 @@ void InfoView::addEntry(const QString &key, const QString &value)
 
 void InfoView::addTitleEntry(const QString &title)
 {
-    int atRow = imageInfoModel->rowCount();
     QStandardItem *itemKey = new QStandardItem(title);
-    imageInfoModel->insertRow(atRow, itemKey);
+    imageInfoModel->appendRow(itemKey);
 
     QFont boldFont;
     boldFont.setBold(true);
