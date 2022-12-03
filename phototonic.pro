@@ -35,7 +35,7 @@ QT += widgets
 QMAKE_CXXFLAGS += $$(CXXFLAGS)
 QMAKE_CFLAGS += $$(CFLAGS)
 QMAKE_LFLAGS += $$(LDFLAGS)
-CONFIG += c++11
+CONFIG += c++17
 
 # Let's get some basic optimization from the compiler, it's the safe ones by default
 CONFIG += optimize
