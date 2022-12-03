@@ -31,16 +31,16 @@ public:
 
     void setImage(const QImage &i);
 
-    qreal rotation() { return m_rotation; }
+    qreal rotation() const { return m_rotation; }
 
     void setRotation(qreal r);
 
     QPoint mapToImage(QPoint p);
 
-    QSize imageSize() const { return m_image.size(); }
+    [[nodiscard]] QSize imageSize() const { return m_image.size(); }
 
 protected:
-    QSize sizeHint() const override { return m_image.size(); }
+    [[nodiscard]] QSize sizeHint() const override { return m_image.size(); }
 
     void paintEvent(QPaintEvent *event) override;
 

@@ -85,11 +85,11 @@ public:
 
     void reload();
 
-    int getImageWidthPreCropped() const { return origImage.width(); }
+    [[nodiscard]] int getImageWidthPreCropped() const { return origImage.width(); }
 
-    int getImageHeightPreCropped() const { return origImage.height(); }
+    [[nodiscard]] int getImageHeightPreCropped() const { return origImage.height(); }
 
-    bool isNewImage() const { return newImage; }
+    [[nodiscard]] bool isNewImage() const { return newImage; }
 
     void keyMoveEvent(int direction);
 
@@ -127,19 +127,19 @@ private slots:
     void updateRubberBandFeedback(QRect geom);
 
 protected:
-    void resizeEvent(QResizeEvent *event);
+    void resizeEvent(QResizeEvent *event) override;
 
-    void showEvent(QShowEvent *event);
+    void showEvent(QShowEvent *event) override;
 
-    void mouseMoveEvent(QMouseEvent *event);
+    void mouseMoveEvent(QMouseEvent *event) override;
 
-    void contextMenuEvent(QContextMenuEvent *event);
+    void contextMenuEvent(QContextMenuEvent *event) override;
 
-    void mouseDoubleClickEvent(QMouseEvent *event);
+    void mouseDoubleClickEvent(QMouseEvent *event) override;
 
-    void mousePressEvent(QMouseEvent *event);
+    void mousePressEvent(QMouseEvent *event) override;
 
-    void mouseReleaseEvent(QMouseEvent *event);
+    void mouseReleaseEvent(QMouseEvent *event) override;
 
 private:
     Phototonic *phototonic;

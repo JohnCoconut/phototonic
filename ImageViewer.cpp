@@ -580,10 +580,10 @@ void ImageViewer::colorize()
     float brightness = ((float)Settings::brightVal / 100.0);
 
     for (i = 0; i < 256; ++i) {
-        if (i < (int)(128.0F + 128.0F * tan(contrast))
-            && i > (int)(128.0F - 128.0F * tan(contrast))) {
-            contrastTransform[i] = (i - 128) / tan(contrast) + 128;
-        } else if (i >= (int)(128.0F + 128.0F * tan(contrast))) {
+        if (i < (int)(128.0F + 128.0F * std::tan(contrast))
+            && i > (int)(128.0F - 128.0F * std::tan(contrast))) {
+            contrastTransform[i] = (i - 128) / std::tan(contrast) + 128;
+        } else if (i >= (int)(128.0F + 128.0F * std::tan(contrast))) {
             contrastTransform[i] = 255;
         } else {
             contrastTransform[i] = 0;

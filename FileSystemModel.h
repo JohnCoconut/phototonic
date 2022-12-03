@@ -29,8 +29,8 @@ class FileSystemModel : public QFileSystemModel {
 
 public:
     FileSystemModel(QObject *parent = nullptr);
-    ~FileSystemModel();
-    bool hasChildren(const QModelIndex &parent) const;
+    ~FileSystemModel() override;
+    [[nodiscard]] bool hasChildren(const QModelIndex &parent) const override;
 
 private:
     IconProvider *m_iconProvider;

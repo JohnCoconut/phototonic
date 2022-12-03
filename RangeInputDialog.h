@@ -11,7 +11,7 @@ class RangeInputDialog : public QDialog {
 
 public:
     explicit RangeInputDialog(QWidget *parent = nullptr);
-    ~RangeInputDialog();
+    ~RangeInputDialog() override;
 
     qreal minimumValue();
     qreal maximumValue();

@@ -39,7 +39,7 @@ public slots:
     void clearSelectedShortcut();
 
 protected:
-    void keyPressEvent(QKeyEvent *keyEvent);
+    void keyPressEvent(QKeyEvent *keyEvent) override;
 
 private:
     bool confirmOverwriteShortcut(const QString &action, const QString &shortcut);
