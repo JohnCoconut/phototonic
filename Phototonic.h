@@ -54,7 +54,7 @@ public:
 
     void showBusyAnimation(bool busy);
 
-    QIcon &getDefaultWindowIcon();
+    QIcon &getDefaultWindowIcon() { return defaultApplicationIcon; }
 
     enum CentralWidgets {
         ThumbViewWidget = 0,

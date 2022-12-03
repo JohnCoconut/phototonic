@@ -25,16 +25,6 @@ ImageWidget::ImageWidget(QWidget *parent) : QWidget(parent)
 {
 }
 
-bool ImageWidget::empty()
-{
-    return m_image.isNull();
-}
-
-QImage ImageWidget::image()
-{
-    return m_image;
-}
-
 void ImageWidget::setImage(const QImage &i)
 {
     m_image = i;
@@ -57,16 +47,6 @@ QPoint ImageWidget::mapToImage(QPoint p)
     if (height() > m_image.height())
         upperLeft.setY(center.y() - m_image.height() / 2);
     return QPoint(p.x() - upperLeft.x(), p.y() - upperLeft.y());
-}
-
-QSize ImageWidget::imageSize() const
-{
-    return m_image.size();
-}
-
-QSize ImageWidget::sizeHint() const
-{
-    return m_image.size();
 }
 
 void ImageWidget::paintEvent(QPaintEvent *ev)

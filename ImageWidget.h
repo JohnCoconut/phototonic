@@ -26,17 +26,23 @@ class ImageWidget : public QWidget
     Q_OBJECT
 public:
     explicit ImageWidget(QWidget *parent = nullptr);
-    bool empty();
-    QImage image();
+
+    bool empty() { return m_image.isNull(); }
+
+    QImage image() { return m_image; }
+
     void setImage(const QImage &i);
+
     qreal rotation() { return m_rotation; }
+
     void setRotation(qreal r);
+
     QPoint mapToImage(QPoint p);
-    QSize imageSize() const;
+
+    QSize imageSize() const { return m_image.size(); }
 
 protected:
-
-    QSize sizeHint() const override;
+    QSize sizeHint() const override { return m_image.size(); }
 
     void paintEvent(QPaintEvent *event) override;
 

@@ -31,16 +31,14 @@ public:
 
     void setFileName(const QString& name);
 
-    QString getFileName();
+    QString getFileName() { return fileNameLineEdit->text(); }
 
 public slots:
-
     void ok();
 
     void abort();
 
 private:
-
     QLineEdit *fileNameLineEdit;
 };
 

@@ -49,7 +49,6 @@ private:
     QModelIndex selectedEntry;
     QMenu *shortcutsMenu;
     QAction *clearAction;
-
     QString shortcutsFilter;
 };
 

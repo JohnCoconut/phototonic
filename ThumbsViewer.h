@@ -128,15 +128,15 @@ public:
 
     void selectByBrightness(qreal min, qreal max);
 
-    int getNextRow();
+    int getNextRow() const;
 
-    int getPrevRow();
+    int getPrevRow() const;
 
-    int getLastRow();
+    int getLastRow() const;
 
-    int getRandomRow();
+    int getRandomRow() const;
 
-    int getCurrentRow();
+    int getCurrentRow() const;
 
     QStringList getSelectedThumbsList();
 

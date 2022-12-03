@@ -114,10 +114,6 @@ void Phototonic::processStartupArguments(const QStringList& argumentsList, int f
     selectCurrentViewDir();
 }
 
-QIcon &Phototonic::getDefaultWindowIcon() {
-    return defaultApplicationIcon;
-}
-
 void Phototonic::loadStartupFileList(const QStringList& argumentsList, int filesStartAt) {
     Settings::filesList.clear();
     for (int i = filesStartAt; i < argumentsList.size(); i++) {

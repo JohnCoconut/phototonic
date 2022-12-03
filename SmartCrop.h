@@ -42,5 +42,7 @@ struct CropOptions {
 };
 
 QImage crop(const QImage &input, CropOptions options);
+
 QRect smartCropRect(const QImage &input, CropOptions options);
+
 }

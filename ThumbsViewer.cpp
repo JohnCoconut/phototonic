@@ -146,7 +146,7 @@ QString ThumbsViewer::getSingleSelectionFilename() {
     return ("");
 }
 
-int ThumbsViewer::getNextRow() {
+int ThumbsViewer::getNextRow() const {
     if (currentRow == thumbsViewerModel->rowCount() - 1) {
         return -1;
     }
@@ -154,7 +154,7 @@ int ThumbsViewer::getNextRow() {
     return currentRow + 1;
 }
 
-int ThumbsViewer::getPrevRow() {
+int ThumbsViewer::getPrevRow() const {
     if (currentRow == 0) {
         return -1;
     }
@@ -162,15 +162,15 @@ int ThumbsViewer::getPrevRow() {
     return currentRow - 1;
 }
 
-int ThumbsViewer::getLastRow() {
+int ThumbsViewer::getLastRow() const {
     return thumbsViewerModel->rowCount() - 1;
 }
 
-int ThumbsViewer::getRandomRow() {
+int ThumbsViewer::getRandomRow() const {
     return QRandomGenerator::global()->bounded(thumbsViewerModel->rowCount());
 }
 
-int ThumbsViewer::getCurrentRow() {
+int ThumbsViewer::getCurrentRow() const {
     return currentRow;
 }
 

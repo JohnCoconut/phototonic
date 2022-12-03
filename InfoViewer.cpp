@@ -26,7 +26,6 @@
 #include <QVBoxLayout>
 
 InfoView::InfoView(QWidget *parent) : QWidget(parent) {
-
     infoViewerTable = new QTableView();
     infoViewerTable->setSelectionMode(QAbstractItemView::ExtendedSelection);
     infoViewerTable->verticalHeader()->setVisible(false);

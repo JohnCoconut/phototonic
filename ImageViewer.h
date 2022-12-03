@@ -83,11 +83,11 @@ public:
 
     void reload();
 
-    int getImageWidthPreCropped();
+    int getImageWidthPreCropped() const { return origImage.width(); }
 
-    int getImageHeightPreCropped();
+    int getImageHeightPreCropped() const { return origImage.height(); }
 
-    bool isNewImage();
+    bool isNewImage() const { return newImage; }
 
     void keyMoveEvent(int direction);
 
@@ -99,7 +99,9 @@ public:
 
     void setBackgroundColor();
 
-    QPoint getContextMenuPosition();
+    QPoint getContextMenuPosition() {
+        return contextMenuPosition;
+    }
 
 signals:
     void toolsUpdated();
@@ -170,6 +172,7 @@ private:
     void mirror();
 
     void colorize();
+
     void setImage(const QImage &image);
 };
 

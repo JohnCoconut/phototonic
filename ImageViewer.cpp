@@ -1218,18 +1218,6 @@ void ImageViewer::contextMenuEvent(QContextMenuEvent *) {
     ImagePopUpMenu->exec(contextMenuPosition);
 }
 
-int ImageViewer::getImageWidthPreCropped() {
-    return origImage.width();
-}
-
-int ImageViewer::getImageHeightPreCropped() {
-    return origImage.height();
-}
-
-bool ImageViewer::isNewImage() {
-    return newImage;
-}
-
 void ImageViewer::copyImage() {
     QApplication::clipboard()->setImage(viewerImage);
 }
@@ -1259,6 +1247,3 @@ void ImageViewer::setBackgroundColor() {
     scrollArea->setStyleSheet(styleSheet);
 }
 
-QPoint ImageViewer::getContextMenuPosition() {
-    return contextMenuPosition;
-}
