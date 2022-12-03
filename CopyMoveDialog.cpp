@@ -92,7 +92,7 @@ CopyMoveDialog::CopyMoveDialog(QWidget *parent)
 
 void CopyMoveDialog::execute(ThumbsViewer *thumbView, const QString &destDir, bool pasteInCurrDir)
 {
-    int res = 0;
+    bool res = false;
     QString sourceFile;
     QFileInfo fileInfo;
     QString currFile;
