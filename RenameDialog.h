@@ -30,7 +30,7 @@ public:
 
     void setFileName(const QString &name);
 
-    QString getFileName() { return fileNameLineEdit->text(); }
+    [[nodiscard]] QString getFileName() const { return fileNameLineEdit->text(); }
 
 public slots:
     void ok();
