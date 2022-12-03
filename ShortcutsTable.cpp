@@ -41,10 +41,11 @@ ShortcutsTable::ShortcutsTable()
 
     shortcutsMenu = new QMenu("");
     clearAction = new QAction(tr("Delete shortcut"), this);
-    connect(clearAction, SIGNAL(triggered()), this, SLOT(clearSelectedShortcut()));
+    connect(clearAction, &QAction::triggered, this, &ShortcutsTable::clearSelectedShortcut);
     shortcutsMenu->addAction(clearAction);
     setContextMenuPolicy(Qt::CustomContextMenu);
-    connect(this, SIGNAL(customContextMenuRequested(QPoint)), SLOT(showShortcutPopupMenu(QPoint)));
+    connect(this, &ShortcutsTable::customContextMenuRequested, this,
+            &ShortcutsTable::showShortcutPopupMenu);
     shortcutsFilter.clear();
 }
 

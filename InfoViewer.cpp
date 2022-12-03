@@ -1,4 +1,4 @@
-/*
+﻿/*
  *  Copyright (C) 2013-2014 Ofer Kashayov <oferkv@live.com>
  *  This file is part of Phototonic Image Viewer.
  *
@@ -45,18 +45,18 @@ InfoView::InfoView(QWidget *parent)
 
     // Menu
     QAction *copyAction = new QAction(tr("Copy"), this);
-    infoViewerTable->connect(copyAction, SIGNAL(triggered()), this, SLOT(copyEntry()));
+    infoViewerTable->connect(copyAction, &QAction::triggered, this, &InfoView::copyEntry);
     infoMenu = new QMenu("");
     infoMenu->addAction(copyAction);
     infoViewerTable->setContextMenuPolicy(Qt::CustomContextMenu);
-    connect(infoViewerTable, SIGNAL(customContextMenuRequested(QPoint)),
-            SLOT(showInfoViewMenu(QPoint)));
+    connect(infoViewerTable, &QTableView::customContextMenuRequested, this,
+            &InfoView::showInfoViewMenu);
 
     QVBoxLayout *infoViewerLayout = new QVBoxLayout;
 
     // Filter items
     filterLineEdit = new QLineEdit;
-    connect(filterLineEdit, SIGNAL(textChanged(QString)), this, SLOT(filterItems()));
+    connect(filterLineEdit, &QLineEdit::textChanged, this, &InfoView::filterItems);
     filterLineEdit->setClearButtonEnabled(true);
     filterLineEdit->setPlaceholderText(tr("Filter Items"));
     infoViewerLayout->addWidget(filterLineEdit);

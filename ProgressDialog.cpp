@@ -27,7 +27,7 @@ ProgressDialog::ProgressDialog(QWidget *parent)
 {
     cancelButton = new QPushButton(tr("Cancel"));
     cancelButton->setSizePolicy(QSizePolicy::Fixed, QSizePolicy::Fixed);
-    connect(cancelButton, SIGNAL(clicked()), this, SLOT(abort()));
+    connect(cancelButton, &QPushButton::clicked, this, &ProgressDialog::abort);
 
     QHBoxLayout *topLayout = new QHBoxLayout;
     topLayout->addWidget(opLabel);

@@ -42,7 +42,7 @@ ImageTags::ImageTags(QWidget *parent, ThumbsViewer *thumbsViewer,
     tabs->setTabIcon(0, QIcon(":/images/tag_yellow.png"));
     tabs->setTabIcon(1, QIcon(":/images/tag_filter_off.png"));
     tabs->setExpanding(false);
-    connect(tabs, SIGNAL(currentChanged(int)), this, SLOT(tabsChanged(int)));
+    connect(tabs, &QTabBar::currentChanged, this, &ImageTags::tabsChanged);
 
     QVBoxLayout *mainLayout = new QVBoxLayout;
     mainLayout->setContentsMargins(0, 3, 0, 0);
@@ -53,35 +53,34 @@ ImageTags::ImageTags(QWidget *parent, ThumbsViewer *thumbsViewer,
     currentDisplayMode = SelectionTagsDisplay;
     dirFilteringActive = false;
 
-    connect(tagsTree, SIGNAL(itemChanged(QTreeWidgetItem *, int)), this,
-            SLOT(saveLastChangedTag(QTreeWidgetItem *, int)));
-    connect(tagsTree, SIGNAL(itemClicked(QTreeWidgetItem *, int)), this,
-            SLOT(tagClicked(QTreeWidgetItem *, int)));
+    connect(tagsTree, &QTreeWidget::itemChanged, this, &ImageTags::saveLastChangedTag);
+    connect(tagsTree, &QTreeWidget::itemClicked, this, &ImageTags::tagClicked);
 
     tagsTree->setContextMenuPolicy(Qt::CustomContextMenu);
-    connect(tagsTree, SIGNAL(customContextMenuRequested(QPoint)), SLOT(showMenu(QPoint)));
+    connect(tagsTree, &QTreeWidget::customContextMenuRequested, this, &ImageTags::showMenu);
 
     addToSelectionAction = new QAction(tr("Tag"), this);
     addToSelectionAction->setIcon(QIcon(":/images/tag_yellow.png"));
-    connect(addToSelectionAction, SIGNAL(triggered()), this, SLOT(addTagsToSelection()));
+    connect(addToSelectionAction, &QAction::triggered, this, &ImageTags::addTagsToSelection);
 
     removeFromSelectionAction = new QAction(tr("Untag"), this);
-    connect(removeFromSelectionAction, SIGNAL(triggered()), this, SLOT(removeTagsFromSelection()));
+    connect(removeFromSelectionAction, &QAction::triggered, this,
+            &ImageTags::removeTagsFromSelection);
 
     actionAddTag = new QAction(tr("New Tag"), this);
     actionAddTag->setIcon(QIcon(":/images/new_tag.png"));
-    connect(actionAddTag, SIGNAL(triggered()), this, SLOT(addNewTag()));
+    connect(actionAddTag, &QAction::triggered, this, &ImageTags::addNewTag);
 
     removeTagAction = new QAction(tr("Delete Tag"), this);
     removeTagAction->setIcon(QIcon::fromTheme("edit-delete", QIcon(":/images/delete.png")));
 
     actionClearTagsFilter = new QAction(tr("Clear Filters"), this);
     actionClearTagsFilter->setIcon(QIcon(":/images/tag_filter_off.png"));
-    connect(actionClearTagsFilter, SIGNAL(triggered()), this, SLOT(clearTagFilters()));
+    connect(actionClearTagsFilter, &QAction::triggered, this, &ImageTags::clearTagFilters);
 
     negateAction = new QAction(tr("Negate"), this);
     negateAction->setCheckable(true);
-    connect(negateAction, SIGNAL(triggered()), this, SLOT(negateFilter()));
+    connect(negateAction, &QAction::triggered, this, &ImageTags::negateFilter);
 
     tagsMenu = new QMenu("");
     tagsMenu->addAction(addToSelectionAction);

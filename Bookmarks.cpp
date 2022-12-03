@@ -34,8 +34,8 @@ BookMarks::BookMarks(QWidget *parent)
     setDragEnabled(false);
     setDragDropMode(QAbstractItemView::DropOnly);
 
-    connect(this, SIGNAL(expanded(QModelIndex)), this, SLOT(resizeTreeColumn(QModelIndex)));
-    connect(this, SIGNAL(collapsed(QModelIndex)), this, SLOT(resizeTreeColumn(QModelIndex)));
+    connect(this, &BookMarks::expanded, this, &BookMarks::resizeTreeColumn);
+    connect(this, &BookMarks::collapsed, this, &BookMarks::resizeTreeColumn);
 
     setColumnCount(1);
     setHeaderHidden(true);

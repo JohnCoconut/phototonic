@@ -128,7 +128,7 @@ ImageViewer::ImageViewer(QWidget *parent, const std::shared_ptr<MetadataCache> &
     feedbackLabel->setGraphicsEffect(feedbackEffect);
 
     mouseMovementTimer = new QTimer(this);
-    connect(mouseMovementTimer, SIGNAL(timeout()), this, SLOT(monitorCursorState()));
+    connect(mouseMovementTimer, &QTimer::timeout, this, &ImageViewer::monitorCursorState);
 
     Settings::cropLeft = Settings::cropTop = Settings::cropWidth = Settings::cropHeight = 0;
     Settings::cropLeftPercent = Settings::cropTopPercent = Settings::cropWidthPercent =

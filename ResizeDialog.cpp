@@ -42,21 +42,23 @@ ResizeDialog::ResizeDialog(QWidget *parent, ImageViewer *imageViewer)
 
     QHBoxLayout *buttonsHbox = new QHBoxLayout;
     QPushButton *okButton = new QPushButton(tr("Scale"));
-    connect(okButton, SIGNAL(clicked()), this, SLOT(ok()));
+    connect(okButton, &QPushButton::clicked, this, &ResizeDialog::ok);
     okButton->setDefault(true);
     QPushButton *cancelButton = new QPushButton(tr("Cancel"));
-    connect(cancelButton, SIGNAL(clicked()), this, SLOT(abort()));
+    connect(cancelButton, &QPushButton::clicked, this, &ResizeDialog::abort);
     buttonsHbox->addWidget(cancelButton, 1, Qt::AlignRight);
     buttonsHbox->addWidget(okButton, 0, Qt::AlignRight);
 
     widthSpinBox = new QSpinBox;
     widthSpinBox->setRange(0, width * 10);
     widthSpinBox->setValue(width);
-    connect(widthSpinBox, SIGNAL(valueChanged(int)), this, SLOT(adjustSizes()));
+    connect(widthSpinBox, QOverload<int>::of(&QSpinBox::valueChanged), this,
+            &ResizeDialog::adjustSizes);
     heightSpinBox = new QSpinBox;
     heightSpinBox->setRange(0, height * 10);
     heightSpinBox->setValue(height);
-    connect(heightSpinBox, SIGNAL(valueChanged(int)), this, SLOT(adjustSizes()));
+    connect(heightSpinBox, QOverload<int>::of(&QSpinBox::valueChanged), this,
+            &ResizeDialog::adjustSizes);
 
     QGridLayout *mainGbox = new QGridLayout;
     QLabel *origSizeLab = new QLabel(tr("Current size:"));
@@ -70,15 +72,15 @@ ResizeDialog::ResizeDialog(QWidget *parent, ImageViewer *imageViewer)
     newSizePixelsLabel = new QLabel(imageSizeStr);
 
     pixelsRadioButton = new QRadioButton(tr("Pixels"));
-    connect(pixelsRadioButton, SIGNAL(clicked()), this, SLOT(setUnits()));
+    connect(pixelsRadioButton, &QRadioButton::clicked, this, &ResizeDialog::setUnits);
     percentRadioButton = new QRadioButton(tr("Percent"));
-    connect(percentRadioButton, SIGNAL(clicked()), this, SLOT(setUnits()));
+    connect(percentRadioButton, &QRadioButton::clicked, this, &ResizeDialog::setUnits);
     pixelsRadioButton->setChecked(true);
     pixelUnits = true;
 
     QCheckBox *lockAspectCb = new QCheckBox(tr("Keep aspect ratio"), this);
     lockAspectCb->setChecked(true);
-    connect(lockAspectCb, SIGNAL(clicked()), this, SLOT(setAspectLock()));
+    connect(lockAspectCb, &QCheckBox::clicked, this, &ResizeDialog::setAspectLock);
     keepAspect = true;
 
     QHBoxLayout *radiosHbox = new QHBoxLayout;

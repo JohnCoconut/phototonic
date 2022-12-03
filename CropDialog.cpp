@@ -36,9 +36,9 @@ CropDialog::CropDialog(QWidget *parent, ImageViewer *imageViewer)
 
     QHBoxLayout *buttonsHbox = new QHBoxLayout;
     QPushButton *resetButton = new QPushButton(tr("Reset"));
-    connect(resetButton, SIGNAL(clicked()), this, SLOT(reset()));
+    connect(resetButton, &QPushButton::clicked, this, &CropDialog::reset);
     QPushButton *okButton = new QPushButton(tr("OK"));
-    connect(okButton, SIGNAL(clicked()), this, SLOT(ok()));
+    connect(okButton, &QPushButton::clicked, this, &CropDialog::ok);
     okButton->setDefault(true);
     buttonsHbox->addWidget(resetButton, 0, Qt::AlignLeft);
     buttonsHbox->addWidget(okButton, 0, Qt::AlignRight);
@@ -108,19 +108,24 @@ CropDialog::CropDialog(QWidget *parent, ImageViewer *imageViewer)
     leftSlide->setRange(0, 100);
     rightSlide->setRange(0, 100);
 
-    connect(topSlide, SIGNAL(valueChanged(int)), topSpinBox, SLOT(setValue(int)));
-    connect(bottomSlide, SIGNAL(valueChanged(int)), bottomSpinBox, SLOT(setValue(int)));
-    connect(leftSlide, SIGNAL(valueChanged(int)), leftSpinBox, SLOT(setValue(int)));
-    connect(rightSlide, SIGNAL(valueChanged(int)), rightSpinBox, SLOT(setValue(int)));
-    connect(topSpinBox, SIGNAL(valueChanged(int)), topSlide, SLOT(setValue(int)));
-    connect(bottomSpinBox, SIGNAL(valueChanged(int)), bottomSlide, SLOT(setValue(int)));
-    connect(leftSpinBox, SIGNAL(valueChanged(int)), leftSlide, SLOT(setValue(int)));
-    connect(rightSpinBox, SIGNAL(valueChanged(int)), rightSlide, SLOT(setValue(int)));
+    connect(topSlide, &QSlider::valueChanged, topSpinBox, &QSpinBox::setValue);
+    connect(bottomSlide, &QSlider::valueChanged, bottomSpinBox, &QSpinBox::setValue);
+    connect(leftSlide, &QSlider::valueChanged, leftSpinBox, &QSpinBox::setValue);
+    connect(rightSlide, &QSlider::valueChanged, rightSpinBox, &QSpinBox::setValue);
+    connect(topSpinBox, QOverload<int>::of(&QSpinBox::valueChanged), topSlide, &QSlider::setValue);
+    connect(bottomSpinBox, QOverload<int>::of(&QSpinBox::valueChanged), bottomSlide,
+            &QSlider::setValue);
+    connect(leftSpinBox, QOverload<int>::of(&QSpinBox::valueChanged), leftSlide,
+            &QSlider::setValue);
+    connect(rightSpinBox, QOverload<int>::of(&QSpinBox::valueChanged), rightSlide,
+            &QSlider::setValue);
 
-    connect(topSpinBox, SIGNAL(valueChanged(int)), this, SLOT(applyCrop(int)));
-    connect(bottomSpinBox, SIGNAL(valueChanged(int)), this, SLOT(applyCrop(int)));
-    connect(leftSpinBox, SIGNAL(valueChanged(int)), this, SLOT(applyCrop(int)));
-    connect(rightSpinBox, SIGNAL(valueChanged(int)), this, SLOT(applyCrop(int)));
+    connect(topSpinBox, QOverload<int>::of(&QSpinBox::valueChanged), this, &CropDialog::applyCrop);
+    connect(bottomSpinBox, QOverload<int>::of(&QSpinBox::valueChanged), this,
+            &CropDialog::applyCrop);
+    connect(leftSpinBox, QOverload<int>::of(&QSpinBox::valueChanged), this, &CropDialog::applyCrop);
+    connect(rightSpinBox, QOverload<int>::of(&QSpinBox::valueChanged), this,
+            &CropDialog::applyCrop);
 }
 
 void CropDialog::applyCrop(int)

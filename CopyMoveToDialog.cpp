@@ -121,16 +121,15 @@ CopyMoveToDialog::CopyMoveToDialog(QWidget *parent, const QString &thumbsPath, b
     pathsTable->horizontalHeader()->setSectionResizeMode(QHeaderView::Stretch);
     pathsTable->setShowGrid(false);
 
-    connect(pathsTable->selectionModel(), SIGNAL(selectionChanged(QItemSelection, QItemSelection)),
-            this, SLOT(selection(QItemSelection, QItemSelection)));
-    connect(pathsTable, SIGNAL(doubleClicked(QModelIndex)), this,
-            SLOT(pathDoubleClick(QModelIndex)));
+    connect(pathsTable->selectionModel(), &QItemSelectionModel::selectionChanged, this,
+            &CopyMoveToDialog::selection);
+    connect(pathsTable, &QTableView::doubleClicked, this, &CopyMoveToDialog::pathDoubleClick);
 
     QHBoxLayout *addRemoveHbox = new QHBoxLayout;
     QPushButton *addButton = new QPushButton(tr("Browse..."));
-    connect(addButton, SIGNAL(clicked()), this, SLOT(add()));
+    connect(addButton, &QPushButton::clicked, this, &CopyMoveToDialog::add);
     QPushButton *removeButton = new QPushButton(tr("Delete Bookmark"));
-    connect(removeButton, SIGNAL(clicked()), this, SLOT(remove()));
+    connect(removeButton, &QPushButton::clicked, this, &CopyMoveToDialog::remove);
     addRemoveHbox->addWidget(removeButton, 0, Qt::AlignLeft);
     addRemoveHbox->addStretch(1);
     addRemoveHbox->addWidget(addButton, 0, Qt::AlignRight);
@@ -138,13 +137,13 @@ CopyMoveToDialog::CopyMoveToDialog(QWidget *parent, const QString &thumbsPath, b
     QHBoxLayout *buttonsHbox = new QHBoxLayout;
     QPushButton *cancelButton = new QPushButton(tr("Cancel"));
     cancelButton->setSizePolicy(QSizePolicy::Fixed, QSizePolicy::Fixed);
-    connect(cancelButton, SIGNAL(clicked()), this, SLOT(justClose()));
+    connect(cancelButton, &QPushButton::clicked, this, &CopyMoveToDialog::justClose);
 
     QPushButton *okButton = new QPushButton(tr("OK"));
     okButton->setSizePolicy(QSizePolicy::Fixed, QSizePolicy::Fixed);
     okButton->setDefault(true);
 
-    connect(okButton, SIGNAL(clicked()), this, SLOT(copyOrMove()));
+    connect(okButton, &QPushButton::clicked, this, &CopyMoveToDialog::copyOrMove);
 
     buttonsHbox->addStretch(1);
     buttonsHbox->addWidget(cancelButton, 0, Qt::AlignRight);

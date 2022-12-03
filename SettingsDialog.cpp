@@ -75,7 +75,7 @@ SettingsDialog::SettingsDialog(QWidget *parent)
     backgroundColorHBox->addWidget(backgroundColorLabel);
     backgroundColorHBox->addWidget(backgroundColorButton);
     backgroundColorHBox->addStretch(1);
-    connect(backgroundColorButton, SIGNAL(clicked()), this, SLOT(pickColor()));
+    connect(backgroundColorButton, &QToolButton::clicked, this, &SettingsDialog::pickColor);
     setButtonBgColor(Settings::viewerBackgroundColor, backgroundColorButton);
     backgroundColorButton->setAutoFillBackground(true);
     imageViewerBackgroundColor = Settings::viewerBackgroundColor;
@@ -132,7 +132,7 @@ SettingsDialog::SettingsDialog(QWidget *parent)
     thumbsBackgroundColorLayout->addWidget(thumbsBackgroundColorLabel);
     thumbsBackgroundColorLayout->addWidget(thumbsColorPickerButton);
     thumbsBackgroundColorLayout->addStretch(1);
-    connect(thumbsColorPickerButton, SIGNAL(clicked()), this, SLOT(pickThumbsColor()));
+    connect(thumbsColorPickerButton, &QToolButton::clicked, this, &SettingsDialog::pickThumbsColor);
     setButtonBgColor(Settings::thumbsBackgroundColor, thumbsColorPickerButton);
     thumbsColorPickerButton->setAutoFillBackground(true);
     thumbsBackgroundColor = Settings::thumbsBackgroundColor;
@@ -145,7 +145,8 @@ SettingsDialog::SettingsDialog(QWidget *parent)
     thumbsLabelColorLayout->addWidget(thumbLabelColorLabel);
     thumbsLabelColorLayout->addWidget(thumbsLabelColorButton);
     thumbsLabelColorLayout->addStretch(1);
-    connect(thumbsLabelColorButton, SIGNAL(clicked()), this, SLOT(pickThumbsTextColor()));
+    connect(thumbsLabelColorButton, &QToolButton::clicked, this,
+            &SettingsDialog::pickThumbsTextColor);
     setButtonBgColor(Settings::thumbsTextColor, thumbsLabelColorButton);
     thumbsLabelColorButton->setAutoFillBackground(true);
     thumbsTextColor = Settings::thumbsTextColor;
@@ -161,7 +162,8 @@ SettingsDialog::SettingsDialog(QWidget *parent)
         QIcon::fromTheme("document-open", QIcon(":/images/open.png")));
     chooseThumbsBackImageButton->setFixedSize(26, 26);
     chooseThumbsBackImageButton->setIconSize(QSize(16, 16));
-    connect(chooseThumbsBackImageButton, SIGNAL(clicked()), this, SLOT(pickBackgroundImage()));
+    connect(chooseThumbsBackImageButton, &QToolButton::clicked, this,
+            &SettingsDialog::pickBackgroundImage);
 
     // repeat background image
     thumbsRepeatBackgroundImageCheckBox = new QCheckBox(tr("Repeat background"));
@@ -233,7 +235,7 @@ SettingsDialog::SettingsDialog(QWidget *parent)
     chooseStartupDirButton->setIcon(QIcon::fromTheme("document-open", QIcon(":/images/open.png")));
     chooseStartupDirButton->setFixedSize(26, 26);
     chooseStartupDirButton->setIconSize(QSize(16, 16));
-    connect(chooseStartupDirButton, SIGNAL(clicked()), this, SLOT(pickStartupDir()));
+    connect(chooseStartupDirButton, &QToolButton::clicked, this, &SettingsDialog::pickStartupDir);
 
     QHBoxLayout *startupDirectoryLayout = new QHBoxLayout;
     startupDirectoryLayout->addWidget(startupDirectoryRadioButtons[2]);
@@ -269,8 +271,8 @@ SettingsDialog::SettingsDialog(QWidget *parent)
     QLineEdit *shortcutsFilterLineEdit = new QLineEdit;
     shortcutsFilterLineEdit->setClearButtonEnabled(true);
     shortcutsFilterLineEdit->setPlaceholderText(tr("Filter Items"));
-    connect(shortcutsFilterLineEdit, SIGNAL(textChanged(QString)), shortcutsTable,
-            SLOT(setFilter(QString)));
+    connect(shortcutsFilterLineEdit, &QLineEdit::textChanged, shortcutsTable,
+            &ShortcutsTable::setFilter);
     keyboardSettingsLayout->addWidget(
         new QLabel(tr("Select an entry and press a key to set a new shortcut")));
     keyboardSettingsLayout->addWidget(shortcutsFilterLineEdit);
@@ -319,11 +321,11 @@ SettingsDialog::SettingsDialog(QWidget *parent)
     QHBoxLayout *confirmSettingsLayout = new QHBoxLayout;
     QPushButton *okButton = new QPushButton(tr("OK"));
     okButton->setSizePolicy(QSizePolicy::Fixed, QSizePolicy::Fixed);
-    connect(okButton, SIGNAL(clicked()), this, SLOT(saveSettings()));
+    connect(okButton, &QPushButton::clicked, this, &SettingsDialog::saveSettings);
     okButton->setDefault(true);
     QPushButton *closeButton = new QPushButton(tr("Cancel"));
     closeButton->setSizePolicy(QSizePolicy::Fixed, QSizePolicy::Fixed);
-    connect(closeButton, SIGNAL(clicked()), this, SLOT(abort()));
+    connect(closeButton, &QPushButton::clicked, this, &SettingsDialog::abort);
     confirmSettingsLayout->addWidget(closeButton, 1, Qt::AlignRight);
     confirmSettingsLayout->addWidget(okButton, 0, Qt::AlignRight);
 

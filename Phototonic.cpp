@@ -61,7 +61,7 @@ Phototonic::Phototonic(const QStringList &argumentsList, int filesStartAt, QWidg
     loadShortcuts();
     setupDocks();
 
-    connect(qApp, SIGNAL(focusChanged(QWidget *, QWidget *)), this, SLOT(updateActions()));
+    connect(qApp, &QApplication::focusChanged, this, &Phototonic::updateActions);
 
     restoreGeometry(Settings::appSettings->value(Settings::optionGeometry).toByteArray());
     restoreState(Settings::appSettings->value(Settings::optionWindowState).toByteArray());
@@ -154,16 +154,16 @@ void Phototonic::createThumbsViewer()
         (QDir::SortFlags)Settings::appSettings->value(Settings::optionThumbsSortFlags).toInt();
     thumbsViewer->thumbsSortFlags |= QDir::IgnoreCase;
 
-    connect(thumbsViewer->selectionModel(),
-            SIGNAL(selectionChanged(QItemSelection, QItemSelection)), this, SLOT(updateActions()));
+    connect(thumbsViewer->selectionModel(), &QItemSelectionModel::selectionChanged, this,
+            &Phototonic::updateActions);
 
     imageInfoDock = new QDockWidget(tr("Image Info"), this);
     imageInfoDock->setObjectName("Image Info");
     imageInfoDock->setWidget(thumbsViewer->infoView);
-    connect(imageInfoDock->toggleViewAction(), SIGNAL(triggered()), this,
-            SLOT(setImageInfoDockVisibility()));
-    connect(imageInfoDock, SIGNAL(visibilityChanged(bool)), this,
-            SLOT(setImageInfoDockVisibility()));
+    connect(imageInfoDock->toggleViewAction(), &QAction::triggered, this,
+            &Phototonic::setImageInfoDockVisibility);
+    connect(imageInfoDock, &QDockWidget::visibilityChanged, this,
+            &Phototonic::setImageInfoDockVisibility);
 }
 
 void Phototonic::addMenuSeparator(QWidget *widget)
@@ -176,12 +176,12 @@ void Phototonic::addMenuSeparator(QWidget *widget)
 void Phototonic::createImageViewer()
 {
     imageViewer = new ImageViewer(this, metadataCache);
-    connect(saveAction, SIGNAL(triggered()), imageViewer, SLOT(saveImage()));
-    connect(saveAsAction, SIGNAL(triggered()), imageViewer, SLOT(saveImageAs()));
-    connect(copyImageAction, SIGNAL(triggered()), imageViewer, SLOT(copyImage()));
-    connect(pasteImageAction, SIGNAL(triggered()), imageViewer, SLOT(pasteImage()));
-    connect(applyCropAndRotationAction, SIGNAL(triggered()), imageViewer,
-            SLOT(applyCropAndRotation()));
+    connect(saveAction, &QAction::triggered, imageViewer, &ImageViewer::saveImage);
+    connect(saveAsAction, &QAction::triggered, imageViewer, &ImageViewer::saveImageAs);
+    connect(copyImageAction, &QAction::triggered, imageViewer, &ImageViewer::copyImage);
+    connect(pasteImageAction, &QAction::triggered, imageViewer, &ImageViewer::pasteImage);
+    connect(applyCropAndRotationAction, &QAction::triggered, imageViewer,
+            &ImageViewer::applyCropAndRotation);
     connect(imageViewer, &ImageViewer::toolsUpdated, this, &Phototonic::onToolsUpdated);
     imageViewer->ImagePopUpMenu = new QMenu();
 
@@ -339,34 +339,34 @@ void Phototonic::createActions()
     thumbsGoToTopAction = new QAction(tr("Top"), this);
     thumbsGoToTopAction->setObjectName("thumbsGoTop");
     thumbsGoToTopAction->setIcon(QIcon::fromTheme("go-top", QIcon(":/images/top.png")));
-    connect(thumbsGoToTopAction, SIGNAL(triggered()), this, SLOT(goTop()));
+    connect(thumbsGoToTopAction, &QAction::triggered, this, &Phototonic::goTop);
 
     thumbsGoToBottomAction = new QAction(tr("Bottom"), this);
     thumbsGoToBottomAction->setObjectName("thumbsGoBottom");
     thumbsGoToBottomAction->setIcon(QIcon::fromTheme("go-bottom", QIcon(":/images/bottom.png")));
-    connect(thumbsGoToBottomAction, SIGNAL(triggered()), this, SLOT(goBottom()));
+    connect(thumbsGoToBottomAction, &QAction::triggered, this, &Phototonic::goBottom);
 
     CloseImageAction = new QAction(tr("Close Viewer"), this);
     CloseImageAction->setObjectName("closeImage");
-    connect(CloseImageAction, SIGNAL(triggered()), this, SLOT(hideViewer()));
+    connect(CloseImageAction, &QAction::triggered, this, &Phototonic::hideViewer);
 
     fullScreenAction = new QAction(tr("Full Screen"), this);
     fullScreenAction->setObjectName("fullScreen");
     fullScreenAction->setCheckable(true);
-    connect(fullScreenAction, SIGNAL(triggered()), this, SLOT(toggleFullScreen()));
+    connect(fullScreenAction, &QAction::triggered, this, &Phototonic::toggleFullScreen);
 
     settingsAction = new QAction(tr("Preferences"), this);
     settingsAction->setObjectName("settings");
     settingsAction->setIcon(QIcon::fromTheme("preferences-system", QIcon(":/images/settings.png")));
-    connect(settingsAction, SIGNAL(triggered()), this, SLOT(showSettings()));
+    connect(settingsAction, &QAction::triggered, this, &Phototonic::showSettings);
 
     exitAction = new QAction(tr("Exit"), this);
     exitAction->setObjectName("exit");
-    connect(exitAction, SIGNAL(triggered()), this, SLOT(close()));
+    connect(exitAction, &QAction::triggered, this, &QWidget::close);
 
     thumbsZoomInAction = new QAction(tr("Enlarge Thumbnails"), this);
     thumbsZoomInAction->setObjectName("thumbsZoomIn");
-    connect(thumbsZoomInAction, SIGNAL(triggered()), this, SLOT(thumbsZoomIn()));
+    connect(thumbsZoomInAction, &QAction::triggered, this, &Phototonic::thumbsZoomIn);
     thumbsZoomInAction->setIcon(QIcon::fromTheme("zoom-in", QIcon(":/images/zoom_in.png")));
     if (thumbsViewer->thumbSize == THUMB_SIZE_MAX) {
         thumbsZoomInAction->setEnabled(false);
@@ -374,7 +374,7 @@ void Phototonic::createActions()
 
     thumbsZoomOutAction = new QAction(tr("Shrink Thumbnails"), this);
     thumbsZoomOutAction->setObjectName("thumbsZoomOut");
-    connect(thumbsZoomOutAction, SIGNAL(triggered()), this, SLOT(thumbsZoomOut()));
+    connect(thumbsZoomOutAction, &QAction::triggered, this, &Phototonic::thumbsZoomOut);
     thumbsZoomOutAction->setIcon(QIcon::fromTheme("zoom-out", QIcon(":/images/zoom_out.png")));
     if (thumbsViewer->thumbSize == THUMB_SIZE_MIN) {
         thumbsZoomOutAction->setEnabled(false);
@@ -383,50 +383,51 @@ void Phototonic::createActions()
     cutAction = new QAction(tr("Cut"), this);
     cutAction->setObjectName("cut");
     cutAction->setIcon(QIcon::fromTheme("edit-cut", QIcon(":/images/cut.png")));
-    connect(cutAction, SIGNAL(triggered()), this, SLOT(cutThumbs()));
+    connect(cutAction, &QAction::triggered, this, &Phototonic::cutThumbs);
     cutAction->setEnabled(false);
 
     copyAction = new QAction(tr("Copy"), this);
     copyAction->setObjectName("copy");
     copyAction->setIcon(QIcon::fromTheme("edit-copy", QIcon(":/images/copy.png")));
-    connect(copyAction, SIGNAL(triggered()), this, SLOT(copyThumbs()));
+    connect(copyAction, &QAction::triggered, this, &Phototonic::copyThumbs);
     copyAction->setEnabled(false);
 
     setClassicThumbsAction = new QAction(tr("Show classic thumbnails"), this);
     setClassicThumbsAction->setCheckable(true);
     setClassicThumbsAction->setChecked(Settings::thumbsLayout == ThumbsViewer::Classic);
     setClassicThumbsAction->setObjectName("setClassicThumbs");
-    connect(setClassicThumbsAction, SIGNAL(triggered()), this, SLOT(setClassicThumbs()));
+    connect(setClassicThumbsAction, &QAction::triggered, this, &Phototonic::setClassicThumbs);
 
     setSquareThumbsAction = new QAction(tr("Show square thumbnails"), this);
     setSquareThumbsAction->setCheckable(true);
     setSquareThumbsAction->setChecked(Settings::thumbsLayout == ThumbsViewer::Squares);
     setSquareThumbsAction->setObjectName("setSquareThumbs");
-    connect(setSquareThumbsAction, SIGNAL(triggered()), this, SLOT(setSquareThumbs()));
+    connect(setSquareThumbsAction, &QAction::triggered, this, &Phototonic::setSquareThumbs);
 
     setCompactThumbsAction = new QAction(tr("Show compact thumbnails"), this);
     setCompactThumbsAction->setCheckable(true);
     setCompactThumbsAction->setChecked(Settings::thumbsLayout == ThumbsViewer::Compact);
     setCompactThumbsAction->setObjectName("setCompactThumbs");
-    connect(setCompactThumbsAction, SIGNAL(triggered()), this, SLOT(setCompactThumbs()));
+    connect(setCompactThumbsAction, &QAction::triggered, this, &Phototonic::setCompactThumbs);
 
     copyToAction = new QAction(tr("Copy to..."), this);
     copyToAction->setObjectName("copyTo");
-    connect(copyToAction, SIGNAL(triggered()), this, SLOT(copyImagesTo()));
+    connect(copyToAction, &QAction::triggered, this, &Phototonic::copyImagesTo);
 
     moveToAction = new QAction(tr("Move to..."), this);
     moveToAction->setObjectName("moveTo");
-    connect(moveToAction, SIGNAL(triggered()), this, SLOT(moveImagesTo()));
+    connect(moveToAction, &QAction::triggered, this, &Phototonic::moveImagesTo);
 
     deleteAction = new QAction(tr("Move to Trash"), this);
     deleteAction->setObjectName("moveToTrash");
     deleteAction->setIcon(style()->standardIcon(QStyle::SP_TrashIcon));
-    connect(deleteAction, SIGNAL(triggered()), this, SLOT(deleteOperation()));
+    connect(deleteAction, &QAction::triggered, this, &Phototonic::deleteOperation);
 
     deletePermanentlyAction = new QAction(tr("Delete"), this);
     deletePermanentlyAction->setObjectName("delete");
     deletePermanentlyAction->setIcon(QIcon::fromTheme("edit-delete", QIcon(":/images/delete.png")));
-    connect(deletePermanentlyAction, SIGNAL(triggered()), this, SLOT(deletePermanentlyOperation()));
+    connect(deletePermanentlyAction, &QAction::triggered, this,
+            &Phototonic::deletePermanentlyOperation);
 
     saveAction = new QAction(tr("Save"), this);
     saveAction->setObjectName("save");
@@ -443,23 +444,23 @@ void Phototonic::createActions()
 
     renameAction = new QAction(tr("Rename"), this);
     renameAction->setObjectName("rename");
-    connect(renameAction, SIGNAL(triggered()), this, SLOT(rename()));
+    connect(renameAction, &QAction::triggered, this, &Phototonic::rename);
 
     removeMetadataAction = new QAction(tr("Remove Metadata"), this);
     removeMetadataAction->setObjectName("removeMetadata");
-    connect(removeMetadataAction, SIGNAL(triggered()), this, SLOT(removeMetadata()));
+    connect(removeMetadataAction, &QAction::triggered, this, &Phototonic::removeMetadata);
 
     selectAllAction = new QAction(tr("Select All"), this);
     selectAllAction->setObjectName("selectAll");
-    connect(selectAllAction, SIGNAL(triggered()), this, SLOT(selectAllThumbs()));
+    connect(selectAllAction, &QAction::triggered, this, &Phototonic::selectAllThumbs);
 
     selectByBrightnesAction = new QAction(tr("Select by Brightness"), this);
     selectByBrightnesAction->setObjectName("selectByBrightness");
-    connect(selectByBrightnesAction, SIGNAL(triggered()), this, SLOT(selectByBrightness()));
+    connect(selectByBrightnesAction, &QAction::triggered, this, &Phototonic::selectByBrightness);
 
     aboutAction = new QAction(tr("About"), this);
     aboutAction->setObjectName("about");
-    connect(aboutAction, SIGNAL(triggered()), this, SLOT(about()));
+    connect(aboutAction, &QAction::triggered, this, &Phototonic::about);
 
     // Sort actions
     sortByNameAction = new QAction(tr("Sort by Name"), this);
@@ -480,12 +481,12 @@ void Phototonic::createActions()
     sortByTypeAction->setCheckable(true);
     sortBySimilarityAction->setCheckable(true);
     sortReverseAction->setCheckable(true);
-    connect(sortByNameAction, SIGNAL(triggered()), this, SLOT(sortThumbnails()));
-    connect(sortByTimeAction, SIGNAL(triggered()), this, SLOT(sortThumbnails()));
-    connect(sortBySizeAction, SIGNAL(triggered()), this, SLOT(sortThumbnails()));
-    connect(sortByTypeAction, SIGNAL(triggered()), this, SLOT(sortThumbnails()));
-    connect(sortBySimilarityAction, SIGNAL(triggered()), this, SLOT(sortThumbnails()));
-    connect(sortReverseAction, SIGNAL(triggered()), this, SLOT(sortThumbnails()));
+    connect(sortByNameAction, &QAction::triggered, this, &Phototonic::sortThumbnails);
+    connect(sortByTimeAction, &QAction::triggered, this, &Phototonic::sortThumbnails);
+    connect(sortBySizeAction, &QAction::triggered, this, &Phototonic::sortThumbnails);
+    connect(sortByTypeAction, &QAction::triggered, this, &Phototonic::sortThumbnails);
+    connect(sortBySimilarityAction, &QAction::triggered, this, &Phototonic::sortThumbnails);
+    connect(sortReverseAction, &QAction::triggered, this, &Phototonic::sortThumbnails);
 
     if (thumbsViewer->thumbsSortFlags & QDir::Time) {
         sortByTimeAction->setChecked(true);
@@ -502,115 +503,116 @@ void Phototonic::createActions()
     showHiddenFilesAction->setObjectName("showHidden");
     showHiddenFilesAction->setCheckable(true);
     showHiddenFilesAction->setChecked(Settings::showHiddenFiles);
-    connect(showHiddenFilesAction, SIGNAL(triggered()), this, SLOT(showHiddenFiles()));
+    connect(showHiddenFilesAction, &QAction::triggered, this, &Phototonic::showHiddenFiles);
 
     smallToolbarIconsAction = new QAction(tr("Small Toolbar Icons"), this);
     smallToolbarIconsAction->setObjectName("smallToolbarIcons");
     smallToolbarIconsAction->setCheckable(true);
     smallToolbarIconsAction->setChecked(Settings::smallToolbarIcons);
-    connect(smallToolbarIconsAction, SIGNAL(triggered()), this, SLOT(setToolbarIconSize()));
+    connect(smallToolbarIconsAction, &QAction::triggered, this, &Phototonic::setToolbarIconSize);
 
     lockDocksAction = new QAction(tr("Hide Dock Title Bars"), this);
     lockDocksAction->setObjectName("lockDocks");
     lockDocksAction->setCheckable(true);
     lockDocksAction->setChecked(Settings::hideDockTitlebars);
-    connect(lockDocksAction, SIGNAL(triggered()), this, SLOT(lockDocks()));
+    connect(lockDocksAction, &QAction::triggered, this, &Phototonic::lockDocks);
 
     showViewerToolbarAction = new QAction(tr("Show Toolbar"), this);
     showViewerToolbarAction->setObjectName("showViewerToolbars");
     showViewerToolbarAction->setCheckable(true);
     showViewerToolbarAction->setChecked(Settings::showViewerToolbar);
-    connect(showViewerToolbarAction, SIGNAL(triggered()), this, SLOT(toggleImageViewerToolbar()));
+    connect(showViewerToolbarAction, &QAction::triggered, this,
+            &Phototonic::toggleImageViewerToolbar);
 
     refreshAction = new QAction(tr("Reload"), this);
     refreshAction->setObjectName("refresh");
     refreshAction->setIcon(QIcon::fromTheme("view-refresh", QIcon(":/images/refresh.png")));
-    connect(refreshAction, SIGNAL(triggered()), this, SLOT(reload()));
+    connect(refreshAction, &QAction::triggered, this, &Phototonic::reload);
 
     includeSubDirectoriesAction = new QAction(tr("Include Sub-directories"), this);
     includeSubDirectoriesAction->setObjectName("subFolders");
     includeSubDirectoriesAction->setIcon(QIcon(":/images/tree.png"));
     includeSubDirectoriesAction->setCheckable(true);
-    connect(includeSubDirectoriesAction, SIGNAL(triggered()), this, SLOT(setIncludeSubDirs()));
+    connect(includeSubDirectoriesAction, &QAction::triggered, this, &Phototonic::setIncludeSubDirs);
 
     pasteAction = new QAction(tr("Paste Here"), this);
     pasteAction->setObjectName("paste");
     pasteAction->setIcon(QIcon::fromTheme("edit-paste", QIcon(":/images/paste.png")));
-    connect(pasteAction, SIGNAL(triggered()), this, SLOT(pasteThumbs()));
+    connect(pasteAction, &QAction::triggered, this, &Phototonic::pasteThumbs);
     pasteAction->setEnabled(false);
 
     createDirectoryAction = new QAction(tr("New Directory"), this);
     createDirectoryAction->setObjectName("createDir");
-    connect(createDirectoryAction, SIGNAL(triggered()), this, SLOT(createSubDirectory()));
+    connect(createDirectoryAction, &QAction::triggered, this, &Phototonic::createSubDirectory);
     createDirectoryAction->setIcon(
         QIcon::fromTheme("folder-new", QIcon(":/images/new_folder.png")));
 
     setSaveDirectoryAction = new QAction(tr("Set Save Directory"), this);
     setSaveDirectoryAction->setObjectName("setSaveDir");
-    connect(setSaveDirectoryAction, SIGNAL(triggered()), this, SLOT(setSaveDirectory()));
+    connect(setSaveDirectoryAction, &QAction::triggered, this, [this]() { setSaveDirectory(); });
     setSaveDirectoryAction->setIcon(
         QIcon::fromTheme("folder-visiting", QIcon(":/images/folder-visiting.png")));
 
     goBackAction = new QAction(tr("Back"), this);
     goBackAction->setObjectName("goBack");
     goBackAction->setIcon(QIcon::fromTheme("go-previous", QIcon(":/images/back.png")));
-    connect(goBackAction, SIGNAL(triggered()), this, SLOT(goBack()));
+    connect(goBackAction, &QAction::triggered, this, &Phototonic::goBack);
     goBackAction->setEnabled(false);
 
     goFrwdAction = new QAction(tr("Forward"), this);
     goFrwdAction->setObjectName("goFrwd");
     goFrwdAction->setIcon(QIcon::fromTheme("go-next", QIcon(":/images/next.png")));
-    connect(goFrwdAction, SIGNAL(triggered()), this, SLOT(goForward()));
+    connect(goFrwdAction, &QAction::triggered, this, &Phototonic::goForward);
     goFrwdAction->setEnabled(false);
 
     goUpAction = new QAction(tr("Go Up"), this);
     goUpAction->setObjectName("up");
     goUpAction->setIcon(QIcon::fromTheme("go-up", QIcon(":/images/up.png")));
-    connect(goUpAction, SIGNAL(triggered()), this, SLOT(goUp()));
+    connect(goUpAction, &QAction::triggered, this, &Phototonic::goUp);
 
     goHomeAction = new QAction(tr("Home"), this);
     goHomeAction->setObjectName("home");
-    connect(goHomeAction, SIGNAL(triggered()), this, SLOT(goHome()));
+    connect(goHomeAction, &QAction::triggered, this, &Phototonic::goHome);
     goHomeAction->setIcon(QIcon::fromTheme("go-home", QIcon(":/images/home.png")));
 
     slideShowAction = new QAction(tr("Slide Show"), this);
     slideShowAction->setObjectName("toggleSlideShow");
-    connect(slideShowAction, SIGNAL(triggered()), this, SLOT(toggleSlideShow()));
+    connect(slideShowAction, &QAction::triggered, this, &Phototonic::toggleSlideShow);
     slideShowAction->setIcon(QIcon::fromTheme("media-playback-start", QIcon(":/images/play.png")));
 
     nextImageAction = new QAction(tr("Next Image"), this);
     nextImageAction->setObjectName("nextImage");
     nextImageAction->setIcon(QIcon::fromTheme("go-next", QIcon(":/images/next.png")));
-    connect(nextImageAction, SIGNAL(triggered()), this, SLOT(loadNextImage()));
+    connect(nextImageAction, &QAction::triggered, this, &Phototonic::loadNextImage);
 
     prevImageAction = new QAction(tr("Previous Image"), this);
     prevImageAction->setObjectName("prevImage");
     prevImageAction->setIcon(QIcon::fromTheme("go-previous", QIcon(":/images/back.png")));
-    connect(prevImageAction, SIGNAL(triggered()), this, SLOT(loadPreviousImage()));
+    connect(prevImageAction, &QAction::triggered, this, &Phototonic::loadPreviousImage);
 
     firstImageAction = new QAction(tr("First Image"), this);
     firstImageAction->setObjectName("firstImage");
     firstImageAction->setIcon(QIcon::fromTheme("go-first", QIcon(":/images/first.png")));
-    connect(firstImageAction, SIGNAL(triggered()), this, SLOT(loadFirstImage()));
+    connect(firstImageAction, &QAction::triggered, this, &Phototonic::loadFirstImage);
 
     lastImageAction = new QAction(tr("Last Image"), this);
     lastImageAction->setObjectName("lastImage");
     lastImageAction->setIcon(QIcon::fromTheme("go-last", QIcon(":/images/last.png")));
-    connect(lastImageAction, SIGNAL(triggered()), this, SLOT(loadLastImage()));
+    connect(lastImageAction, &QAction::triggered, this, &Phototonic::loadLastImage);
 
     randomImageAction = new QAction(tr("Random Image"), this);
     randomImageAction->setObjectName("randomImage");
-    connect(randomImageAction, SIGNAL(triggered()), this, SLOT(loadRandomImage()));
+    connect(randomImageAction, &QAction::triggered, this, &Phototonic::loadRandomImage);
 
     viewImageAction = new QAction(tr("View Image"), this);
     viewImageAction->setObjectName("open");
     viewImageAction->setIcon(QIcon::fromTheme("document-open", QIcon(":/images/open.png")));
-    connect(viewImageAction, SIGNAL(triggered()), this, SLOT(viewImage()));
+    connect(viewImageAction, &QAction::triggered, this, &Phototonic::viewImage);
 
     showClipboardAction = new QAction(tr("Load Clipboard"), this);
     showClipboardAction->setObjectName("showClipboard");
     showClipboardAction->setIcon(QIcon::fromTheme("insert-image", QIcon(":/images/new.png")));
-    connect(showClipboardAction, SIGNAL(triggered()), this, SLOT(newImage()));
+    connect(showClipboardAction, &QAction::triggered, this, &Phototonic::newImage);
 
     openWithSubMenu = new QMenu(tr("Open With..."));
     openWithMenuAction = new QAction(tr("Open With..."), this);
@@ -620,12 +622,12 @@ void Phototonic::createActions()
     externalAppsAction->setIcon(
         QIcon::fromTheme("preferences-other", QIcon(":/images/settings.png")));
     externalAppsAction->setObjectName("chooseApp");
-    connect(externalAppsAction, SIGNAL(triggered()), this, SLOT(chooseExternalApp()));
+    connect(externalAppsAction, &QAction::triggered, this, &Phototonic::chooseExternalApp);
 
     addBookmarkAction = new QAction(tr("Add Bookmark"), this);
     addBookmarkAction->setObjectName("addBookmark");
     addBookmarkAction->setIcon(QIcon(":/images/new_bookmark.png"));
-    connect(addBookmarkAction, SIGNAL(triggered()), this, SLOT(addNewBookmark()));
+    connect(addBookmarkAction, &QAction::triggered, this, &Phototonic::addNewBookmark);
 
     removeBookmarkAction = new QAction(tr("Delete Bookmark"), this);
     removeBookmarkAction->setObjectName("deleteBookmark");
@@ -633,63 +635,63 @@ void Phototonic::createActions()
 
     zoomOutAction = new QAction(tr("Zoom Out"), this);
     zoomOutAction->setObjectName("zoomOut");
-    connect(zoomOutAction, SIGNAL(triggered()), this, SLOT(zoomOut()));
+    connect(zoomOutAction, &QAction::triggered, this, &Phototonic::zoomOut);
     zoomOutAction->setIcon(QIcon::fromTheme("zoom-out", QIcon(":/images/zoom_out.png")));
 
     zoomInAction = new QAction(tr("Zoom In"), this);
     zoomInAction->setObjectName("zoomIn");
-    connect(zoomInAction, SIGNAL(triggered()), this, SLOT(zoomIn()));
+    connect(zoomInAction, &QAction::triggered, this, &Phototonic::zoomIn);
     zoomInAction->setIcon(QIcon::fromTheme("zoom-in", QIcon(":/images/zoom_out.png")));
 
     resetZoomAction = new QAction(tr("Reset Zoom"), this);
     resetZoomAction->setObjectName("resetZoom");
     resetZoomAction->setIcon(QIcon::fromTheme("zoom-fit-best", QIcon(":/images/zoom.png")));
-    connect(resetZoomAction, SIGNAL(triggered()), this, SLOT(resetZoom()));
+    connect(resetZoomAction, &QAction::triggered, this, &Phototonic::resetZoom);
 
     origZoomAction = new QAction(tr("Original Size"), this);
     origZoomAction->setObjectName("origZoom");
     origZoomAction->setIcon(QIcon::fromTheme("zoom-original", QIcon(":/images/zoom1.png")));
-    connect(origZoomAction, SIGNAL(triggered()), this, SLOT(origZoom()));
+    connect(origZoomAction, &QAction::triggered, this, &Phototonic::origZoom);
 
     keepZoomAction = new QAction(tr("Keep Zoom"), this);
     keepZoomAction->setObjectName("keepZoom");
     keepZoomAction->setCheckable(true);
-    connect(keepZoomAction, SIGNAL(triggered()), this, SLOT(keepZoom()));
+    connect(keepZoomAction, &QAction::triggered, this, &Phototonic::keepZoom);
 
     rotateLeftAction = new QAction(tr("Rotate 90 degree CCW"), this);
     rotateLeftAction->setObjectName("rotateLeft");
     rotateLeftAction->setIcon(
         QIcon::fromTheme("object-rotate-left", QIcon(":/images/rotate_left.png")));
-    connect(rotateLeftAction, SIGNAL(triggered()), this, SLOT(rotateLeft()));
+    connect(rotateLeftAction, &QAction::triggered, this, &Phototonic::rotateLeft);
 
     rotateRightAction = new QAction(tr("Rotate 90 degree CW"), this);
     rotateRightAction->setObjectName("rotateRight");
     rotateRightAction->setIcon(
         QIcon::fromTheme("object-rotate-right", QIcon(":/images/rotate_right.png")));
-    connect(rotateRightAction, SIGNAL(triggered()), this, SLOT(rotateRight()));
+    connect(rotateRightAction, &QAction::triggered, this, &Phototonic::rotateRight);
 
     rotateToolAction = new QAction(tr("Rotate with mouse"), this);
     rotateToolAction->setObjectName("rotateRight");
     rotateToolAction->setIcon(QIcon::fromTheme("rotation-allowed", QIcon(":/images/rotate.png")));
     rotateToolAction->setCheckable(true);
-    connect(rotateToolAction, SIGNAL(triggered()), this, SLOT(toggleRotateEnabled()));
+    connect(rotateToolAction, &QAction::triggered, this, &Phototonic::toggleRotateEnabled);
 
     flipHorizontalAction = new QAction(tr("Flip Horizontally"), this);
     flipHorizontalAction->setObjectName("flipH");
     flipHorizontalAction->setIcon(
         QIcon::fromTheme("object-flip-horizontal", QIcon(":/images/flipH.png")));
-    connect(flipHorizontalAction, SIGNAL(triggered()), this, SLOT(flipHorizontal()));
+    connect(flipHorizontalAction, &QAction::triggered, this, &Phototonic::flipHorizontal);
 
     flipVerticalAction = new QAction(tr("Flip Vertically"), this);
     flipVerticalAction->setObjectName("flipV");
     flipVerticalAction->setIcon(
         QIcon::fromTheme("object-flip-vertical", QIcon(":/images/flipV.png")));
-    connect(flipVerticalAction, SIGNAL(triggered()), this, SLOT(flipVertical()));
+    connect(flipVerticalAction, &QAction::triggered, this, &Phototonic::flipVertical);
 
     cropAction = new QAction(tr("Cropping"), this);
     cropAction->setObjectName("crop");
     cropAction->setIcon(QIcon(":/images/crop.png"));
-    connect(cropAction, SIGNAL(triggered()), this, SLOT(cropImage()));
+    connect(cropAction, &QAction::triggered, this, &Phototonic::cropImage);
 
     applyCropAndRotationAction = new QAction(tr("Apply Crop and Rotation"), this);
     applyCropAndRotationAction->setObjectName("applyCropAndRotation");
@@ -698,26 +700,26 @@ void Phototonic::createActions()
     resizeAction = new QAction(tr("Scale Image"), this);
     resizeAction->setObjectName("resize");
     resizeAction->setIcon(QIcon::fromTheme("transform-scale", QIcon(":/images/scale.png")));
-    connect(resizeAction, SIGNAL(triggered()), this, SLOT(scaleImage()));
+    connect(resizeAction, &QAction::triggered, this, &Phototonic::scaleImage);
 
     freeRotateLeftAction = new QAction(tr("Rotate 1 degree CCW"), this);
     freeRotateLeftAction->setObjectName("freeRotateLeft");
-    connect(freeRotateLeftAction, SIGNAL(triggered()), this, SLOT(freeRotateLeft()));
+    connect(freeRotateLeftAction, &QAction::triggered, this, &Phototonic::freeRotateLeft);
 
     freeRotateRightAction = new QAction(tr("Rotate 1 degree CW"), this);
     freeRotateRightAction->setObjectName("freeRotateRight");
-    connect(freeRotateRightAction, SIGNAL(triggered()), this, SLOT(freeRotateRight()));
+    connect(freeRotateRightAction, &QAction::triggered, this, &Phototonic::freeRotateRight);
 
     colorsAction = new QAction(tr("Colors"), this);
     colorsAction->setObjectName("colors");
-    connect(colorsAction, SIGNAL(triggered()), this, SLOT(showColorsDialog()));
+    connect(colorsAction, &QAction::triggered, this, &Phototonic::showColorsDialog);
     colorsAction->setIcon(QIcon(":/images/colors.png"));
 
     findDupesAction = new QAction(tr("Find Duplicate Images"), this);
     findDupesAction->setObjectName("findDupes");
     findDupesAction->setIcon(QIcon(":/images/duplicates.png"));
     findDupesAction->setCheckable(true);
-    connect(findDupesAction, SIGNAL(triggered()), this, SLOT(findDuplicateImages()));
+    connect(findDupesAction, &QAction::triggered, this, &Phototonic::findDuplicateImages);
 
     mirrorDisabledAction = new QAction(tr("Disable Mirror"), this);
     mirrorDisabledAction->setObjectName("mirrorDisabled");
@@ -735,34 +737,35 @@ void Phototonic::createActions()
     mirrorTripleAction->setCheckable(true);
     mirrorDualVerticalAction->setCheckable(true);
     mirrorQuadAction->setCheckable(true);
-    connect(mirrorDisabledAction, SIGNAL(triggered()), this, SLOT(setMirrorDisabled()));
-    connect(mirrorDualAction, SIGNAL(triggered()), this, SLOT(setMirrorDual()));
-    connect(mirrorTripleAction, SIGNAL(triggered()), this, SLOT(setMirrorTriple()));
-    connect(mirrorDualVerticalAction, SIGNAL(triggered()), this, SLOT(setMirrorVDual()));
-    connect(mirrorQuadAction, SIGNAL(triggered()), this, SLOT(setMirrorQuad()));
+    connect(mirrorDisabledAction, &QAction::triggered, this, &Phototonic::setMirrorDisabled);
+    connect(mirrorDualAction, &QAction::triggered, this, &Phototonic::setMirrorDual);
+    connect(mirrorTripleAction, &QAction::triggered, this, &Phototonic::setMirrorTriple);
+    connect(mirrorDualVerticalAction, &QAction::triggered, this, &Phototonic::setMirrorVDual);
+    connect(mirrorQuadAction, &QAction::triggered, this, &Phototonic::setMirrorQuad);
     mirrorDisabledAction->setChecked(true);
 
     keepTransformAction = new QAction(tr("Keep Transformations"), this);
     keepTransformAction->setObjectName("keepTransform");
     keepTransformAction->setCheckable(true);
-    connect(keepTransformAction, SIGNAL(triggered()), this, SLOT(keepTransformClicked()));
+    connect(keepTransformAction, &QAction::triggered, this, &Phototonic::keepTransformClicked);
 
     moveLeftAction = new QAction(tr("Move Image Left"), this);
     moveLeftAction->setObjectName("moveLeft");
-    connect(moveLeftAction, SIGNAL(triggered()), this, SLOT(moveLeft()));
+    connect(moveLeftAction, &QAction::triggered, this, &Phototonic::moveLeft);
     moveRightAction = new QAction(tr("Move Image Right"), this);
     moveRightAction->setObjectName("moveRight");
-    connect(moveRightAction, SIGNAL(triggered()), this, SLOT(moveRight()));
+    connect(moveRightAction, &QAction::triggered, this, &Phototonic::moveRight);
     moveUpAction = new QAction(tr("Move Image Up"), this);
     moveUpAction->setObjectName("moveUp");
-    connect(moveUpAction, SIGNAL(triggered()), this, SLOT(moveUp()));
+    connect(moveUpAction, &QAction::triggered, this, &Phototonic::moveUp);
     moveDownAction = new QAction(tr("Move Image Down"), this);
     moveDownAction->setObjectName("moveDown");
-    connect(moveDownAction, SIGNAL(triggered()), this, SLOT(moveDown()));
+    connect(moveDownAction, &QAction::triggered, this, &Phototonic::moveDown);
 
     invertSelectionAction = new QAction(tr("Invert Selection"), this);
     invertSelectionAction->setObjectName("invertSelection");
-    connect(invertSelectionAction, SIGNAL(triggered()), thumbsViewer, SLOT(invertSelection()));
+    connect(invertSelectionAction, &QAction::triggered, thumbsViewer,
+            &ThumbsViewer::invertSelection);
 
     // There could be a Batch submenu if we had any more items to put there
     batchSubMenu = new QMenu(tr("Batch"));
@@ -770,15 +773,15 @@ void Phototonic::createActions()
     batchSubMenuAction->setMenu(batchSubMenu);
     batchTransformAction = new QAction(tr("Repeat Rotate and Crop"), this);
     batchTransformAction->setObjectName("batchTransform");
-    connect(batchTransformAction, SIGNAL(triggered()), this, SLOT(batchTransform()));
+    connect(batchTransformAction, &QAction::triggered, this, &Phototonic::batchTransform);
     batchSubMenu->addAction(batchTransformAction);
 
     filterImagesFocusAction = new QAction(tr("Filter by Name"), this);
     filterImagesFocusAction->setObjectName("filterImagesFocus");
-    connect(filterImagesFocusAction, SIGNAL(triggered()), this, SLOT(filterImagesFocus()));
+    connect(filterImagesFocusAction, &QAction::triggered, this, &Phototonic::filterImagesFocus);
     setPathFocusAction = new QAction(tr("Edit Current Path"), this);
     setPathFocusAction->setObjectName("setPathFocus");
-    connect(setPathFocusAction, SIGNAL(triggered()), this, SLOT(setPathFocus()));
+    connect(setPathFocusAction, &QAction::triggered, this, &Phototonic::setPathFocus);
 }
 
 void Phototonic::createMenus()
@@ -891,8 +894,8 @@ void Phototonic::createToolBars()
     editToolBar->addAction(deleteAction);
     editToolBar->addAction(deletePermanentlyAction);
     editToolBar->addAction(showClipboardAction);
-    connect(editToolBar->toggleViewAction(), SIGNAL(triggered()), this,
-            SLOT(setEditToolBarVisibility()));
+    connect(editToolBar->toggleViewAction(), &QAction::triggered, this,
+            &Phototonic::setEditToolBarVisibility);
 
     /* Navigation */
     goToolBar = addToolBar(tr("Navigation Toolbar"));
@@ -908,12 +911,12 @@ void Phototonic::createToolBars()
     pathLineEdit->setCompleter(new DirCompleter(pathLineEdit));
     pathLineEdit->setMinimumWidth(200);
     pathLineEdit->setMaximumWidth(600);
-    connect(pathLineEdit, SIGNAL(returnPressed()), this, SLOT(goPathBarDir()));
+    connect(pathLineEdit, &QLineEdit::returnPressed, this, &Phototonic::goPathBarDir);
     goToolBar->addWidget(pathLineEdit);
     goToolBar->addAction(includeSubDirectoriesAction);
     goToolBar->addAction(findDupesAction);
-    connect(goToolBar->toggleViewAction(), SIGNAL(triggered()), this,
-            SLOT(setGoToolBarVisibility()));
+    connect(goToolBar->toggleViewAction(), &QAction::triggered, this,
+            &Phototonic::setGoToolBarVisibility);
 
     /* View */
     viewToolBar = addToolBar(tr("View Toolbar"));
@@ -925,20 +928,20 @@ void Phototonic::createToolBars()
     /* filter bar */
     QAction *filterAct = new QAction(tr("Filter"), this);
     filterAct->setIcon(QIcon::fromTheme("edit-find", QIcon(":/images/zoom.png")));
-    connect(filterAct, SIGNAL(triggered()), this, SLOT(setThumbsFilter()));
+    connect(filterAct, &QAction::triggered, this, &Phototonic::setThumbsFilter);
     filterLineEdit = new QLineEdit;
     filterLineEdit->setMinimumWidth(100);
     filterLineEdit->setMaximumWidth(200);
-    connect(filterLineEdit, SIGNAL(returnPressed()), this, SLOT(setThumbsFilter()));
-    connect(filterLineEdit, SIGNAL(textChanged(QString)), this, SLOT(clearThumbsFilter()));
+    connect(filterLineEdit, &QLineEdit::returnPressed, this, &Phototonic::setThumbsFilter);
+    connect(filterLineEdit, &QLineEdit::textChanged, this, &Phototonic::clearThumbsFilter);
     filterLineEdit->setClearButtonEnabled(true);
     filterLineEdit->addAction(filterAct, QLineEdit::LeadingPosition);
 
     viewToolBar->addSeparator();
     viewToolBar->addWidget(filterLineEdit);
     viewToolBar->addAction(settingsAction);
-    connect(viewToolBar->toggleViewAction(), SIGNAL(triggered()), this,
-            SLOT(setViewToolBarVisibility()));
+    connect(viewToolBar->toggleViewAction(), &QAction::triggered, this,
+            &Phototonic::setViewToolBarVisibility);
 
     /* image */
     imageToolBar = new QToolBar(tr("Image Toolbar"));
@@ -968,8 +971,8 @@ void Phototonic::createToolBars()
     imageToolBar->addAction(cropAction);
     imageToolBar->addAction(colorsAction);
     imageToolBar->setVisible(false);
-    connect(imageToolBar->toggleViewAction(), SIGNAL(triggered()), this,
-            SLOT(setImageToolBarVisibility()));
+    connect(imageToolBar->toggleViewAction(), &QAction::triggered, this,
+            &Phototonic::setImageToolBarVisibility);
 
     setToolbarIconSize();
 }
@@ -1046,7 +1049,8 @@ void Phototonic::createFileSystemDock()
     fileSystemDock->setObjectName("File System");
 
     fileListWidget = new FileListWidget(fileSystemDock);
-    connect(fileListWidget, SIGNAL(itemSelectionChanged()), this, SLOT(onFileListSelected()));
+    connect(fileListWidget, &FileListWidget::itemSelectionChanged, this,
+            &Phototonic::onFileListSelected);
 
     fileSystemTree = new FileSystemTree(fileSystemDock);
     fileSystemTree->addAction(createDirectoryAction);
@@ -1060,19 +1064,18 @@ void Phototonic::createFileSystemDock()
     fileSystemTree->addAction(addBookmarkAction);
     fileSystemTree->setContextMenuPolicy(Qt::ActionsContextMenu);
 
-    connect(fileSystemTree, SIGNAL(clicked(QModelIndex)), this, SLOT(goSelectedDir(QModelIndex)));
+    connect(fileSystemTree, &FileSystemTree::clicked, this, &Phototonic::goSelectedDir);
 
-    connect(fileSystemTree->fileSystemModel, SIGNAL(rowsRemoved(QModelIndex, int, int)), this,
-            SLOT(checkDirState(QModelIndex, int, int)));
+    connect(fileSystemTree->fileSystemModel, &FileSystemModel::rowsRemoved, this,
+            &Phototonic::checkDirState);
 
-    connect(fileSystemTree, SIGNAL(dropOp(Qt::KeyboardModifiers, bool, QString)), this,
-            SLOT(dropOp(Qt::KeyboardModifiers, bool, QString)));
+    connect(fileSystemTree, &FileSystemTree::dropOp, this, &Phototonic::dropOp);
 
     fileSystemTree->setCurrentIndex(fileSystemTree->fileSystemModel->index(QDir::currentPath()));
     fileSystemTree->scrollTo(fileSystemTree->fileSystemModel->index(QDir::currentPath()));
 
-    connect(fileSystemTree->selectionModel(),
-            SIGNAL(selectionChanged(QItemSelection, QItemSelection)), this, SLOT(updateActions()));
+    connect(fileSystemTree->selectionModel(), &QItemSelectionModel::selectionChanged, this,
+            &Phototonic::updateActions);
 
     QVBoxLayout *mainLayout = new QVBoxLayout;
     mainLayout->setContentsMargins(0, 0, 0, 0);
@@ -1084,10 +1087,10 @@ void Phototonic::createFileSystemDock()
     fileSystemTreeMainWidget->setLayout(mainLayout);
 
     fileSystemDock->setWidget(fileSystemTreeMainWidget);
-    connect(fileSystemDock->toggleViewAction(), SIGNAL(triggered()), this,
-            SLOT(setFileSystemDockVisibility()));
-    connect(fileSystemDock, SIGNAL(visibilityChanged(bool)), this,
-            SLOT(setFileSystemDockVisibility()));
+    connect(fileSystemDock->toggleViewAction(), &QAction::triggered, this,
+            &Phototonic::setFileSystemDockVisibility);
+    connect(fileSystemDock, &QDockWidget::visibilityChanged, this,
+            &Phototonic::setFileSystemDockVisibility);
     addDockWidget(Qt::LeftDockWidgetArea, fileSystemDock);
 }
 
@@ -1098,15 +1101,13 @@ void Phototonic::createBookmarksDock()
     bookmarks = new BookMarks(bookmarksDock);
     bookmarksDock->setWidget(bookmarks);
 
-    connect(bookmarksDock->toggleViewAction(), SIGNAL(triggered()), this,
-            SLOT(setBookmarksDockVisibility()));
-    connect(bookmarksDock, SIGNAL(visibilityChanged(bool)), this,
-            SLOT(setBookmarksDockVisibility()));
-    connect(bookmarks, SIGNAL(itemClicked(QTreeWidgetItem *, int)), this,
-            SLOT(bookmarkClicked(QTreeWidgetItem *, int)));
-    connect(removeBookmarkAction, SIGNAL(triggered()), bookmarks, SLOT(removeBookmark()));
-    connect(bookmarks, SIGNAL(dropOp(Qt::KeyboardModifiers, bool, QString)), this,
-            SLOT(dropOp(Qt::KeyboardModifiers, bool, QString)));
+    connect(bookmarksDock->toggleViewAction(), &QAction::triggered, this,
+            &Phototonic::setBookmarksDockVisibility);
+    connect(bookmarksDock, &QDockWidget::visibilityChanged, this,
+            &Phototonic::setBookmarksDockVisibility);
+    connect(bookmarks, &BookMarks::itemClicked, this, &Phototonic::bookmarkClicked);
+    connect(removeBookmarkAction, &QAction::triggered, bookmarks, &BookMarks::removeBookmark);
+    connect(bookmarks, &BookMarks::dropOp, this, &Phototonic::dropOp);
 
     addDockWidget(Qt::LeftDockWidgetArea, bookmarksDock);
 
@@ -1120,10 +1121,10 @@ void Phototonic::createImagePreviewDock()
     imagePreviewDock = new QDockWidget(tr("Preview"), this);
     imagePreviewDock->setObjectName("ImagePreview");
     imagePreviewDock->setWidget(thumbsViewer->imagePreview);
-    connect(imagePreviewDock->toggleViewAction(), SIGNAL(triggered()), this,
-            SLOT(setImagePreviewDockVisibility()));
-    connect(imagePreviewDock, SIGNAL(visibilityChanged(bool)), this,
-            SLOT(setImagePreviewDockVisibility()));
+    connect(imagePreviewDock->toggleViewAction(), &QAction::triggered, this,
+            &Phototonic::setImagePreviewDockVisibility);
+    connect(imagePreviewDock, &QDockWidget::visibilityChanged, this,
+            &Phototonic::setImagePreviewDockVisibility);
     addDockWidget(Qt::RightDockWidgetArea, imagePreviewDock);
 }
 
@@ -1134,11 +1135,12 @@ void Phototonic::createImageTagsDock()
     thumbsViewer->imageTags = new ImageTags(tagsDock, thumbsViewer, metadataCache);
     tagsDock->setWidget(thumbsViewer->imageTags);
 
-    connect(tagsDock->toggleViewAction(), SIGNAL(triggered()), this, SLOT(setTagsDockVisibility()));
-    connect(tagsDock, SIGNAL(visibilityChanged(bool)), this, SLOT(setTagsDockVisibility()));
-    connect(thumbsViewer->imageTags, SIGNAL(reloadThumbs()), this, SLOT(onReloadThumbs()));
-    connect(thumbsViewer->imageTags->removeTagAction, SIGNAL(triggered()), this,
-            SLOT(deleteOperation()));
+    connect(tagsDock->toggleViewAction(), &QAction::triggered, this,
+            &Phototonic::setTagsDockVisibility);
+    connect(tagsDock, &QDockWidget::visibilityChanged, this, &Phototonic::setTagsDockVisibility);
+    connect(thumbsViewer->imageTags, &ImageTags::reloadThumbs, this, &Phototonic::onReloadThumbs);
+    connect(thumbsViewer->imageTags->removeTagAction, &QAction::triggered, this,
+            &Phototonic::deleteOperation);
 }
 
 void Phototonic::sortThumbnails()
@@ -1268,9 +1270,9 @@ void Phototonic::runExternalApp()
 
     QProcess *externalProcess = new QProcess();
     externalProcess->setProcessChannelMode(QProcess::ForwardedChannels);
-    connect(externalProcess, SIGNAL(finished(int, QProcess::ExitStatus)), externalProcess,
-            SLOT(deleteLater()));
-    connect(externalProcess, SIGNAL(error(QProcess::ProcessError)), this, SLOT(externalAppError()));
+    connect(externalProcess, QOverload<int, QProcess::ExitStatus>::of(&QProcess::finished),
+            externalProcess, &QObject::deleteLater);
+    connect(externalProcess, &QProcess::errorOccurred, this, &Phototonic::externalAppError);
     externalProcess->start(execCommand, arguments);
 }
 
@@ -1304,7 +1306,7 @@ void Phototonic::updateExternalApps()
             extAppAct->setShortcut(QKeySequence("Alt+" + QString::number(actionNumber)));
         }
         extAppAct->setIcon(QIcon::fromTheme(externalAppsIterator.key()));
-        connect(extAppAct, SIGNAL(triggered()), this, SLOT(runExternalApp()));
+        connect(extAppAct, &QAction::triggered, this, &Phototonic::runExternalApp);
         openWithSubMenu->addAction(extAppAct);
         imageViewer->addAction(extAppAct);
     }
@@ -1669,8 +1671,8 @@ void Phototonic::cropImage()
 
     if (!cropDialog) {
         cropDialog = new CropDialog(this, imageViewer);
-        connect(cropDialog, SIGNAL(accepted()), this, SLOT(cleanupCropDialog()));
-        connect(cropDialog, SIGNAL(rejected()), this, SLOT(cleanupCropDialog()));
+        connect(cropDialog.data(), &CropDialog::accepted, this, &Phototonic::cleanupCropDialog);
+        connect(cropDialog.data(), &CropDialog::rejected, this, &Phototonic::cleanupCropDialog);
     }
 
     cropDialog->show();
@@ -1691,8 +1693,8 @@ void Phototonic::scaleImage()
     }
 
     resizeDialog = new ResizeDialog(this, imageViewer);
-    connect(resizeDialog, SIGNAL(accepted()), this, SLOT(cleanupResizeDialog()));
-    connect(resizeDialog, SIGNAL(rejected()), this, SLOT(cleanupResizeDialog()));
+    connect(resizeDialog.data(), &ResizeDialog::accepted, this, &Phototonic::cleanupResizeDialog);
+    connect(resizeDialog.data(), &ResizeDialog::rejected, this, &Phototonic::cleanupResizeDialog);
 
     resizeDialog->show();
     setInterfaceEnabled(false);
@@ -1761,8 +1763,10 @@ void Phototonic::showColorsDialog()
 
     if (!colorsDialog) {
         colorsDialog = new ColorsDialog(this, imageViewer);
-        connect(colorsDialog, SIGNAL(accepted()), this, SLOT(cleanupColorsDialog()));
-        connect(colorsDialog, SIGNAL(rejected()), this, SLOT(cleanupColorsDialog()));
+        connect(colorsDialog.data(), &ColorsDialog::accepted, this,
+                &Phototonic::cleanupColorsDialog);
+        connect(colorsDialog.data(), &ColorsDialog::rejected, this,
+                &Phototonic::cleanupColorsDialog);
     }
 
     Settings::colorsActive = true;
@@ -3058,7 +3062,7 @@ void Phototonic::toggleSlideShow()
         Settings::slideShowActive = true;
 
         SlideShowTimer = new QTimer(this);
-        connect(SlideShowTimer, SIGNAL(timeout()), this, SLOT(slideShowHandler()));
+        connect(SlideShowTimer, &QTimer::timeout, this, &Phototonic::slideShowHandler);
         SlideShowTimer->start(Settings::slideShowDelay * 1000);
 
         slideShowAction->setText(tr("Stop Slide Show"));

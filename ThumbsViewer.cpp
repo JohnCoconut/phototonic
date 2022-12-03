@@ -73,13 +73,14 @@ ThumbsViewer::ThumbsViewer(QWidget *parent, const std::shared_ptr<MetadataCache>
 
     m_loadThumbTimer.setInterval(10);
     m_loadThumbTimer.setSingleShot(true);
-    connect(&m_loadThumbTimer, &QTimer::timeout, this, &ThumbsViewer::loadThumbsRange);
-    connect(this, SIGNAL(doubleClicked(QModelIndex)), parent,
-            SLOT(loadSelectedThumbImage(QModelIndex)));
 
     emptyImg.load(":/images/no_image.png");
 
     phototonic = (Phototonic *)parent;
+
+    connect(&m_loadThumbTimer, &QTimer::timeout, this, &ThumbsViewer::loadThumbsRange);
+    connect(this, &ThumbsViewer::doubleClicked, phototonic, &Phototonic::loadSelectedThumbImage);
+
     infoView = new InfoView(this);
 
     imagePreview = new ImagePreview(this);

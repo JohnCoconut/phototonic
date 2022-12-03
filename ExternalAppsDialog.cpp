@@ -50,20 +50,20 @@ ExternalAppsDialog::ExternalAppsDialog(QWidget *parent)
 
     QHBoxLayout *externalAppsLayout = new QHBoxLayout;
     QPushButton *addButton = new QPushButton(tr("Choose"));
-    connect(addButton, SIGNAL(clicked()), this, SLOT(add()));
+    connect(addButton, &QPushButton::clicked, this, &ExternalAppsDialog::add);
     externalAppsLayout->addWidget(addButton, 0, Qt::AlignRight);
     QPushButton *entryButton = new QPushButton(tr("Add manually"));
-    connect(entryButton, SIGNAL(clicked()), this, SLOT(entry()));
+    connect(entryButton, &QPushButton::clicked, this, &ExternalAppsDialog::entry);
     externalAppsLayout->addWidget(entryButton, 0, Qt::AlignRight);
     QPushButton *removeButton = new QPushButton(tr("Delete"));
-    connect(removeButton, SIGNAL(clicked()), this, SLOT(remove()));
+    connect(removeButton, &QPushButton::clicked, this, &ExternalAppsDialog::remove);
     externalAppsLayout->addWidget(removeButton, 0, Qt::AlignRight);
     externalAppsLayout->addStretch(1);
 
     QHBoxLayout *buttonsLayout = new QHBoxLayout;
     QPushButton *okButton = new QPushButton(tr("OK"));
     okButton->setSizePolicy(QSizePolicy::Fixed, QSizePolicy::Fixed);
-    connect(okButton, SIGNAL(clicked()), this, SLOT(ok()));
+    connect(okButton, &QPushButton::clicked, this, &ExternalAppsDialog::ok);
     buttonsLayout->addWidget(okButton, 0, Qt::AlignRight);
     QVBoxLayout *externalAppsMainLayout = new QVBoxLayout;
     externalAppsMainLayout->addWidget(appsTable);

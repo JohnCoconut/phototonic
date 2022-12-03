@@ -45,8 +45,8 @@ FileSystemTree::FileSystemTree(QWidget *parent)
         fileSystemModel, &QFileSystemModel::layoutChanged, this,
         [this]() { scrollTo(currentIndex()); }, Qt::QueuedConnection);
 
-    connect(this, SIGNAL(expanded(QModelIndex)), this, SLOT(resizeTreeColumn(QModelIndex)));
-    connect(this, SIGNAL(collapsed(QModelIndex)), this, SLOT(resizeTreeColumn(QModelIndex)));
+    connect(this, &FileSystemTree::expanded, this, &FileSystemTree::resizeTreeColumn);
+    connect(this, &FileSystemTree::collapsed, this, &FileSystemTree::resizeTreeColumn);
 }
 
 QModelIndex FileSystemTree::getCurrentIndex()

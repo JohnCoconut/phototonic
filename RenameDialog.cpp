@@ -29,11 +29,11 @@ RenameDialog::RenameDialog(QWidget *parent)
 
     QHBoxLayout *buttonsLayout = new QHBoxLayout;
     QPushButton *okButton = new QPushButton(tr("Rename"));
-    connect(okButton, SIGNAL(clicked()), this, SLOT(ok()));
+    connect(okButton, &QPushButton::clicked, this, &RenameDialog::ok);
     okButton->setDefault(true);
 
     QPushButton *cancelButton = new QPushButton(tr("Cancel"));
-    connect(cancelButton, SIGNAL(clicked()), this, SLOT(abort()));
+    connect(cancelButton, &QPushButton::clicked, this, &RenameDialog::abort);
     buttonsLayout->addWidget(cancelButton, 1, Qt::AlignRight);
     buttonsLayout->addWidget(okButton, 0, Qt::AlignRight);
 
