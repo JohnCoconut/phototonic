@@ -3556,13 +3556,13 @@ void Phototonic::rename()
     QString newFileName = renameDialog->getFileName();
     renameDialog->deleteLater();
 
-    if (renameConfirmed && newFileName.isEmpty()) {
+    if (renameConfirmed == static_cast<int>(QDialog::Accepted) && newFileName.isEmpty()) {
         MessageBox msgBox(this);
         msgBox.critical(tr("Error"), tr("No name entered."));
-        renameConfirmed = 0;
+        renameConfirmed = static_cast<int>(QDialog::Rejected);
     }
 
-    if (renameConfirmed) {
+    if (renameConfirmed == static_cast<int>(QDialog::Accepted)) {
         QString newFileNameFullPath =
             currentFileInfo.absolutePath() + QDir::separator() + newFileName;
         if (currentFileFullPath.rename(newFileNameFullPath)) {
