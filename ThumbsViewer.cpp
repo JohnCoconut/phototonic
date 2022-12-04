@@ -195,11 +195,7 @@ int ThumbsViewer::getCurrentRow() const
 
 void ThumbsViewer::setCurrentRow(int row)
 {
-    if (row >= 0) {
-        currentRow = row;
-    } else {
-        currentRow = 0;
-    }
+    currentRow = row >= 0 ? row : 0;
 }
 
 void ThumbsViewer::setImageViewerWindowTitle()
