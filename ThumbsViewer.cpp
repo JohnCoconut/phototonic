@@ -323,8 +323,8 @@ void ThumbsViewer::updateImageInfoViewer(int row)
         Exiv2::XmpData::iterator end = xmpData.end();
         infoView->addTitleEntry("XMP");
         for (Exiv2::XmpData::iterator md = xmpData.begin(); md != end; ++md) {
-            key = QString::fromUtf8(md->tagName().c_str());
-            val = QString::fromUtf8(md->print().c_str());
+            key = QString::fromStdString(md->tagName());
+            val = QString::fromStdString(md->print());
             infoView->addEntry(key, val);
         }
     }
