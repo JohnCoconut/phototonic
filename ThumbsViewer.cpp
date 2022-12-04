@@ -365,10 +365,9 @@ void ThumbsViewer::onSelectionChanged()
     }
 
     if (selectedThumbs >= 1) {
-        QString statusStr;
-        statusStr = tr("Selected %1 of %2")
-                        .arg(QString::number(selectedThumbs))
-                        .arg(tr(" %n image(s)", "", thumbsViewerModel->rowCount()));
+        QString statusStr = tr("Selected %1 of %2")
+                                .arg(QString::number(selectedThumbs),
+                                     tr(" %n image(s)", "", thumbsViewerModel->rowCount()));
         phototonic->setStatus(statusStr);
     } else if (!selectedThumbs) {
         updateThumbsCount();
