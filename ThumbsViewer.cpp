@@ -825,8 +825,8 @@ void ThumbsViewer::updateThumbsCount()
 {
     QString state;
 
-    if (thumbsViewerModel->rowCount() > 0) {
-        state = tr("%n image(s)", "", thumbsViewerModel->rowCount());
+    if (int rowCount = thumbsViewerModel->rowCount(); rowCount > 0) {
+        state = tr("%n image(s)", "", rowCount);
     } else {
         state = tr("No images");
     }
