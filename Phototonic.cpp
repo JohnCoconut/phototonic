@@ -3726,7 +3726,7 @@ void Phototonic::createSubDirectory()
     }
 
     QDir dir(dirInfo.absoluteFilePath());
-    ok = dir.mkdir(dirInfo.absoluteFilePath() + QDir::separator() + newDirName);
+    ok = dir.mkdir(newDirName);
 
     if (!ok) {
         MessageBox msgBox(this);
