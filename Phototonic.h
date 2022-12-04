@@ -137,7 +137,7 @@ private slots:
 
     void goBack();
 
-    void goTo(QString path);
+    void goTo(const QString &path);
 
     void goForward();
 
@@ -522,7 +522,7 @@ private:
 
     bool isValidPath(const QString &path);
 
-    QString getSelectedPath();
+    QString getSelectedPath() const;
 
     void setCopyCutActions(bool setEnabled);
 

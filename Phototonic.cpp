@@ -2148,7 +2148,7 @@ void Phototonic::deletePermanentlyOperation()
     deleteImages(false);
 }
 
-void Phototonic::goTo(QString path)
+void Phototonic::goTo(const QString &path)
 {
     findDupesAction->setChecked(false);
     Settings::isFileListLoaded = false;
@@ -3747,14 +3747,14 @@ void Phototonic::setSaveDirectory(const QString &path)
                                              : path;
 }
 
-QString Phototonic::getSelectedPath()
+QString Phototonic::getSelectedPath() const
 {
     QModelIndexList selectedDirs = fileSystemTree->selectionModel()->selectedRows();
     if (!selectedDirs.empty() && selectedDirs[0].isValid()) {
         QFileInfo dirInfo = QFileInfo(fileSystemTree->fileSystemModel->filePath(selectedDirs[0]));
         return dirInfo.absoluteFilePath();
-    } else
-        return "";
+    }
+    return "";
 }
 
 void Phototonic::wheelEvent(QWheelEvent *event)
