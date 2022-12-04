@@ -369,8 +369,8 @@ void ThumbsViewer::onSelectionChanged()
                                 .arg(QString::number(selectedThumbs),
                                      tr(" %n image(s)", "", thumbsViewerModel->rowCount()));
         phototonic->setStatus(statusStr);
-    } else if (!selectedThumbs) {
-        updateThumbsCount();
+    } else {
+        phototonic->setStatus(tr("No images"));
     }
 }
 
