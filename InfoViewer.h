@@ -49,7 +49,7 @@ protected:
 
 private slots:
 
-    void filterItems();
+    void filterItems(const QString &text);
 
 private:
     QTableView *infoViewerTable;

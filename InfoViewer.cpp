@@ -122,7 +122,7 @@ void InfoView::copyEntry()
     }
 }
 
-void InfoView::filterItems()
+void InfoView::filterItems(const QString &text)
 {
     emit updateInfo();
 }
