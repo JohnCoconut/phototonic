@@ -2766,7 +2766,7 @@ void Phototonic::closeEvent(QCloseEvent *event)
     event->accept();
 }
 
-void Phototonic::setStatus(QString state)
+void Phototonic::setStatus(const QString &state)
 {
     statusLabel->setText("    " + state + "    ");
 }

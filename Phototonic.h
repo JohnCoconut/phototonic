@@ -48,7 +48,7 @@ public:
 
     QMenu *createPopupMenu();
 
-    void setStatus(QString state);
+    void setStatus(const QString &state);
 
     void showBusyAnimation(bool busy);
 
