@@ -179,9 +179,9 @@ private slots:
 
     void thumbsZoomOut();
 
-    void zoomIn(const float multiplier = 1.);
+    void zoomIn(float multiplier = 1.);
 
-    void zoomOut(const float multiplier = 1.);
+    void zoomOut(float multiplier = 1.);
 
     void resetZoom();
 
