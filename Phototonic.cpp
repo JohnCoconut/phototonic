@@ -2374,9 +2374,8 @@ void Phototonic::writeSettings()
     int idx = 0;
     Settings::appSettings->beginGroup(Settings::optionCopyMoveToPaths);
     Settings::appSettings->remove("");
-    QSetIterator<QString> pathsIter(Settings::bookmarkPaths);
-    while (pathsIter.hasNext()) {
-        Settings::appSettings->setValue("path" + QString::number(++idx), pathsIter.next());
+    for (const QString &bookmarkPath : qAsConst(Settings::bookmarkPaths)) {
+        Settings::appSettings->setValue("path" + QString::number(++idx), bookmarkPath);
     }
     Settings::appSettings->endGroup();
 
@@ -2384,9 +2383,8 @@ void Phototonic::writeSettings()
     idx = 0;
     Settings::appSettings->beginGroup(Settings::optionKnownTags);
     Settings::appSettings->remove("");
-    QSetIterator<QString> tagsIter(Settings::knownTags);
-    while (tagsIter.hasNext()) {
-        Settings::appSettings->setValue("tag" + QString::number(++idx), tagsIter.next());
+    for (const QString &tag : qAsConst(Settings::knownTags)) {
+        Settings::appSettings->setValue("tag" + QString::number(++idx), tag);
     }
     Settings::appSettings->endGroup();
 }

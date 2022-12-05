@@ -22,6 +22,8 @@
 #include "Settings.h"
 #include "ThumbsViewer.h"
 
+#include <unordered_map>
+
 ImageTags::ImageTags(QWidget *parent, ThumbsViewer *thumbsViewer,
                      const std::shared_ptr<MetadataCache> &metadataCache)
     : QWidget(parent)
@@ -169,9 +171,7 @@ bool ImageTags::writeTagsToImage(const QString &imageFileName, QSet<QString> &ne
         }
 
         /* add new tags */
-        QSetIterator<QString> newTagsIt(newTags);
-        while (newTagsIt.hasNext()) {
-            QString tag = newTagsIt.next();
+        for (const QString &tag : qAsConst(newTags)) {
 
 #pragma clang diagnostic push
 #pragma clang diagnostic ignored "-Wdeprecated-declarations"
@@ -205,11 +205,10 @@ void ImageTags::showSelectedImagesTags()
     setActiveViewMode(SelectionTagsDisplay);
 
     int selectedThumbsNum = selectedThumbs.size();
-    QMap<QString, int> tagsCount;
+    std::unordered_map<QString, int> tagsCount;
     for (int i = 0; i < selectedThumbsNum; ++i) {
-        QSetIterator<QString> imageTagsIter(metadataCache->getImageTags(selectedThumbs[i]));
-        while (imageTagsIter.hasNext()) {
-            QString imageTag = imageTagsIter.next();
+        const QSet<QString> imageTags = metadataCache->getImageTags(selectedThumbs[i]);
+        for (const QString &imageTag : imageTags) {
             tagsCount[imageTag]++;
 
             if (!Settings::knownTags.contains(imageTag)) {
@@ -293,9 +292,7 @@ void ImageTags::showTagsFilter()
 void ImageTags::populateTagsTree()
 {
     tagsTree->clear();
-    QSetIterator<QString> knownTagsIt(Settings::knownTags);
-    while (knownTagsIt.hasNext()) {
-        QString tag = knownTagsIt.next();
+    for (const QString &tag : qAsConst(Settings::knownTags)) {
         addTag(tag, false);
     }
 
