@@ -1269,7 +1269,7 @@ void Phototonic::runExternalApp()
 
     QProcess *externalProcess = new QProcess();
     externalProcess->setProcessChannelMode(QProcess::ForwardedChannels);
-    connect(externalProcess, QOverload<int, QProcess::ExitStatus>::of(&QProcess::finished),
+    connect(externalProcess, qOverload<int, QProcess::ExitStatus>(&QProcess::finished),
             externalProcess, &QObject::deleteLater);
     connect(externalProcess, &QProcess::errorOccurred, this, &Phototonic::externalAppError);
     externalProcess->start(execCommand, arguments);

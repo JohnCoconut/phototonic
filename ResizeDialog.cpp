@@ -52,12 +52,12 @@ ResizeDialog::ResizeDialog(QWidget *parent, ImageViewer *imageViewer)
     widthSpinBox = new QSpinBox;
     widthSpinBox->setRange(0, width * 10);
     widthSpinBox->setValue(width);
-    connect(widthSpinBox, QOverload<int>::of(&QSpinBox::valueChanged), this,
+    connect(widthSpinBox, qOverload<int>(&QSpinBox::valueChanged), this,
             &ResizeDialog::adjustSizes);
     heightSpinBox = new QSpinBox;
     heightSpinBox->setRange(0, height * 10);
     heightSpinBox->setValue(height);
-    connect(heightSpinBox, QOverload<int>::of(&QSpinBox::valueChanged), this,
+    connect(heightSpinBox, qOverload<int>(&QSpinBox::valueChanged), this,
             &ResizeDialog::adjustSizes);
 
     QGridLayout *mainGbox = new QGridLayout;

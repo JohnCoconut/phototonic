@@ -112,20 +112,16 @@ CropDialog::CropDialog(QWidget *parent, ImageViewer *imageViewer)
     connect(bottomSlide, &QSlider::valueChanged, bottomSpinBox, &QSpinBox::setValue);
     connect(leftSlide, &QSlider::valueChanged, leftSpinBox, &QSpinBox::setValue);
     connect(rightSlide, &QSlider::valueChanged, rightSpinBox, &QSpinBox::setValue);
-    connect(topSpinBox, QOverload<int>::of(&QSpinBox::valueChanged), topSlide, &QSlider::setValue);
-    connect(bottomSpinBox, QOverload<int>::of(&QSpinBox::valueChanged), bottomSlide,
+    connect(topSpinBox, qOverload<int>(&QSpinBox::valueChanged), topSlide, &QSlider::setValue);
+    connect(bottomSpinBox, qOverload<int>(&QSpinBox::valueChanged), bottomSlide,
             &QSlider::setValue);
-    connect(leftSpinBox, QOverload<int>::of(&QSpinBox::valueChanged), leftSlide,
-            &QSlider::setValue);
-    connect(rightSpinBox, QOverload<int>::of(&QSpinBox::valueChanged), rightSlide,
-            &QSlider::setValue);
+    connect(leftSpinBox, qOverload<int>(&QSpinBox::valueChanged), leftSlide, &QSlider::setValue);
+    connect(rightSpinBox, qOverload<int>(&QSpinBox::valueChanged), rightSlide, &QSlider::setValue);
 
-    connect(topSpinBox, QOverload<int>::of(&QSpinBox::valueChanged), this, &CropDialog::applyCrop);
-    connect(bottomSpinBox, QOverload<int>::of(&QSpinBox::valueChanged), this,
-            &CropDialog::applyCrop);
-    connect(leftSpinBox, QOverload<int>::of(&QSpinBox::valueChanged), this, &CropDialog::applyCrop);
-    connect(rightSpinBox, QOverload<int>::of(&QSpinBox::valueChanged), this,
-            &CropDialog::applyCrop);
+    connect(topSpinBox, qOverload<int>(&QSpinBox::valueChanged), this, &CropDialog::applyCrop);
+    connect(bottomSpinBox, qOverload<int>(&QSpinBox::valueChanged), this, &CropDialog::applyCrop);
+    connect(leftSpinBox, qOverload<int>(&QSpinBox::valueChanged), this, &CropDialog::applyCrop);
+    connect(rightSpinBox, qOverload<int>(&QSpinBox::valueChanged), this, &CropDialog::applyCrop);
 }
 
 void CropDialog::applyCrop(int)
