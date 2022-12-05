@@ -128,15 +128,15 @@ public:
 
     void selectByBrightness(qreal min, qreal max);
 
-    int getNextRow() const;
+    [[nodiscard]] int getNextRow() const;
 
-    int getPrevRow() const;
+    [[nodiscard]] int getPrevRow() const;
 
-    int getLastRow() const;
+    [[nodiscard]] int getLastRow() const;
 
-    int getRandomRow() const;
+    [[nodiscard]] int getRandomRow() const;
 
-    int getCurrentRow() const;
+    [[nodiscard]] int getCurrentRow() const;
 
     QStringList getSelectedThumbsList();
 
@@ -178,10 +178,10 @@ private:
 
     void updateImageInfoViewer(int row);
 
-    QSize itemSizeHint() const;
+    [[nodiscard]] QSize itemSizeHint() const;
 
-    QString thumbnailFileName(const QString &path) const;
-    QString locateThumbnail(const QString &path) const;
+    [[nodiscard]] QString thumbnailFileName(const QString &path) const;
+    [[nodiscard]] QString locateThumbnail(const QString &path) const;
     void storeThumbnail(const QString &originalPath, QImage thumbnail,
                         const QSize &originalSize) const;
 

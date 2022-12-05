@@ -522,7 +522,7 @@ private:
 
     bool isValidPath(const QString &path);
 
-    QString getSelectedPath() const;
+    [[nodiscard]] QString getSelectedPath() const;
 
     void setCopyCutActions(bool setEnabled);
 
