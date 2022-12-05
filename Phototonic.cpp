@@ -231,7 +231,6 @@ void Phototonic::createImageViewer()
     imageViewer->addAction(showClipboardAction);
     imageViewer->addAction(copyToAction);
     imageViewer->addAction(moveToAction);
-    imageViewer->addAction(resizeAction);
     imageViewer->addAction(viewImageAction);
     imageViewer->addAction(exitAction);
     imageViewer->addAction(showViewerToolbarAction);
