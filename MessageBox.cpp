@@ -43,7 +43,7 @@ void MessageBox::warning(const QString &title, const QString &message)
 
 void MessageBox::about()
 {
-    QString aboutString = "<h2>" + QString(VERSION) + "</h2>"
+    QString aboutString = "<h2>" + QStringLiteral(VERSION) + "</h2>"
         + tr("<h4>Image Viewer and Organizer</h4>") + "Qt v" + QT_VERSION_STR
         + "<p><a href=\"https://github.com/oferkv/phototonic\">" + tr("Home page")
         + "</a></p></a></p><p></p>"

@@ -64,13 +64,13 @@ CropDialog::CropDialog(QWidget *parent, ImageViewer *imageViewer)
     rightSlide->setTracking(false);
 
     topSpinBox = new QSpinBox;
-    topSpinBox->setPrefix("% ");
+    topSpinBox->setPrefix(QStringLiteral("% "));
     bottomSpinBox = new QSpinBox;
-    bottomSpinBox->setPrefix("% ");
+    bottomSpinBox->setPrefix(QStringLiteral("% "));
     leftSpinBox = new QSpinBox;
-    leftSpinBox->setPrefix("% ");
+    leftSpinBox->setPrefix(QStringLiteral("% "));
     rightSpinBox = new QSpinBox;
-    rightSpinBox->setPrefix("% ");
+    rightSpinBox->setPrefix(QStringLiteral("% "));
 
     QLabel *leftLab = new QLabel(tr("Left"));
     QLabel *rightLab = new QLabel(tr("Right"));

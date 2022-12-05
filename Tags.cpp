@@ -74,7 +74,8 @@ ImageTags::ImageTags(QWidget *parent, ThumbsViewer *thumbsViewer,
     connect(actionAddTag, &QAction::triggered, this, &ImageTags::addNewTag);
 
     removeTagAction = new QAction(tr("Delete Tag"), this);
-    removeTagAction->setIcon(QIcon::fromTheme("edit-delete", QIcon(":/images/delete.png")));
+    removeTagAction->setIcon(
+        QIcon::fromTheme(QStringLiteral("edit-delete"), QIcon(":/images/delete.png")));
 
     actionClearTagsFilter = new QAction(tr("Clear Filters"), this);
     actionClearTagsFilter->setIcon(QIcon(":/images/tag_filter_off.png"));
@@ -84,7 +85,7 @@ ImageTags::ImageTags(QWidget *parent, ThumbsViewer *thumbsViewer,
     negateAction->setCheckable(true);
     connect(negateAction, &QAction::triggered, this, &ImageTags::negateFilter);
 
-    tagsMenu = new QMenu("");
+    tagsMenu = new QMenu(QLatin1String(""));
     tagsMenu->addAction(addToSelectionAction);
     tagsMenu->addAction(removeFromSelectionAction);
     tagsMenu->addSeparator();
@@ -472,8 +473,8 @@ void ImageTags::addNewTag()
 {
     bool ok;
     QString title = tr("Add a new tag");
-    QString newTagName =
-        QInputDialog::getText(this, title, tr("Enter new tag name"), QLineEdit::Normal, "", &ok);
+    QString newTagName = QInputDialog::getText(this, title, tr("Enter new tag name"),
+                                               QLineEdit::Normal, QLatin1String(""), &ok);
     if (!ok) {
         return;
     }

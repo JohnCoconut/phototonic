@@ -32,7 +32,7 @@ FileSystemTree::FileSystemTree(QWidget *parent)
     setDragDropMode(QAbstractItemView::InternalMove);
 
     fileSystemModel = new FileSystemModel();
-    fileSystemModel->setRootPath("");
+    fileSystemModel->setRootPath(QLatin1String(""));
     setModelFlags();
     setModel(fileSystemModel);
 
@@ -77,7 +77,7 @@ void FileSystemTree::dragMoveEvent(QDragMoveEvent *event)
 void FileSystemTree::dropEvent(QDropEvent *event)
 {
     if (event->source()) {
-        QString fileSystemTreeStr = "FileSystemTree";
+        QString fileSystemTreeStr = QStringLiteral("FileSystemTree");
         bool dirOp = (event->source()->metaObject()->className() == fileSystemTreeStr);
         emit dropOp(event->keyboardModifiers(), dirOp,
                     event->mimeData()->urls().at(0).toLocalFile());

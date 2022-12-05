@@ -40,10 +40,10 @@ CropRubberBand::CropRubberBand(QWidget *parent)
     QSizeGrip *grip3 = new QSizeGrip(this);
     QSizeGrip *grip4 = new QSizeGrip(this);
 
-    grip1->setStyleSheet("background-color: rgba(0, 0, 0, 0%)");
-    grip2->setStyleSheet("background-color: rgba(0, 0, 0, 0%)");
-    grip3->setStyleSheet("background-color: rgba(0, 0, 0, 0%)");
-    grip4->setStyleSheet("background-color: rgba(0, 0, 0, 0%)");
+    grip1->setStyleSheet(QStringLiteral("background-color: rgba(0, 0, 0, 0%)"));
+    grip2->setStyleSheet(QStringLiteral("background-color: rgba(0, 0, 0, 0%)"));
+    grip3->setStyleSheet(QStringLiteral("background-color: rgba(0, 0, 0, 0%)"));
+    grip4->setStyleSheet(QStringLiteral("background-color: rgba(0, 0, 0, 0%)"));
 
     topLayout->addWidget(grip1, 0, Qt::AlignTop | Qt::AlignLeft);
     topLayout->addWidget(grip2, 1, Qt::AlignTop | Qt::AlignRight);
@@ -56,7 +56,7 @@ CropRubberBand::CropRubberBand(QWidget *parent)
     setFocusPolicy(Qt::ClickFocus);
 
     rubberband = new QRubberBand(QRubberBand::Rectangle, this);
-    rubberband->setStyleSheet("background-color: rgb(255, 255, 255)");
+    rubberband->setStyleSheet(QStringLiteral("background-color: rgb(255, 255, 255)"));
     rubberband->show();
 }
 

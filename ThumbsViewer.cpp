@@ -74,7 +74,7 @@ ThumbsViewer::ThumbsViewer(QWidget *parent, const std::shared_ptr<MetadataCache>
     m_loadThumbTimer.setInterval(10);
     m_loadThumbTimer.setSingleShot(true);
 
-    emptyImg.load(":/images/no_image.png");
+    emptyImg.load(QStringLiteral(":/images/no_image.png"));
 
     phototonic = (Phototonic *)parent;
 
@@ -88,12 +88,12 @@ ThumbsViewer::ThumbsViewer(QWidget *parent, const std::shared_ptr<MetadataCache>
 
 void ThumbsViewer::setThumbColors()
 {
-    QString backgroundColor = "background: rgb(%1, %2, %3); ";
+    QString backgroundColor = QStringLiteral("background: rgb(%1, %2, %3); ");
     backgroundColor = backgroundColor.arg(Settings::thumbsBackgroundColor.red())
                           .arg(Settings::thumbsBackgroundColor.green())
                           .arg(Settings::thumbsBackgroundColor.blue());
 
-    QString itemBackgroundColor = "background: rgba(%1, %2, %3, 0.5); ";
+    QString itemBackgroundColor = QStringLiteral("background: rgba(%1, %2, %3, 0.5); ");
     itemBackgroundColor = itemBackgroundColor.arg(Settings::thumbsBackgroundColor.red())
                               .arg(Settings::thumbsBackgroundColor.green())
                               .arg(Settings::thumbsBackgroundColor.blue());
@@ -157,7 +157,7 @@ QString ThumbsViewer::getSingleSelectionFilename()
             ->data(FileNameRole)
             .toString();
 
-    return ("");
+    return QLatin1String("");
 }
 
 int ThumbsViewer::getNextRow() const
@@ -299,7 +299,7 @@ void ThumbsViewer::updateImageInfoViewer(int row)
     Exiv2::ExifData &exifData = exifImage->exifData();
     if (!exifData.empty()) {
         Exiv2::ExifData::const_iterator end = exifData.end();
-        infoView->addTitleEntry("Exif");
+        infoView->addTitleEntry(QStringLiteral("Exif"));
         for (Exiv2::ExifData::const_iterator md = exifData.begin(); md != end; ++md) {
             key = QString::fromStdString(md->tagName());
             val = QString::fromStdString(md->print());
@@ -310,7 +310,7 @@ void ThumbsViewer::updateImageInfoViewer(int row)
     Exiv2::IptcData &iptcData = exifImage->iptcData();
     if (!iptcData.empty()) {
         Exiv2::IptcData::iterator end = iptcData.end();
-        infoView->addTitleEntry("IPTC");
+        infoView->addTitleEntry(QStringLiteral("IPTC"));
         for (Exiv2::IptcData::iterator md = iptcData.begin(); md != end; ++md) {
             key = QString::fromStdString(md->tagName());
             val = QString::fromStdString(md->print());
@@ -321,7 +321,7 @@ void ThumbsViewer::updateImageInfoViewer(int row)
     Exiv2::XmpData &xmpData = exifImage->xmpData();
     if (!xmpData.empty()) {
         Exiv2::XmpData::iterator end = xmpData.end();
-        infoView->addTitleEntry("XMP");
+        infoView->addTitleEntry(QStringLiteral("XMP"));
         for (Exiv2::XmpData::iterator md = xmpData.begin(); md != end; ++md) {
             key = QString::fromStdString(md->tagName());
             val = QString::fromStdString(md->print());
@@ -592,8 +592,8 @@ void ThumbsViewer::loadSubDirectories()
     int processed = 0;
     while (dirIterator.hasNext()) {
         dirIterator.next();
-        if (dirIterator.fileInfo().isDir() && dirIterator.fileName() != "."
-            && dirIterator.fileName() != "..") {
+        if (dirIterator.fileInfo().isDir() && dirIterator.fileName() != QLatin1String(".")
+            && dirIterator.fileName() != QLatin1String("..")) {
             thumbsDir.setPath(dirIterator.filePath());
 
             initThumbs();
@@ -616,7 +616,7 @@ void ThumbsViewer::loadSubDirectories()
 void ThumbsViewer::applyFilter()
 {
     fileFilters.clear();
-    QString textFilter("*");
+    QString textFilter(QStringLiteral("*"));
     textFilter += filterString;
 
     // Get all patterns supported by QImageReader
@@ -719,8 +719,8 @@ void ThumbsViewer::loadDuplicates()
         QDirIterator iterator(Settings::currentDirectory, QDirIterator::Subdirectories);
         while (iterator.hasNext()) {
             iterator.next();
-            if (iterator.fileInfo().isDir() && iterator.fileName() != "."
-                && iterator.fileName() != "..") {
+            if (iterator.fileInfo().isDir() && iterator.fileName() != QLatin1String(".")
+                && iterator.fileName() != QLatin1String("..")) {
                 thumbsDir.setPath(iterator.filePath());
 
                 findDupes(false);
@@ -1169,7 +1169,7 @@ QString ThumbsViewer::locateThumbnail(const QString &originalPath) const
 
     const QString filename = thumbnailFileName(originalPath);
     const QString basePath = QStandardPaths::writableLocation(QStandardPaths::GenericCacheLocation)
-        + QLatin1String("/thumbnails/");
+        + QStringLiteral("/thumbnails/");
     const QFileInfo originalInfo(originalPath);
     for (const QString &folder : folders) {
         QFileInfo info(basePath + folder + filename);
@@ -1224,7 +1224,7 @@ void ThumbsViewer::storeThumbnail(const QString &originalPath, QImage thumbnail,
 
     const QString filename = thumbnailFileName(originalPath);
     const QString basePath = QStandardPaths::writableLocation(QStandardPaths::GenericCacheLocation)
-        + QLatin1String("/thumbnails/");
+        + QStringLiteral("/thumbnails/");
 
     if (!QFileInfo::exists(basePath + folder)) {
         QDir().mkpath(basePath + folder);
@@ -1245,7 +1245,7 @@ void ThumbsViewer::storeThumbnail(const QString &originalPath, QImage thumbnail,
     thumbnail.setText(QStringLiteral("Thumb::Image::Width"), QString::number(originalSize.width()));
     thumbnail.setText(QStringLiteral("Thumb::Image::Height"),
                       QString::number(originalSize.height()));
-    thumbnail.setText("Software", "Phototonic");
+    thumbnail.setText(QStringLiteral("Software"), QStringLiteral("Phototonic"));
     thumbnail.convertToColorSpace(QColorSpace::SRgb);
 
     thumbnail.save(fullPath);
@@ -1289,8 +1289,8 @@ bool ThumbsViewer::loadThumb(int currThumb)
         imageReadOk = thumbReader.read(&thumb);
 
         if (imageReadOk && !shouldStoreThumbnail) {
-            int w = thumb.text("Thumb::Image::Width").toInt();
-            int h = thumb.text("Thumb::Image::Height").toInt();
+            int w = thumb.text(QStringLiteral("Thumb::Image::Width")).toInt();
+            int h = thumb.text(QStringLiteral("Thumb::Image::Height")).toInt();
             if (origThumbSize != QSize(w, h)) {
                 qWarning() << "Invalid size in stored thumbnail" << w << h << "vs" << origThumbSize;
                 shouldStoreThumbnail = true;

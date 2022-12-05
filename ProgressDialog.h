@@ -30,7 +30,7 @@ public slots:
     void abort();
 
 public:
-    QLabel *opLabel = new QLabel("");
+    QLabel *opLabel = new QLabel(QLatin1String(""));
     bool abortOp = false;
 
     ProgressDialog(QWidget *parent);

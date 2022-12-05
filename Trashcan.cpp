@@ -41,9 +41,9 @@
 static Trash::Result moveToTrashDir(const QString &filePath, const QDir &trashDir, QString &error,
                                     const QStorageInfo &nonHomeStorage)
 {
-    const QDir trashInfoDir = QDir(trashDir.filePath("info"));
-    const QDir trashFilesDir = QDir(trashDir.filePath("files"));
-    if (trashInfoDir.mkpath(".") && trashFilesDir.mkpath(".")) {
+    const QDir trashInfoDir = QDir(trashDir.filePath(QStringLiteral("info")));
+    const QDir trashFilesDir = QDir(trashDir.filePath(QStringLiteral("files")));
+    if (trashInfoDir.mkpath(QStringLiteral(".")) && trashFilesDir.mkpath(QStringLiteral("."))) {
         QFileInfo fileInfo(filePath);
         QString fileName = fileInfo.fileName();
         QString infoFileName = fileName + ".trashinfo";
@@ -54,7 +54,7 @@ static Trash::Result moveToTrashDir(const QString &filePath, const QDir &trashDi
              || ((fd = open(trashInfoDir.filePath(infoFileName).toUtf8().data(), flag, mode)) == -1
                  && errno == EEXIST);
              ++n) {
-            fileName = QString("%1.%2.%3")
+            fileName = QStringLiteral("%1.%2.%3")
                            .arg(fileInfo.baseName(), QString::number(n), fileInfo.completeSuffix());
             infoFileName = fileName + ".trashinfo";
         }
@@ -81,11 +81,11 @@ static Trash::Result moveToTrashDir(const QString &filePath, const QDir &trashDi
         if (QDir().rename(filePath, moveHere)) {
             return Trash::Success;
         } else {
-            error = QString("Could not rename %1 to %2").arg(filePath, moveHere);
+            error = QStringLiteral("Could not rename %1 to %2").arg(filePath, moveHere);
             return Trash::Error;
         }
     } else {
-        error = "Could not set up trash subdirectories";
+        error = QStringLiteral("Could not set up trash subdirectories");
         return Trash::Error;
     }
 }
@@ -93,35 +93,35 @@ static Trash::Result moveToTrashDir(const QString &filePath, const QDir &trashDi
 Trash::Result Trash::moveToTrash(const QString &path, QString &error, Trash::Options trashOptions)
 {
     if (path.isEmpty()) {
-        error = "Path is empty";
+        error = QStringLiteral("Path is empty");
         return Trash::Error;
     }
     const QString filePath = QFileInfo(path).absoluteFilePath();
     const QStorageInfo filePathStorage(filePath);
     if (!filePathStorage.isValid()) {
-        error = "Could not get device of the file being trashed";
+        error = QStringLiteral("Could not get device of the file being trashed");
         return Trash::Error;
     }
     const QString homeDataLocation =
         QStandardPaths::writableLocation(QStandardPaths::GenericDataLocation);
     const QDir homeDataDirectory(homeDataLocation);
     if (homeDataLocation.isEmpty() || !homeDataDirectory.exists()) {
-        error = "Could not get home data folder";
+        error = QStringLiteral("Could not get home data folder");
         return Trash::Error;
     }
 
     if (QStorageInfo(homeDataLocation) == filePathStorage
         || trashOptions == Trash::ForceDeletionToHomeTrash) {
-        const QDir homeTrashDirectory = QDir(homeDataDirectory.filePath("Trash"));
-        if (homeTrashDirectory.mkpath(".")) {
+        const QDir homeTrashDirectory = QDir(homeDataDirectory.filePath(QStringLiteral("Trash")));
+        if (homeTrashDirectory.mkpath(QStringLiteral("."))) {
             return moveToTrashDir(filePath, homeTrashDirectory, error, QStorageInfo());
         } else {
-            error = "Could not ensure that home trash directory exists";
+            error = QStringLiteral("Could not ensure that home trash directory exists");
             return Trash::Error;
         }
     } else {
         const QDir topdir = QDir(filePathStorage.rootPath());
-        const QDir topdirTrash = QDir(topdir.filePath(".Trash"));
+        const QDir topdirTrash = QDir(topdir.filePath(QStringLiteral(".Trash")));
         struct stat trashStat;
         if (lstat(topdirTrash.path().toUtf8().data(), &trashStat) == 0) {
             // should be a directory, not link, and have sticky bit
@@ -135,11 +135,12 @@ Trash::Result Trash::moveToTrash(const QString &path, QString &error, Trash::Opt
             }
         }
         // if we're still here, $topdir/.Trash does not exist or failed some check
-        QDir topdirUserTrash = QDir(topdir.filePath(QString(".Trash-%1").arg(getuid())));
-        if (topdirUserTrash.mkpath(".")) {
+        QDir topdirUserTrash = QDir(topdir.filePath(QStringLiteral(".Trash-%1").arg(getuid())));
+        if (topdirUserTrash.mkpath(QStringLiteral("."))) {
             return moveToTrashDir(filePath, topdirUserTrash, error, filePathStorage);
         }
-        error = "Could not find trash directory for the disk where the file resides";
+        error =
+            QStringLiteral("Could not find trash directory for the disk where the file resides");
         return Trash::NeedsUserInput;
     }
 }

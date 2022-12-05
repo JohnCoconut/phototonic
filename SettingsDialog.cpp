@@ -33,7 +33,8 @@ SettingsDialog::SettingsDialog(QWidget *parent)
     : QDialog(parent)
 {
     setWindowTitle(tr("Preferences"));
-    setWindowIcon(QIcon::fromTheme("preferences-system", QIcon(":/images/phototonic.png")));
+    setWindowIcon(
+        QIcon::fromTheme(QStringLiteral("preferences-system"), QIcon(":/images/phototonic.png")));
 
     // Zoom large images
     QGroupBox *fitLargeGroupBox = new QGroupBox(tr("Fit Large Images"));
@@ -159,7 +160,7 @@ SettingsDialog::SettingsDialog(QWidget *parent)
 
     QToolButton *chooseThumbsBackImageButton = new QToolButton();
     chooseThumbsBackImageButton->setIcon(
-        QIcon::fromTheme("document-open", QIcon(":/images/open.png")));
+        QIcon::fromTheme(QStringLiteral("document-open"), QIcon(":/images/open.png")));
     chooseThumbsBackImageButton->setFixedSize(26, 26);
     chooseThumbsBackImageButton->setIconSize(QSize(16, 16));
     connect(chooseThumbsBackImageButton, &QToolButton::clicked, this,
@@ -232,7 +233,8 @@ SettingsDialog::SettingsDialog(QWidget *parent)
     startupDirLineEdit->setMaximumWidth(400);
 
     QToolButton *chooseStartupDirButton = new QToolButton();
-    chooseStartupDirButton->setIcon(QIcon::fromTheme("document-open", QIcon(":/images/open.png")));
+    chooseStartupDirButton->setIcon(
+        QIcon::fromTheme(QStringLiteral("document-open"), QIcon(":/images/open.png")));
     chooseStartupDirButton->setFixedSize(26, 26);
     chooseStartupDirButton->setIconSize(QSize(16, 16));
     connect(chooseStartupDirButton, &QToolButton::clicked, this, &SettingsDialog::pickStartupDir);
@@ -424,7 +426,7 @@ void SettingsDialog::pickColor()
 
 void SettingsDialog::setButtonBgColor(const QColor &color, QToolButton *button)
 {
-    QString style = "background: rgb(%1, %2, %3);";
+    QString style = QStringLiteral("background: rgb(%1, %2, %3);");
     style = style.arg(color.red()).arg(color.green()).arg(color.blue());
     button->setStyleSheet(style);
 }
@@ -451,16 +453,16 @@ void SettingsDialog::pickThumbsTextColor()
 
 void SettingsDialog::pickStartupDir()
 {
-    QString dirName = QFileDialog::getExistingDirectory(this, tr("Choose Startup Directory"), "",
-                                                        QFileDialog::ShowDirsOnly
-                                                            | QFileDialog::DontResolveSymlinks);
+    QString dirName = QFileDialog::getExistingDirectory(
+        this, tr("Choose Startup Directory"), QLatin1String(""),
+        QFileDialog::ShowDirsOnly | QFileDialog::DontResolveSymlinks);
     startupDirLineEdit->setText(dirName);
 }
 
 void SettingsDialog::pickBackgroundImage()
 {
     QString dirName = QFileDialog::getOpenFileName(
-        this, tr("Open File"), "",
+        this, tr("Open File"), QLatin1String(""),
         tr("Images") + " (*.jpg *.jpeg *.jpe *.png *.bmp *.tiff *.tif *.ppm *.xbm *.xpm)");
     thumbsBackgroundImageLineEdit->setText(dirName);
 }

@@ -29,7 +29,8 @@ ResizeDialog::ResizeDialog(QWidget *parent, ImageViewer *imageViewer)
     : QDialog(parent)
 {
     setWindowTitle(tr("Scale Image"));
-    setWindowIcon(QIcon::fromTheme("transform-scale", QIcon(":/images/phototonic.png")));
+    setWindowIcon(
+        QIcon::fromTheme(QStringLiteral("transform-scale"), QIcon(":/images/phototonic.png")));
     newWidth = newHeight = 0;
 
     if (Settings::dialogLastX) {

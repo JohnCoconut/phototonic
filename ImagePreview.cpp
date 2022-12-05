@@ -57,8 +57,9 @@ QPixmap &ImagePreview::loadImage(const QString &imageFileName)
     QImageReader imageReader(imageFileName);
 
     if (!imageReader.size().isValid()) {
-        previewPixmap = QIcon::fromTheme("image-missing", QIcon(":/images/error_image.png"))
-                            .pixmap(BAD_IMAGE_SIZE, BAD_IMAGE_SIZE);
+        previewPixmap =
+            QIcon::fromTheme(QStringLiteral("image-missing"), QIcon(":/images/error_image.png"))
+                .pixmap(BAD_IMAGE_SIZE, BAD_IMAGE_SIZE);
     } else if (Settings::enableAnimations && imageReader.supportsAnimation()) {
         animation = new QMovie(imageFileName);
         animation->setParent(imageLabel);
@@ -111,7 +112,7 @@ void ImagePreview::resizeEvent(QResizeEvent *event)
 
 void ImagePreview::setBackgroundColor()
 {
-    QString bgColor = "background: rgb(%1, %2, %3); ";
+    QString bgColor = QStringLiteral("background: rgb(%1, %2, %3); ");
     bgColor = bgColor.arg(Settings::thumbsBackgroundColor.red())
                   .arg(Settings::thumbsBackgroundColor.green())
                   .arg(Settings::thumbsBackgroundColor.blue());

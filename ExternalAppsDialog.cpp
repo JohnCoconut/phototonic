@@ -29,7 +29,8 @@ ExternalAppsDialog::ExternalAppsDialog(QWidget *parent)
     : QDialog(parent)
 {
     setWindowTitle(tr("Manage External Applications"));
-    setWindowIcon(QIcon::fromTheme("preferences-other", QIcon(":/images/phototonic.png")));
+    setWindowIcon(
+        QIcon::fromTheme(QStringLiteral("preferences-other"), QIcon(":/images/phototonic.png")));
     resize(350, 250);
 
     appsTable = new QTableView(this);
@@ -98,7 +99,8 @@ void ExternalAppsDialog::ok()
 
 void ExternalAppsDialog::add()
 {
-    QString fileName = QFileDialog::getOpenFileName(this, tr("Choose Application"), "", "");
+    QString fileName = QFileDialog::getOpenFileName(this, tr("Choose Application"),
+                                                    QLatin1String(""), QLatin1String(""));
     if (fileName.isEmpty())
         return;
 

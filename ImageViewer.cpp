@@ -36,7 +36,7 @@
 
 #include <cmath>
 
-#define CLIPBOARD_IMAGE_NAME "clipboard.png"
+constexpr const char *CLIPBOARD_IMAGE_NAME = "clipboard.png";
 #define ROUND(x) ((int)((x) + 0.5))
 #define MAX(a, b) ((a) > (b) ? (a) : (b))
 #define MIN(a, b) ((a) < (b) ? (a) : (b))
@@ -112,13 +112,13 @@ ImageViewer::ImageViewer(QWidget *parent, const std::shared_ptr<MetadataCache> &
     imageInfoLabel->setMargin(3);
     imageInfoLabel->move(10, 10);
     imageInfoLabel->setStyleSheet(
-        "QLabel { background-color : black; color : white; border-radius: 3px} ");
+        QStringLiteral("QLabel { background-color : black; color : white; border-radius: 3px} "));
 
     feedbackLabel = new QLabel(this);
     feedbackLabel->setVisible(false);
     feedbackLabel->setMargin(3);
     feedbackLabel->setStyleSheet(
-        "QLabel { background-color : black; color : white; border-radius: 3px} ");
+        QStringLiteral("QLabel { background-color : black; color : white; border-radius: 3px} "));
 
     QGraphicsOpacityEffect *infoEffect = new QGraphicsOpacityEffect;
     infoEffect->setOpacity(0.5);
@@ -698,9 +698,9 @@ void ImageViewer::reload()
 {
     if (Settings::showImageName) {
         if (viewerImageFullPath.isEmpty()) {
-            setInfo("Clipboard");
+            setInfo(QStringLiteral("Clipboard"));
         } else if (viewerImageFullPath.at(0) == ':') {
-            setInfo("No Image");
+            setInfo(QStringLiteral("No Image"));
         } else {
             setInfo(QFileInfo(viewerImageFullPath).fileName());
         }
@@ -723,7 +723,7 @@ void ImageViewer::reload()
 
             newImage = true;
             viewerImageFullPath = CLIPBOARD_IMAGE_NAME;
-            origImage.load(":/images/no_image.png");
+            origImage.load(QStringLiteral(":/images/no_image.png"));
             viewerImage = origImage;
             setImage(viewerImage);
             pasteImage();
@@ -773,9 +773,10 @@ void ImageViewer::reload()
             mirror();
         }
     } else {
-        viewerImage = QIcon::fromTheme("image-missing", QIcon(":/images/error_image.png"))
-                          .pixmap(BAD_IMAGE_SIZE, BAD_IMAGE_SIZE)
-                          .toImage();
+        viewerImage =
+            QIcon::fromTheme(QStringLiteral("image-missing"), QIcon(":/images/error_image.png"))
+                .pixmap(BAD_IMAGE_SIZE, BAD_IMAGE_SIZE)
+                .toImage();
         setInfo(QFileInfo(imageReader.fileName()).fileName() + ": " + imageReader.errorString());
     }
 
@@ -837,7 +838,7 @@ void ImageViewer::loadImage(const QString &imageFileName)
 
 void ImageViewer::clearImage()
 {
-    origImage.load(":/images/no_image.png");
+    origImage.load(QStringLiteral(":/images/no_image.png"));
     viewerImage = origImage;
     setImage(viewerImage);
 }
@@ -1274,7 +1275,7 @@ void ImageViewer::pasteImage()
 
 void ImageViewer::setBackgroundColor()
 {
-    QString bgColor = "background: rgb(%1, %2, %3); ";
+    QString bgColor = QStringLiteral("background: rgb(%1, %2, %3); ");
     bgColor = bgColor.arg(Settings::viewerBackgroundColor.red())
                   .arg(Settings::viewerBackgroundColor.green())
                   .arg(Settings::viewerBackgroundColor.blue());

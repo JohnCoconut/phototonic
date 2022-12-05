@@ -97,10 +97,10 @@ CopyMoveToDialog::CopyMoveToDialog(QWidget *parent, const QString &thumbsPath, b
     copyOp = !move;
     if (move) {
         setWindowTitle(tr("Move to..."));
-        setWindowIcon(QIcon::fromTheme("go-next"));
+        setWindowIcon(QIcon::fromTheme(QStringLiteral("go-next")));
     } else {
         setWindowTitle(tr("Copy to..."));
-        setWindowIcon(QIcon::fromTheme("edit-copy"));
+        setWindowIcon(QIcon::fromTheme(QStringLiteral("edit-copy")));
     }
 
     resize(350, 250);
@@ -151,7 +151,7 @@ CopyMoveToDialog::CopyMoveToDialog(QWidget *parent, const QString &thumbsPath, b
 
     destinationLabel = new QLabel(tr("Destination:"));
     QFrame *line = new QFrame(this);
-    line->setObjectName(QString::fromUtf8("line"));
+    line->setObjectName(QStringLiteral("line"));
     line->setFrameShape(QFrame::HLine);
     line->setFrameShadow(QFrame::Sunken);
 

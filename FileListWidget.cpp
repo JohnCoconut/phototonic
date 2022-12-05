@@ -35,7 +35,7 @@ FileListWidget::FileListWidget(QWidget *parent)
 void FileListWidget::addFileListEntry()
 {
     QTreeWidgetItem *item = new QTreeWidgetItem(this);
-    item->setText(0, "File List");
+    item->setText(0, QStringLiteral("File List"));
     item->setIcon(0, style()->standardIcon(QStyle::SP_FileDialogDetailedView));
     insertTopLevelItem(0, item);
 }
@@ -63,7 +63,7 @@ void FileListWidget::dragMoveEvent(QDragMoveEvent *event)
 void FileListWidget::dropEvent(QDropEvent *event)
 {
     if (event->source()) {
-        QString fileSystemTreeStr("FileSystemTree");
+        QString fileSystemTreeStr(QStringLiteral("FileSystemTree"));
         bool dirOp = (event->source()->metaObject()->className() == fileSystemTreeStr);
         emit dropOp(event->keyboardModifiers(), dirOp,
                     event->mimeData()->urls().at(0).toLocalFile());

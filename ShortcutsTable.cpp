@@ -39,7 +39,7 @@ ShortcutsTable::ShortcutsTable()
     horizontalHeader()->setSectionResizeMode(QHeaderView::Stretch);
     setColumnHidden(2, true);
 
-    shortcutsMenu = new QMenu("");
+    shortcutsMenu = new QMenu(QLatin1String(""));
     clearAction = new QAction(tr("Delete shortcut"), this);
     connect(clearAction, &QAction::triggered, this, &ShortcutsTable::clearSelectedShortcut);
     shortcutsMenu->addAction(clearAction);
@@ -63,15 +63,15 @@ void ShortcutsTable::keyPressEvent(QKeyEvent *keyEvent)
         return;
     }
     QString keySequenceText;
-    QString keyText("");
-    QString modifierText("");
+    QString keyText(QLatin1String(""));
+    QString modifierText(QLatin1String(""));
 
     if (keyEvent->modifiers() & Qt::ShiftModifier)
-        modifierText += "Shift+";
+        modifierText += QLatin1String("Shift+");
     if (keyEvent->modifiers() & Qt::ControlModifier)
-        modifierText += "Ctrl+";
+        modifierText += QLatin1String("Ctrl+");
     if (keyEvent->modifiers() & Qt::AltModifier)
-        modifierText += "Alt+";
+        modifierText += QLatin1String("Alt+");
 
     if ((keyEvent->key() >= Qt::Key_Shift && keyEvent->key() <= Qt::Key_ScrollLock)
         || (keyEvent->key() >= Qt::Key_Super_L && keyEvent->key() <= Qt::Key_Direction_R)
@@ -135,9 +135,9 @@ void ShortcutsTable::clearSelectedShortcut()
 {
     if (selectedEntry.isValid()) {
         QStandardItemModel *itemsModel = (QStandardItemModel *)model();
-        itemsModel->item(selectedEntry.row(), 1)->setText("");
+        itemsModel->item(selectedEntry.row(), 1)->setText(QLatin1String(""));
         Settings::actionKeys.value(itemsModel->item(selectedEntry.row(), 2)->text())
-            ->setShortcut(QKeySequence(""));
+            ->setShortcut(QKeySequence(QLatin1String("")));
     }
 }
 

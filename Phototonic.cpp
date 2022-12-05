@@ -44,7 +44,8 @@
 Phototonic::Phototonic(const QStringList &argumentsList, int filesStartAt, QWidget *parent)
     : QMainWindow(parent)
 {
-    Settings::appSettings = new QSettings("phototonic", "phototonic");
+    Settings::appSettings =
+        new QSettings(QStringLiteral("phototonic"), QStringLiteral("phototonic"));
     setDockOptions(QMainWindow::AllowNestedDocks);
     readSettings();
     createThumbsViewer();
@@ -158,7 +159,7 @@ void Phototonic::createThumbsViewer()
             &Phototonic::updateActions);
 
     imageInfoDock = new QDockWidget(tr("Image Info"), this);
-    imageInfoDock->setObjectName("Image Info");
+    imageInfoDock->setObjectName(QStringLiteral("Image Info"));
     imageInfoDock->setWidget(thumbsViewer->infoView);
     connect(imageInfoDock->toggleViewAction(), &QAction::triggered, this,
             &Phototonic::setImageInfoDockVisibility);
@@ -248,7 +249,8 @@ void Phototonic::createImageViewer()
     addMenuSeparator(imageViewer->ImagePopUpMenu);
     zoomSubMenu = new QMenu(tr("Zoom"));
     zoomSubMenuAction = new QAction(tr("Zoom"), this);
-    zoomSubMenuAction->setIcon(QIcon::fromTheme("edit-find", QIcon(":/images/zoom.png")));
+    zoomSubMenuAction->setIcon(
+        QIcon::fromTheme(QStringLiteral("edit-find"), QIcon(":/images/zoom.png")));
     zoomSubMenuAction->setMenu(zoomSubMenu);
     imageViewer->ImagePopUpMenu->addAction(zoomSubMenuAction);
     zoomSubMenu->addAction(zoomInAction);
@@ -335,144 +337,152 @@ void Phototonic::createImageViewer()
 void Phototonic::createActions()
 {
     thumbsGoToTopAction = new QAction(tr("Top"), this);
-    thumbsGoToTopAction->setObjectName("thumbsGoTop");
-    thumbsGoToTopAction->setIcon(QIcon::fromTheme("go-top", QIcon(":/images/top.png")));
+    thumbsGoToTopAction->setObjectName(QStringLiteral("thumbsGoTop"));
+    thumbsGoToTopAction->setIcon(
+        QIcon::fromTheme(QStringLiteral("go-top"), QIcon(":/images/top.png")));
     connect(thumbsGoToTopAction, &QAction::triggered, this, &Phototonic::goTop);
 
     thumbsGoToBottomAction = new QAction(tr("Bottom"), this);
-    thumbsGoToBottomAction->setObjectName("thumbsGoBottom");
-    thumbsGoToBottomAction->setIcon(QIcon::fromTheme("go-bottom", QIcon(":/images/bottom.png")));
+    thumbsGoToBottomAction->setObjectName(QStringLiteral("thumbsGoBottom"));
+    thumbsGoToBottomAction->setIcon(
+        QIcon::fromTheme(QStringLiteral("go-bottom"), QIcon(":/images/bottom.png")));
     connect(thumbsGoToBottomAction, &QAction::triggered, this, &Phototonic::goBottom);
 
     CloseImageAction = new QAction(tr("Close Viewer"), this);
-    CloseImageAction->setObjectName("closeImage");
+    CloseImageAction->setObjectName(QStringLiteral("closeImage"));
     connect(CloseImageAction, &QAction::triggered, this, &Phototonic::hideViewer);
 
     fullScreenAction = new QAction(tr("Full Screen"), this);
-    fullScreenAction->setObjectName("fullScreen");
+    fullScreenAction->setObjectName(QStringLiteral("fullScreen"));
     fullScreenAction->setCheckable(true);
     connect(fullScreenAction, &QAction::triggered, this, &Phototonic::toggleFullScreen);
 
     settingsAction = new QAction(tr("Preferences"), this);
-    settingsAction->setObjectName("settings");
-    settingsAction->setIcon(QIcon::fromTheme("preferences-system", QIcon(":/images/settings.png")));
+    settingsAction->setObjectName(QStringLiteral("settings"));
+    settingsAction->setIcon(
+        QIcon::fromTheme(QStringLiteral("preferences-system"), QIcon(":/images/settings.png")));
     connect(settingsAction, &QAction::triggered, this, &Phototonic::showSettings);
 
     exitAction = new QAction(tr("Exit"), this);
-    exitAction->setObjectName("exit");
+    exitAction->setObjectName(QStringLiteral("exit"));
     connect(exitAction, &QAction::triggered, this, &QWidget::close);
 
     thumbsZoomInAction = new QAction(tr("Enlarge Thumbnails"), this);
-    thumbsZoomInAction->setObjectName("thumbsZoomIn");
+    thumbsZoomInAction->setObjectName(QStringLiteral("thumbsZoomIn"));
     connect(thumbsZoomInAction, &QAction::triggered, this, &Phototonic::thumbsZoomIn);
-    thumbsZoomInAction->setIcon(QIcon::fromTheme("zoom-in", QIcon(":/images/zoom_in.png")));
+    thumbsZoomInAction->setIcon(
+        QIcon::fromTheme(QStringLiteral("zoom-in"), QIcon(":/images/zoom_in.png")));
     if (thumbsViewer->thumbSize == THUMB_SIZE_MAX) {
         thumbsZoomInAction->setEnabled(false);
     }
 
     thumbsZoomOutAction = new QAction(tr("Shrink Thumbnails"), this);
-    thumbsZoomOutAction->setObjectName("thumbsZoomOut");
+    thumbsZoomOutAction->setObjectName(QStringLiteral("thumbsZoomOut"));
     connect(thumbsZoomOutAction, &QAction::triggered, this, &Phototonic::thumbsZoomOut);
-    thumbsZoomOutAction->setIcon(QIcon::fromTheme("zoom-out", QIcon(":/images/zoom_out.png")));
+    thumbsZoomOutAction->setIcon(
+        QIcon::fromTheme(QStringLiteral("zoom-out"), QIcon(":/images/zoom_out.png")));
     if (thumbsViewer->thumbSize == THUMB_SIZE_MIN) {
         thumbsZoomOutAction->setEnabled(false);
     }
 
     cutAction = new QAction(tr("Cut"), this);
-    cutAction->setObjectName("cut");
-    cutAction->setIcon(QIcon::fromTheme("edit-cut", QIcon(":/images/cut.png")));
+    cutAction->setObjectName(QStringLiteral("cut"));
+    cutAction->setIcon(QIcon::fromTheme(QStringLiteral("edit-cut"), QIcon(":/images/cut.png")));
     connect(cutAction, &QAction::triggered, this, &Phototonic::cutThumbs);
     cutAction->setEnabled(false);
 
     copyAction = new QAction(tr("Copy"), this);
-    copyAction->setObjectName("copy");
-    copyAction->setIcon(QIcon::fromTheme("edit-copy", QIcon(":/images/copy.png")));
+    copyAction->setObjectName(QStringLiteral("copy"));
+    copyAction->setIcon(QIcon::fromTheme(QStringLiteral("edit-copy"), QIcon(":/images/copy.png")));
     connect(copyAction, &QAction::triggered, this, &Phototonic::copyThumbs);
     copyAction->setEnabled(false);
 
     setClassicThumbsAction = new QAction(tr("Show classic thumbnails"), this);
     setClassicThumbsAction->setCheckable(true);
     setClassicThumbsAction->setChecked(Settings::thumbsLayout == ThumbsViewer::Classic);
-    setClassicThumbsAction->setObjectName("setClassicThumbs");
+    setClassicThumbsAction->setObjectName(QStringLiteral("setClassicThumbs"));
     connect(setClassicThumbsAction, &QAction::triggered, this, &Phototonic::setClassicThumbs);
 
     setSquareThumbsAction = new QAction(tr("Show square thumbnails"), this);
     setSquareThumbsAction->setCheckable(true);
     setSquareThumbsAction->setChecked(Settings::thumbsLayout == ThumbsViewer::Squares);
-    setSquareThumbsAction->setObjectName("setSquareThumbs");
+    setSquareThumbsAction->setObjectName(QStringLiteral("setSquareThumbs"));
     connect(setSquareThumbsAction, &QAction::triggered, this, &Phototonic::setSquareThumbs);
 
     setCompactThumbsAction = new QAction(tr("Show compact thumbnails"), this);
     setCompactThumbsAction->setCheckable(true);
     setCompactThumbsAction->setChecked(Settings::thumbsLayout == ThumbsViewer::Compact);
-    setCompactThumbsAction->setObjectName("setCompactThumbs");
+    setCompactThumbsAction->setObjectName(QStringLiteral("setCompactThumbs"));
     connect(setCompactThumbsAction, &QAction::triggered, this, &Phototonic::setCompactThumbs);
 
     copyToAction = new QAction(tr("Copy to..."), this);
-    copyToAction->setObjectName("copyTo");
+    copyToAction->setObjectName(QStringLiteral("copyTo"));
     connect(copyToAction, &QAction::triggered, this, &Phototonic::copyImagesTo);
 
     moveToAction = new QAction(tr("Move to..."), this);
-    moveToAction->setObjectName("moveTo");
+    moveToAction->setObjectName(QStringLiteral("moveTo"));
     connect(moveToAction, &QAction::triggered, this, &Phototonic::moveImagesTo);
 
     deleteAction = new QAction(tr("Move to Trash"), this);
-    deleteAction->setObjectName("moveToTrash");
+    deleteAction->setObjectName(QStringLiteral("moveToTrash"));
     deleteAction->setIcon(style()->standardIcon(QStyle::SP_TrashIcon));
     connect(deleteAction, &QAction::triggered, this, &Phototonic::deleteOperation);
 
     deletePermanentlyAction = new QAction(tr("Delete"), this);
-    deletePermanentlyAction->setObjectName("delete");
-    deletePermanentlyAction->setIcon(QIcon::fromTheme("edit-delete", QIcon(":/images/delete.png")));
+    deletePermanentlyAction->setObjectName(QStringLiteral("delete"));
+    deletePermanentlyAction->setIcon(
+        QIcon::fromTheme(QStringLiteral("edit-delete"), QIcon(":/images/delete.png")));
     connect(deletePermanentlyAction, &QAction::triggered, this,
             &Phototonic::deletePermanentlyOperation);
 
     saveAction = new QAction(tr("Save"), this);
-    saveAction->setObjectName("save");
-    saveAction->setIcon(QIcon::fromTheme("document-save", QIcon(":/images/save.png")));
+    saveAction->setObjectName(QStringLiteral("save"));
+    saveAction->setIcon(
+        QIcon::fromTheme(QStringLiteral("document-save"), QIcon(":/images/save.png")));
 
     saveAsAction = new QAction(tr("Save As"), this);
-    saveAsAction->setObjectName("saveAs");
-    saveAsAction->setIcon(QIcon::fromTheme("document-save-as", QIcon(":/images/save_as.png")));
+    saveAsAction->setObjectName(QStringLiteral("saveAs"));
+    saveAsAction->setIcon(
+        QIcon::fromTheme(QStringLiteral("document-save-as"), QIcon(":/images/save_as.png")));
 
     copyImageAction = new QAction(tr("Copy Image"), this);
-    copyImageAction->setObjectName("copyImage");
+    copyImageAction->setObjectName(QStringLiteral("copyImage"));
     pasteImageAction = new QAction(tr("Paste Image"), this);
-    pasteImageAction->setObjectName("pasteImage");
+    pasteImageAction->setObjectName(QStringLiteral("pasteImage"));
 
     renameAction = new QAction(tr("Rename"), this);
-    renameAction->setObjectName("rename");
+    renameAction->setObjectName(QStringLiteral("rename"));
     connect(renameAction, &QAction::triggered, this, &Phototonic::rename);
 
     removeMetadataAction = new QAction(tr("Remove Metadata"), this);
-    removeMetadataAction->setObjectName("removeMetadata");
+    removeMetadataAction->setObjectName(QStringLiteral("removeMetadata"));
     connect(removeMetadataAction, &QAction::triggered, this, &Phototonic::removeMetadata);
 
     selectAllAction = new QAction(tr("Select All"), this);
-    selectAllAction->setObjectName("selectAll");
+    selectAllAction->setObjectName(QStringLiteral("selectAll"));
     connect(selectAllAction, &QAction::triggered, this, &Phototonic::selectAllThumbs);
 
     selectByBrightnesAction = new QAction(tr("Select by Brightness"), this);
-    selectByBrightnesAction->setObjectName("selectByBrightness");
+    selectByBrightnesAction->setObjectName(QStringLiteral("selectByBrightness"));
     connect(selectByBrightnesAction, &QAction::triggered, this, &Phototonic::selectByBrightness);
 
     aboutAction = new QAction(tr("About"), this);
-    aboutAction->setObjectName("about");
+    aboutAction->setObjectName(QStringLiteral("about"));
     connect(aboutAction, &QAction::triggered, this, &Phototonic::about);
 
     // Sort actions
     sortByNameAction = new QAction(tr("Sort by Name"), this);
-    sortByNameAction->setObjectName("name");
+    sortByNameAction->setObjectName(QStringLiteral("name"));
     sortByTimeAction = new QAction(tr("Sort by Time"), this);
-    sortByTimeAction->setObjectName("time");
+    sortByTimeAction->setObjectName(QStringLiteral("time"));
     sortBySizeAction = new QAction(tr("Sort by Size"), this);
-    sortBySizeAction->setObjectName("size");
+    sortBySizeAction->setObjectName(QStringLiteral("size"));
     sortByTypeAction = new QAction(tr("Sort by Type"), this);
-    sortByTypeAction->setObjectName("type");
+    sortByTypeAction->setObjectName(QStringLiteral("type"));
     sortBySimilarityAction = new QAction(tr("Sort by Similarity"), this);
-    sortBySimilarityAction->setObjectName("similarity");
+    sortBySimilarityAction->setObjectName(QStringLiteral("similarity"));
     sortReverseAction = new QAction(tr("Reverse Order"), this);
-    sortReverseAction->setObjectName("reverse");
+    sortReverseAction->setObjectName(QStringLiteral("reverse"));
     sortByNameAction->setCheckable(true);
     sortByTimeAction->setCheckable(true);
     sortBySizeAction->setCheckable(true);
@@ -498,237 +508,254 @@ void Phototonic::createActions()
     sortReverseAction->setChecked(thumbsViewer->thumbsSortFlags & QDir::Reversed);
 
     showHiddenFilesAction = new QAction(tr("Show Hidden Files"), this);
-    showHiddenFilesAction->setObjectName("showHidden");
+    showHiddenFilesAction->setObjectName(QStringLiteral("showHidden"));
     showHiddenFilesAction->setCheckable(true);
     showHiddenFilesAction->setChecked(Settings::showHiddenFiles);
     connect(showHiddenFilesAction, &QAction::triggered, this, &Phototonic::showHiddenFiles);
 
     smallToolbarIconsAction = new QAction(tr("Small Toolbar Icons"), this);
-    smallToolbarIconsAction->setObjectName("smallToolbarIcons");
+    smallToolbarIconsAction->setObjectName(QStringLiteral("smallToolbarIcons"));
     smallToolbarIconsAction->setCheckable(true);
     smallToolbarIconsAction->setChecked(Settings::smallToolbarIcons);
     connect(smallToolbarIconsAction, &QAction::triggered, this, &Phototonic::setToolbarIconSize);
 
     lockDocksAction = new QAction(tr("Hide Dock Title Bars"), this);
-    lockDocksAction->setObjectName("lockDocks");
+    lockDocksAction->setObjectName(QStringLiteral("lockDocks"));
     lockDocksAction->setCheckable(true);
     lockDocksAction->setChecked(Settings::hideDockTitlebars);
     connect(lockDocksAction, &QAction::triggered, this, &Phototonic::lockDocks);
 
     showViewerToolbarAction = new QAction(tr("Show Toolbar"), this);
-    showViewerToolbarAction->setObjectName("showViewerToolbars");
+    showViewerToolbarAction->setObjectName(QStringLiteral("showViewerToolbars"));
     showViewerToolbarAction->setCheckable(true);
     showViewerToolbarAction->setChecked(Settings::showViewerToolbar);
     connect(showViewerToolbarAction, &QAction::triggered, this,
             &Phototonic::toggleImageViewerToolbar);
 
     refreshAction = new QAction(tr("Reload"), this);
-    refreshAction->setObjectName("refresh");
-    refreshAction->setIcon(QIcon::fromTheme("view-refresh", QIcon(":/images/refresh.png")));
+    refreshAction->setObjectName(QStringLiteral("refresh"));
+    refreshAction->setIcon(
+        QIcon::fromTheme(QStringLiteral("view-refresh"), QIcon(":/images/refresh.png")));
     connect(refreshAction, &QAction::triggered, this, &Phototonic::reload);
 
     includeSubDirectoriesAction = new QAction(tr("Include Sub-directories"), this);
-    includeSubDirectoriesAction->setObjectName("subFolders");
+    includeSubDirectoriesAction->setObjectName(QStringLiteral("subFolders"));
     includeSubDirectoriesAction->setIcon(QIcon(":/images/tree.png"));
     includeSubDirectoriesAction->setCheckable(true);
     connect(includeSubDirectoriesAction, &QAction::triggered, this, &Phototonic::setIncludeSubDirs);
 
     pasteAction = new QAction(tr("Paste Here"), this);
-    pasteAction->setObjectName("paste");
-    pasteAction->setIcon(QIcon::fromTheme("edit-paste", QIcon(":/images/paste.png")));
+    pasteAction->setObjectName(QStringLiteral("paste"));
+    pasteAction->setIcon(
+        QIcon::fromTheme(QStringLiteral("edit-paste"), QIcon(":/images/paste.png")));
     connect(pasteAction, &QAction::triggered, this, &Phototonic::pasteThumbs);
     pasteAction->setEnabled(false);
 
     createDirectoryAction = new QAction(tr("New Directory"), this);
-    createDirectoryAction->setObjectName("createDir");
+    createDirectoryAction->setObjectName(QStringLiteral("createDir"));
     connect(createDirectoryAction, &QAction::triggered, this, &Phototonic::createSubDirectory);
     createDirectoryAction->setIcon(
-        QIcon::fromTheme("folder-new", QIcon(":/images/new_folder.png")));
+        QIcon::fromTheme(QStringLiteral("folder-new"), QIcon(":/images/new_folder.png")));
 
     setSaveDirectoryAction = new QAction(tr("Set Save Directory"), this);
-    setSaveDirectoryAction->setObjectName("setSaveDir");
+    setSaveDirectoryAction->setObjectName(QStringLiteral("setSaveDir"));
     connect(setSaveDirectoryAction, &QAction::triggered, this, [this]() { setSaveDirectory(); });
     setSaveDirectoryAction->setIcon(
-        QIcon::fromTheme("folder-visiting", QIcon(":/images/folder-visiting.png")));
+        QIcon::fromTheme(QStringLiteral("folder-visiting"), QIcon(":/images/folder-visiting.png")));
 
     goBackAction = new QAction(tr("Back"), this);
-    goBackAction->setObjectName("goBack");
-    goBackAction->setIcon(QIcon::fromTheme("go-previous", QIcon(":/images/back.png")));
+    goBackAction->setObjectName(QStringLiteral("goBack"));
+    goBackAction->setIcon(
+        QIcon::fromTheme(QStringLiteral("go-previous"), QIcon(":/images/back.png")));
     connect(goBackAction, &QAction::triggered, this, &Phototonic::goBack);
     goBackAction->setEnabled(false);
 
     goFrwdAction = new QAction(tr("Forward"), this);
-    goFrwdAction->setObjectName("goFrwd");
-    goFrwdAction->setIcon(QIcon::fromTheme("go-next", QIcon(":/images/next.png")));
+    goFrwdAction->setObjectName(QStringLiteral("goFrwd"));
+    goFrwdAction->setIcon(QIcon::fromTheme(QStringLiteral("go-next"), QIcon(":/images/next.png")));
     connect(goFrwdAction, &QAction::triggered, this, &Phototonic::goForward);
     goFrwdAction->setEnabled(false);
 
     goUpAction = new QAction(tr("Go Up"), this);
-    goUpAction->setObjectName("up");
-    goUpAction->setIcon(QIcon::fromTheme("go-up", QIcon(":/images/up.png")));
+    goUpAction->setObjectName(QStringLiteral("up"));
+    goUpAction->setIcon(QIcon::fromTheme(QStringLiteral("go-up"), QIcon(":/images/up.png")));
     connect(goUpAction, &QAction::triggered, this, &Phototonic::goUp);
 
     goHomeAction = new QAction(tr("Home"), this);
-    goHomeAction->setObjectName("home");
+    goHomeAction->setObjectName(QStringLiteral("home"));
     connect(goHomeAction, &QAction::triggered, this, &Phototonic::goHome);
-    goHomeAction->setIcon(QIcon::fromTheme("go-home", QIcon(":/images/home.png")));
+    goHomeAction->setIcon(QIcon::fromTheme(QStringLiteral("go-home"), QIcon(":/images/home.png")));
 
     slideShowAction = new QAction(tr("Slide Show"), this);
-    slideShowAction->setObjectName("toggleSlideShow");
+    slideShowAction->setObjectName(QStringLiteral("toggleSlideShow"));
     connect(slideShowAction, &QAction::triggered, this, &Phototonic::toggleSlideShow);
-    slideShowAction->setIcon(QIcon::fromTheme("media-playback-start", QIcon(":/images/play.png")));
+    slideShowAction->setIcon(
+        QIcon::fromTheme(QStringLiteral("media-playback-start"), QIcon(":/images/play.png")));
 
     nextImageAction = new QAction(tr("Next Image"), this);
-    nextImageAction->setObjectName("nextImage");
-    nextImageAction->setIcon(QIcon::fromTheme("go-next", QIcon(":/images/next.png")));
+    nextImageAction->setObjectName(QStringLiteral("nextImage"));
+    nextImageAction->setIcon(
+        QIcon::fromTheme(QStringLiteral("go-next"), QIcon(":/images/next.png")));
     connect(nextImageAction, &QAction::triggered, this, &Phototonic::loadNextImage);
 
     prevImageAction = new QAction(tr("Previous Image"), this);
-    prevImageAction->setObjectName("prevImage");
-    prevImageAction->setIcon(QIcon::fromTheme("go-previous", QIcon(":/images/back.png")));
+    prevImageAction->setObjectName(QStringLiteral("prevImage"));
+    prevImageAction->setIcon(
+        QIcon::fromTheme(QStringLiteral("go-previous"), QIcon(":/images/back.png")));
     connect(prevImageAction, &QAction::triggered, this, &Phototonic::loadPreviousImage);
 
     firstImageAction = new QAction(tr("First Image"), this);
-    firstImageAction->setObjectName("firstImage");
-    firstImageAction->setIcon(QIcon::fromTheme("go-first", QIcon(":/images/first.png")));
+    firstImageAction->setObjectName(QStringLiteral("firstImage"));
+    firstImageAction->setIcon(
+        QIcon::fromTheme(QStringLiteral("go-first"), QIcon(":/images/first.png")));
     connect(firstImageAction, &QAction::triggered, this, &Phototonic::loadFirstImage);
 
     lastImageAction = new QAction(tr("Last Image"), this);
-    lastImageAction->setObjectName("lastImage");
-    lastImageAction->setIcon(QIcon::fromTheme("go-last", QIcon(":/images/last.png")));
+    lastImageAction->setObjectName(QStringLiteral("lastImage"));
+    lastImageAction->setIcon(
+        QIcon::fromTheme(QStringLiteral("go-last"), QIcon(":/images/last.png")));
     connect(lastImageAction, &QAction::triggered, this, &Phototonic::loadLastImage);
 
     randomImageAction = new QAction(tr("Random Image"), this);
-    randomImageAction->setObjectName("randomImage");
+    randomImageAction->setObjectName(QStringLiteral("randomImage"));
     connect(randomImageAction, &QAction::triggered, this, &Phototonic::loadRandomImage);
 
     viewImageAction = new QAction(tr("View Image"), this);
-    viewImageAction->setObjectName("open");
-    viewImageAction->setIcon(QIcon::fromTheme("document-open", QIcon(":/images/open.png")));
+    viewImageAction->setObjectName(QStringLiteral("open"));
+    viewImageAction->setIcon(
+        QIcon::fromTheme(QStringLiteral("document-open"), QIcon(":/images/open.png")));
     connect(viewImageAction, &QAction::triggered, this, &Phototonic::viewImage);
 
     showClipboardAction = new QAction(tr("Load Clipboard"), this);
-    showClipboardAction->setObjectName("showClipboard");
-    showClipboardAction->setIcon(QIcon::fromTheme("insert-image", QIcon(":/images/new.png")));
+    showClipboardAction->setObjectName(QStringLiteral("showClipboard"));
+    showClipboardAction->setIcon(
+        QIcon::fromTheme(QStringLiteral("insert-image"), QIcon(":/images/new.png")));
     connect(showClipboardAction, &QAction::triggered, this, &Phototonic::newImage);
 
     openWithSubMenu = new QMenu(tr("Open With..."));
     openWithMenuAction = new QAction(tr("Open With..."), this);
-    openWithMenuAction->setObjectName("openWithMenu");
+    openWithMenuAction->setObjectName(QStringLiteral("openWithMenu"));
     openWithMenuAction->setMenu(openWithSubMenu);
     externalAppsAction = new QAction(tr("External Applications"), this);
     externalAppsAction->setIcon(
-        QIcon::fromTheme("preferences-other", QIcon(":/images/settings.png")));
-    externalAppsAction->setObjectName("chooseApp");
+        QIcon::fromTheme(QStringLiteral("preferences-other"), QIcon(":/images/settings.png")));
+    externalAppsAction->setObjectName(QStringLiteral("chooseApp"));
     connect(externalAppsAction, &QAction::triggered, this, &Phototonic::chooseExternalApp);
 
     addBookmarkAction = new QAction(tr("Add Bookmark"), this);
-    addBookmarkAction->setObjectName("addBookmark");
+    addBookmarkAction->setObjectName(QStringLiteral("addBookmark"));
     addBookmarkAction->setIcon(QIcon(":/images/new_bookmark.png"));
     connect(addBookmarkAction, &QAction::triggered, this, &Phototonic::addNewBookmark);
 
     removeBookmarkAction = new QAction(tr("Delete Bookmark"), this);
-    removeBookmarkAction->setObjectName("deleteBookmark");
-    removeBookmarkAction->setIcon(QIcon::fromTheme("edit-delete", QIcon(":/images/delete.png")));
+    removeBookmarkAction->setObjectName(QStringLiteral("deleteBookmark"));
+    removeBookmarkAction->setIcon(
+        QIcon::fromTheme(QStringLiteral("edit-delete"), QIcon(":/images/delete.png")));
 
     zoomOutAction = new QAction(tr("Zoom Out"), this);
-    zoomOutAction->setObjectName("zoomOut");
+    zoomOutAction->setObjectName(QStringLiteral("zoomOut"));
     connect(zoomOutAction, &QAction::triggered, this, &Phototonic::zoomOut);
-    zoomOutAction->setIcon(QIcon::fromTheme("zoom-out", QIcon(":/images/zoom_out.png")));
+    zoomOutAction->setIcon(
+        QIcon::fromTheme(QStringLiteral("zoom-out"), QIcon(":/images/zoom_out.png")));
 
     zoomInAction = new QAction(tr("Zoom In"), this);
-    zoomInAction->setObjectName("zoomIn");
+    zoomInAction->setObjectName(QStringLiteral("zoomIn"));
     connect(zoomInAction, &QAction::triggered, this, &Phototonic::zoomIn);
-    zoomInAction->setIcon(QIcon::fromTheme("zoom-in", QIcon(":/images/zoom_out.png")));
+    zoomInAction->setIcon(
+        QIcon::fromTheme(QStringLiteral("zoom-in"), QIcon(":/images/zoom_out.png")));
 
     resetZoomAction = new QAction(tr("Reset Zoom"), this);
-    resetZoomAction->setObjectName("resetZoom");
-    resetZoomAction->setIcon(QIcon::fromTheme("zoom-fit-best", QIcon(":/images/zoom.png")));
+    resetZoomAction->setObjectName(QStringLiteral("resetZoom"));
+    resetZoomAction->setIcon(
+        QIcon::fromTheme(QStringLiteral("zoom-fit-best"), QIcon(":/images/zoom.png")));
     connect(resetZoomAction, &QAction::triggered, this, &Phototonic::resetZoom);
 
     origZoomAction = new QAction(tr("Original Size"), this);
-    origZoomAction->setObjectName("origZoom");
-    origZoomAction->setIcon(QIcon::fromTheme("zoom-original", QIcon(":/images/zoom1.png")));
+    origZoomAction->setObjectName(QStringLiteral("origZoom"));
+    origZoomAction->setIcon(
+        QIcon::fromTheme(QStringLiteral("zoom-original"), QIcon(":/images/zoom1.png")));
     connect(origZoomAction, &QAction::triggered, this, &Phototonic::origZoom);
 
     keepZoomAction = new QAction(tr("Keep Zoom"), this);
-    keepZoomAction->setObjectName("keepZoom");
+    keepZoomAction->setObjectName(QStringLiteral("keepZoom"));
     keepZoomAction->setCheckable(true);
     connect(keepZoomAction, &QAction::triggered, this, &Phototonic::keepZoom);
 
     rotateLeftAction = new QAction(tr("Rotate 90 degree CCW"), this);
-    rotateLeftAction->setObjectName("rotateLeft");
+    rotateLeftAction->setObjectName(QStringLiteral("rotateLeft"));
     rotateLeftAction->setIcon(
-        QIcon::fromTheme("object-rotate-left", QIcon(":/images/rotate_left.png")));
+        QIcon::fromTheme(QStringLiteral("object-rotate-left"), QIcon(":/images/rotate_left.png")));
     connect(rotateLeftAction, &QAction::triggered, this, &Phototonic::rotateLeft);
 
     rotateRightAction = new QAction(tr("Rotate 90 degree CW"), this);
-    rotateRightAction->setObjectName("rotateRight");
-    rotateRightAction->setIcon(
-        QIcon::fromTheme("object-rotate-right", QIcon(":/images/rotate_right.png")));
+    rotateRightAction->setObjectName(QStringLiteral("rotateRight"));
+    rotateRightAction->setIcon(QIcon::fromTheme(QStringLiteral("object-rotate-right"),
+                                                QIcon(":/images/rotate_right.png")));
     connect(rotateRightAction, &QAction::triggered, this, &Phototonic::rotateRight);
 
     rotateToolAction = new QAction(tr("Rotate with mouse"), this);
-    rotateToolAction->setObjectName("rotateRight");
-    rotateToolAction->setIcon(QIcon::fromTheme("rotation-allowed", QIcon(":/images/rotate.png")));
+    rotateToolAction->setObjectName(QStringLiteral("rotateRight"));
+    rotateToolAction->setIcon(
+        QIcon::fromTheme(QStringLiteral("rotation-allowed"), QIcon(":/images/rotate.png")));
     rotateToolAction->setCheckable(true);
     connect(rotateToolAction, &QAction::triggered, this, &Phototonic::toggleRotateEnabled);
 
     flipHorizontalAction = new QAction(tr("Flip Horizontally"), this);
-    flipHorizontalAction->setObjectName("flipH");
+    flipHorizontalAction->setObjectName(QStringLiteral("flipH"));
     flipHorizontalAction->setIcon(
-        QIcon::fromTheme("object-flip-horizontal", QIcon(":/images/flipH.png")));
+        QIcon::fromTheme(QStringLiteral("object-flip-horizontal"), QIcon(":/images/flipH.png")));
     connect(flipHorizontalAction, &QAction::triggered, this, &Phototonic::flipHorizontal);
 
     flipVerticalAction = new QAction(tr("Flip Vertically"), this);
-    flipVerticalAction->setObjectName("flipV");
+    flipVerticalAction->setObjectName(QStringLiteral("flipV"));
     flipVerticalAction->setIcon(
-        QIcon::fromTheme("object-flip-vertical", QIcon(":/images/flipV.png")));
+        QIcon::fromTheme(QStringLiteral("object-flip-vertical"), QIcon(":/images/flipV.png")));
     connect(flipVerticalAction, &QAction::triggered, this, &Phototonic::flipVertical);
 
     cropAction = new QAction(tr("Cropping"), this);
-    cropAction->setObjectName("crop");
+    cropAction->setObjectName(QStringLiteral("crop"));
     cropAction->setIcon(QIcon(":/images/crop.png"));
     connect(cropAction, &QAction::triggered, this, &Phototonic::cropImage);
 
     applyCropAndRotationAction = new QAction(tr("Apply Crop and Rotation"), this);
-    applyCropAndRotationAction->setObjectName("applyCropAndRotation");
+    applyCropAndRotationAction->setObjectName(QStringLiteral("applyCropAndRotation"));
     applyCropAndRotationAction->setIcon(QIcon(":/images/crop.png"));
 
     resizeAction = new QAction(tr("Scale Image"), this);
-    resizeAction->setObjectName("resize");
-    resizeAction->setIcon(QIcon::fromTheme("transform-scale", QIcon(":/images/scale.png")));
+    resizeAction->setObjectName(QStringLiteral("resize"));
+    resizeAction->setIcon(
+        QIcon::fromTheme(QStringLiteral("transform-scale"), QIcon(":/images/scale.png")));
     connect(resizeAction, &QAction::triggered, this, &Phototonic::scaleImage);
 
     freeRotateLeftAction = new QAction(tr("Rotate 1 degree CCW"), this);
-    freeRotateLeftAction->setObjectName("freeRotateLeft");
+    freeRotateLeftAction->setObjectName(QStringLiteral("freeRotateLeft"));
     connect(freeRotateLeftAction, &QAction::triggered, this, &Phototonic::freeRotateLeft);
 
     freeRotateRightAction = new QAction(tr("Rotate 1 degree CW"), this);
-    freeRotateRightAction->setObjectName("freeRotateRight");
+    freeRotateRightAction->setObjectName(QStringLiteral("freeRotateRight"));
     connect(freeRotateRightAction, &QAction::triggered, this, &Phototonic::freeRotateRight);
 
     colorsAction = new QAction(tr("Colors"), this);
-    colorsAction->setObjectName("colors");
+    colorsAction->setObjectName(QStringLiteral("colors"));
     connect(colorsAction, &QAction::triggered, this, &Phototonic::showColorsDialog);
     colorsAction->setIcon(QIcon(":/images/colors.png"));
 
     findDupesAction = new QAction(tr("Find Duplicate Images"), this);
-    findDupesAction->setObjectName("findDupes");
+    findDupesAction->setObjectName(QStringLiteral("findDupes"));
     findDupesAction->setIcon(QIcon(":/images/duplicates.png"));
     findDupesAction->setCheckable(true);
     connect(findDupesAction, &QAction::triggered, this, &Phototonic::findDuplicateImages);
 
     mirrorDisabledAction = new QAction(tr("Disable Mirror"), this);
-    mirrorDisabledAction->setObjectName("mirrorDisabled");
+    mirrorDisabledAction->setObjectName(QStringLiteral("mirrorDisabled"));
     mirrorDualAction = new QAction(tr("Dual Mirror"), this);
-    mirrorDualAction->setObjectName("mirrorDual");
+    mirrorDualAction->setObjectName(QStringLiteral("mirrorDual"));
     mirrorTripleAction = new QAction(tr("Triple Mirror"), this);
-    mirrorTripleAction->setObjectName("mirrorTriple");
+    mirrorTripleAction->setObjectName(QStringLiteral("mirrorTriple"));
     mirrorDualVerticalAction = new QAction(tr("Dual Vertical Mirror"), this);
-    mirrorDualVerticalAction->setObjectName("mirrorVDual");
+    mirrorDualVerticalAction->setObjectName(QStringLiteral("mirrorVDual"));
     mirrorQuadAction = new QAction(tr("Quad Mirror"), this);
-    mirrorQuadAction->setObjectName("mirrorQuad");
+    mirrorQuadAction->setObjectName(QStringLiteral("mirrorQuad"));
 
     mirrorDisabledAction->setCheckable(true);
     mirrorDualAction->setCheckable(true);
@@ -743,25 +770,25 @@ void Phototonic::createActions()
     mirrorDisabledAction->setChecked(true);
 
     keepTransformAction = new QAction(tr("Keep Transformations"), this);
-    keepTransformAction->setObjectName("keepTransform");
+    keepTransformAction->setObjectName(QStringLiteral("keepTransform"));
     keepTransformAction->setCheckable(true);
     connect(keepTransformAction, &QAction::triggered, this, &Phototonic::keepTransformClicked);
 
     moveLeftAction = new QAction(tr("Move Image Left"), this);
-    moveLeftAction->setObjectName("moveLeft");
+    moveLeftAction->setObjectName(QStringLiteral("moveLeft"));
     connect(moveLeftAction, &QAction::triggered, this, &Phototonic::moveLeft);
     moveRightAction = new QAction(tr("Move Image Right"), this);
-    moveRightAction->setObjectName("moveRight");
+    moveRightAction->setObjectName(QStringLiteral("moveRight"));
     connect(moveRightAction, &QAction::triggered, this, &Phototonic::moveRight);
     moveUpAction = new QAction(tr("Move Image Up"), this);
-    moveUpAction->setObjectName("moveUp");
+    moveUpAction->setObjectName(QStringLiteral("moveUp"));
     connect(moveUpAction, &QAction::triggered, this, &Phototonic::moveUp);
     moveDownAction = new QAction(tr("Move Image Down"), this);
-    moveDownAction->setObjectName("moveDown");
+    moveDownAction->setObjectName(QStringLiteral("moveDown"));
     connect(moveDownAction, &QAction::triggered, this, &Phototonic::moveDown);
 
     invertSelectionAction = new QAction(tr("Invert Selection"), this);
-    invertSelectionAction->setObjectName("invertSelection");
+    invertSelectionAction->setObjectName(QStringLiteral("invertSelection"));
     connect(invertSelectionAction, &QAction::triggered, thumbsViewer,
             &ThumbsViewer::invertSelection);
 
@@ -770,15 +797,15 @@ void Phototonic::createActions()
     batchSubMenuAction = new QAction(tr("Batch"), this);
     batchSubMenuAction->setMenu(batchSubMenu);
     batchTransformAction = new QAction(tr("Repeat Rotate and Crop"), this);
-    batchTransformAction->setObjectName("batchTransform");
+    batchTransformAction->setObjectName(QStringLiteral("batchTransform"));
     connect(batchTransformAction, &QAction::triggered, this, &Phototonic::batchTransform);
     batchSubMenu->addAction(batchTransformAction);
 
     filterImagesFocusAction = new QAction(tr("Filter by Name"), this);
-    filterImagesFocusAction->setObjectName("filterImagesFocus");
+    filterImagesFocusAction->setObjectName(QStringLiteral("filterImagesFocus"));
     connect(filterImagesFocusAction, &QAction::triggered, this, &Phototonic::filterImagesFocus);
     setPathFocusAction = new QAction(tr("Edit Current Path"), this);
-    setPathFocusAction->setObjectName("setPathFocus");
+    setPathFocusAction->setObjectName(QStringLiteral("setPathFocus"));
     connect(setPathFocusAction, &QAction::triggered, this, &Phototonic::setPathFocus);
 }
 
@@ -885,7 +912,7 @@ void Phototonic::createToolBars()
 {
     /* Edit */
     editToolBar = addToolBar(tr("Edit Toolbar"));
-    editToolBar->setObjectName("Edit");
+    editToolBar->setObjectName(QStringLiteral("Edit"));
     editToolBar->addAction(cutAction);
     editToolBar->addAction(copyAction);
     editToolBar->addAction(pasteAction);
@@ -897,7 +924,7 @@ void Phototonic::createToolBars()
 
     /* Navigation */
     goToolBar = addToolBar(tr("Navigation Toolbar"));
-    goToolBar->setObjectName("Navigation");
+    goToolBar->setObjectName(QStringLiteral("Navigation"));
     goToolBar->addAction(goBackAction);
     goToolBar->addAction(goFrwdAction);
     goToolBar->addAction(goUpAction);
@@ -918,14 +945,14 @@ void Phototonic::createToolBars()
 
     /* View */
     viewToolBar = addToolBar(tr("View Toolbar"));
-    viewToolBar->setObjectName("View");
+    viewToolBar->setObjectName(QStringLiteral("View"));
     viewToolBar->addAction(thumbsZoomInAction);
     viewToolBar->addAction(thumbsZoomOutAction);
     viewToolBar->addAction(slideShowAction);
 
     /* filter bar */
     QAction *filterAct = new QAction(tr("Filter"), this);
-    filterAct->setIcon(QIcon::fromTheme("edit-find", QIcon(":/images/zoom.png")));
+    filterAct->setIcon(QIcon::fromTheme(QStringLiteral("edit-find"), QIcon(":/images/zoom.png")));
     connect(filterAct, &QAction::triggered, this, &Phototonic::setThumbsFilter);
     filterLineEdit = new QLineEdit;
     filterLineEdit->setMinimumWidth(100);
@@ -943,7 +970,7 @@ void Phototonic::createToolBars()
 
     /* image */
     imageToolBar = new QToolBar(tr("Image Toolbar"));
-    imageToolBar->setObjectName("Image");
+    imageToolBar->setObjectName(QStringLiteral("Image"));
     imageToolBar->addAction(prevImageAction);
     imageToolBar->addAction(nextImageAction);
     imageToolBar->addAction(firstImageAction);
@@ -1022,14 +1049,14 @@ void Phototonic::createStatusBar()
     statusLabel = new QLabel(tr("Initializing..."));
     statusBar()->addWidget(statusLabel);
 
-    busyMovie = new QMovie(":/images/busy.gif");
+    busyMovie = new QMovie(QStringLiteral(":/images/busy.gif"));
     busyLabel = new QLabel(this);
     busyLabel->setMovie(busyMovie);
     busyMovie->setParent(busyLabel);
     statusBar()->addWidget(busyLabel);
     busyLabel->setVisible(false);
 
-    statusBar()->setStyleSheet("QStatusBar::item { border: 0px solid black }; ");
+    statusBar()->setStyleSheet(QStringLiteral("QStatusBar::item { border: 0px solid black }; "));
 }
 
 void Phototonic::onFileListSelected()
@@ -1044,7 +1071,7 @@ void Phototonic::onFileListSelected()
 void Phototonic::createFileSystemDock()
 {
     fileSystemDock = new QDockWidget(tr("File System"), this);
-    fileSystemDock->setObjectName("File System");
+    fileSystemDock->setObjectName(QStringLiteral("File System"));
 
     fileListWidget = new FileListWidget(fileSystemDock);
     connect(fileListWidget, &FileListWidget::itemSelectionChanged, this,
@@ -1095,7 +1122,7 @@ void Phototonic::createFileSystemDock()
 void Phototonic::createBookmarksDock()
 {
     bookmarksDock = new QDockWidget(tr("Bookmarks"), this);
-    bookmarksDock->setObjectName("Bookmarks");
+    bookmarksDock->setObjectName(QStringLiteral("Bookmarks"));
     bookmarks = new BookMarks(bookmarksDock);
     bookmarksDock->setWidget(bookmarks);
 
@@ -1117,7 +1144,7 @@ void Phototonic::createBookmarksDock()
 void Phototonic::createImagePreviewDock()
 {
     imagePreviewDock = new QDockWidget(tr("Preview"), this);
-    imagePreviewDock->setObjectName("ImagePreview");
+    imagePreviewDock->setObjectName(QStringLiteral("ImagePreview"));
     imagePreviewDock->setWidget(thumbsViewer->imagePreview);
     connect(imagePreviewDock->toggleViewAction(), &QAction::triggered, this,
             &Phototonic::setImagePreviewDockVisibility);
@@ -1129,7 +1156,7 @@ void Phototonic::createImagePreviewDock()
 void Phototonic::createImageTagsDock()
 {
     tagsDock = new QDockWidget(tr("Tags"), this);
-    tagsDock->setObjectName("Tags");
+    tagsDock->setObjectName(QStringLiteral("Tags"));
     thumbsViewer->imageTags = new ImageTags(tagsDock, thumbsViewer, metadataCache);
     tagsDock->setWidget(thumbsViewer->imageTags);
 
@@ -2200,7 +2227,7 @@ void Phototonic::setThumbsFilter()
 
 void Phototonic::clearThumbsFilter()
 {
-    if (filterLineEdit->text() == "") {
+    if (filterLineEdit->text() == QLatin1String("")) {
         thumbsViewer->filterString = filterLineEdit->text();
         refreshThumbs(true);
     }
@@ -2337,9 +2364,10 @@ void Phototonic::writeSettings()
                                     Settings::thumbsBackgroundImage);
     Settings::appSettings->setValue(Settings::optionThumbsRepeatBackgroundImage,
                                     Settings::thumbsRepeatBackgroundImage);
-    Settings::appSettings->setValue(
-        Settings::optionLastDir,
-        Settings::startupDir == Settings::RememberLastDir ? Settings::currentDirectory : "");
+    Settings::appSettings->setValue(Settings::optionLastDir,
+                                    Settings::startupDir == Settings::RememberLastDir
+                                        ? Settings::currentDirectory
+                                        : QLatin1String(""));
     Settings::appSettings->setValue(Settings::optionShowImageName, (bool)Settings::showImageName);
     Settings::appSettings->setValue(Settings::optionSmallToolbarIcons,
                                     (bool)Settings::smallToolbarIcons);
@@ -2362,7 +2390,7 @@ void Phototonic::writeSettings()
 
     /* External apps */
     Settings::appSettings->beginGroup(Settings::optionExternalApps);
-    Settings::appSettings->remove("");
+    Settings::appSettings->remove(QLatin1String(""));
     QMapIterator<QString, QString> eaIter(Settings::externalApps);
     while (eaIter.hasNext()) {
         eaIter.next();
@@ -2373,7 +2401,7 @@ void Phototonic::writeSettings()
     /* save bookmarks */
     int idx = 0;
     Settings::appSettings->beginGroup(Settings::optionCopyMoveToPaths);
-    Settings::appSettings->remove("");
+    Settings::appSettings->remove(QLatin1String(""));
     for (const QString &bookmarkPath : qAsConst(Settings::bookmarkPaths)) {
         Settings::appSettings->setValue("path" + QString::number(++idx), bookmarkPath);
     }
@@ -2382,7 +2410,7 @@ void Phototonic::writeSettings()
     /* save known Tags */
     idx = 0;
     Settings::appSettings->beginGroup(Settings::optionKnownTags);
-    Settings::appSettings->remove("");
+    Settings::appSettings->remove(QLatin1String(""));
     for (const QString &tag : qAsConst(Settings::knownTags)) {
         Settings::appSettings->setValue("tag" + QString::number(++idx), tag);
     }
@@ -2691,61 +2719,61 @@ void Phototonic::loadShortcuts()
             }
         }
     } else {
-        thumbsGoToTopAction->setShortcut(QKeySequence("Ctrl+Home"));
-        thumbsGoToBottomAction->setShortcut(QKeySequence("Ctrl+End"));
+        thumbsGoToTopAction->setShortcut(QKeySequence(QStringLiteral("Ctrl+Home")));
+        thumbsGoToBottomAction->setShortcut(QKeySequence(QStringLiteral("Ctrl+End")));
         CloseImageAction->setShortcut(Qt::Key_Escape);
-        fullScreenAction->setShortcut(QKeySequence("Alt+Return"));
-        settingsAction->setShortcut(QKeySequence("Ctrl+P"));
-        exitAction->setShortcut(QKeySequence("Ctrl+Q"));
-        cutAction->setShortcut(QKeySequence("Ctrl+X"));
-        copyAction->setShortcut(QKeySequence("Ctrl+C"));
-        deleteAction->setShortcut(QKeySequence("Del"));
-        deletePermanentlyAction->setShortcut(QKeySequence("Shift+Del"));
-        saveAction->setShortcut(QKeySequence("Ctrl+S"));
-        copyImageAction->setShortcut(QKeySequence("Ctrl+Shift+C"));
-        pasteImageAction->setShortcut(QKeySequence("Ctrl+Shift+V"));
-        renameAction->setShortcut(QKeySequence("F2"));
-        refreshAction->setShortcut(QKeySequence("F5"));
-        pasteAction->setShortcut(QKeySequence("Ctrl+V"));
-        goBackAction->setShortcut(QKeySequence("Alt+Left"));
-        goFrwdAction->setShortcut(QKeySequence("Alt+Right"));
-        goUpAction->setShortcut(QKeySequence("Alt+Up"));
-        slideShowAction->setShortcut(QKeySequence("Ctrl+W"));
-        nextImageAction->setShortcut(QKeySequence("PgDown"));
-        prevImageAction->setShortcut(QKeySequence("PgUp"));
-        firstImageAction->setShortcut(QKeySequence("Home"));
-        lastImageAction->setShortcut(QKeySequence("End"));
-        randomImageAction->setShortcut(QKeySequence("Ctrl+D"));
-        viewImageAction->setShortcut(QKeySequence("Return"));
-        zoomOutAction->setShortcut(QKeySequence("-"));
-        zoomInAction->setShortcut(QKeySequence("+"));
-        resetZoomAction->setShortcut(QKeySequence("*"));
-        origZoomAction->setShortcut(QKeySequence("/"));
-        rotateLeftAction->setShortcut(QKeySequence("Ctrl+Left"));
-        rotateRightAction->setShortcut(QKeySequence("Ctrl+Right"));
-        freeRotateLeftAction->setShortcut(QKeySequence("Ctrl+Shift+Left"));
-        freeRotateRightAction->setShortcut(QKeySequence("Ctrl+Shift+Right"));
-        flipHorizontalAction->setShortcut(QKeySequence("Ctrl+Down"));
-        flipVerticalAction->setShortcut(QKeySequence("Ctrl+Up"));
-        cropAction->setShortcut(QKeySequence("Ctrl+G"));
-        applyCropAndRotationAction->setShortcut(QKeySequence("Ctrl+R"));
-        colorsAction->setShortcut(QKeySequence("Ctrl+O"));
-        mirrorDisabledAction->setShortcut(QKeySequence("Ctrl+1"));
-        mirrorDualAction->setShortcut(QKeySequence("Ctrl+2"));
-        mirrorTripleAction->setShortcut(QKeySequence("Ctrl+3"));
-        mirrorDualVerticalAction->setShortcut(QKeySequence("Ctrl+4"));
-        mirrorQuadAction->setShortcut(QKeySequence("Ctrl+5"));
-        moveDownAction->setShortcut(QKeySequence("Down"));
-        moveUpAction->setShortcut(QKeySequence("Up"));
-        moveLeftAction->setShortcut(QKeySequence("Left"));
-        moveRightAction->setShortcut(QKeySequence("Right"));
-        copyToAction->setShortcut(QKeySequence("Ctrl+Y"));
-        moveToAction->setShortcut(QKeySequence("Ctrl+M"));
-        resizeAction->setShortcut(QKeySequence("Ctrl+I"));
-        filterImagesFocusAction->setShortcut(QKeySequence("Ctrl+F"));
-        setPathFocusAction->setShortcut(QKeySequence("Ctrl+L"));
-        keepTransformAction->setShortcut(QKeySequence("Ctrl+K"));
-        showHiddenFilesAction->setShortcut(QKeySequence("Ctrl+H"));
+        fullScreenAction->setShortcut(QKeySequence(QStringLiteral("Alt+Return")));
+        settingsAction->setShortcut(QKeySequence(QStringLiteral("Ctrl+P")));
+        exitAction->setShortcut(QKeySequence(QStringLiteral("Ctrl+Q")));
+        cutAction->setShortcut(QKeySequence(QStringLiteral("Ctrl+X")));
+        copyAction->setShortcut(QKeySequence(QStringLiteral("Ctrl+C")));
+        deleteAction->setShortcut(QKeySequence(QStringLiteral("Del")));
+        deletePermanentlyAction->setShortcut(QKeySequence(QStringLiteral("Shift+Del")));
+        saveAction->setShortcut(QKeySequence(QStringLiteral("Ctrl+S")));
+        copyImageAction->setShortcut(QKeySequence(QStringLiteral("Ctrl+Shift+C")));
+        pasteImageAction->setShortcut(QKeySequence(QStringLiteral("Ctrl+Shift+V")));
+        renameAction->setShortcut(QKeySequence(QStringLiteral("F2")));
+        refreshAction->setShortcut(QKeySequence(QStringLiteral("F5")));
+        pasteAction->setShortcut(QKeySequence(QStringLiteral("Ctrl+V")));
+        goBackAction->setShortcut(QKeySequence(QStringLiteral("Alt+Left")));
+        goFrwdAction->setShortcut(QKeySequence(QStringLiteral("Alt+Right")));
+        goUpAction->setShortcut(QKeySequence(QStringLiteral("Alt+Up")));
+        slideShowAction->setShortcut(QKeySequence(QStringLiteral("Ctrl+W")));
+        nextImageAction->setShortcut(QKeySequence(QStringLiteral("PgDown")));
+        prevImageAction->setShortcut(QKeySequence(QStringLiteral("PgUp")));
+        firstImageAction->setShortcut(QKeySequence(QStringLiteral("Home")));
+        lastImageAction->setShortcut(QKeySequence(QStringLiteral("End")));
+        randomImageAction->setShortcut(QKeySequence(QStringLiteral("Ctrl+D")));
+        viewImageAction->setShortcut(QKeySequence(QStringLiteral("Return")));
+        zoomOutAction->setShortcut(QKeySequence(QStringLiteral("-")));
+        zoomInAction->setShortcut(QKeySequence(QStringLiteral("+")));
+        resetZoomAction->setShortcut(QKeySequence(QStringLiteral("*")));
+        origZoomAction->setShortcut(QKeySequence(QStringLiteral("/")));
+        rotateLeftAction->setShortcut(QKeySequence(QStringLiteral("Ctrl+Left")));
+        rotateRightAction->setShortcut(QKeySequence(QStringLiteral("Ctrl+Right")));
+        freeRotateLeftAction->setShortcut(QKeySequence(QStringLiteral("Ctrl+Shift+Left")));
+        freeRotateRightAction->setShortcut(QKeySequence(QStringLiteral("Ctrl+Shift+Right")));
+        flipHorizontalAction->setShortcut(QKeySequence(QStringLiteral("Ctrl+Down")));
+        flipVerticalAction->setShortcut(QKeySequence(QStringLiteral("Ctrl+Up")));
+        cropAction->setShortcut(QKeySequence(QStringLiteral("Ctrl+G")));
+        applyCropAndRotationAction->setShortcut(QKeySequence(QStringLiteral("Ctrl+R")));
+        colorsAction->setShortcut(QKeySequence(QStringLiteral("Ctrl+O")));
+        mirrorDisabledAction->setShortcut(QKeySequence(QStringLiteral("Ctrl+1")));
+        mirrorDualAction->setShortcut(QKeySequence(QStringLiteral("Ctrl+2")));
+        mirrorTripleAction->setShortcut(QKeySequence(QStringLiteral("Ctrl+3")));
+        mirrorDualVerticalAction->setShortcut(QKeySequence(QStringLiteral("Ctrl+4")));
+        mirrorQuadAction->setShortcut(QKeySequence(QStringLiteral("Ctrl+5")));
+        moveDownAction->setShortcut(QKeySequence(QStringLiteral("Down")));
+        moveUpAction->setShortcut(QKeySequence(QStringLiteral("Up")));
+        moveLeftAction->setShortcut(QKeySequence(QStringLiteral("Left")));
+        moveRightAction->setShortcut(QKeySequence(QStringLiteral("Right")));
+        copyToAction->setShortcut(QKeySequence(QStringLiteral("Ctrl+Y")));
+        moveToAction->setShortcut(QKeySequence(QStringLiteral("Ctrl+M")));
+        resizeAction->setShortcut(QKeySequence(QStringLiteral("Ctrl+I")));
+        filterImagesFocusAction->setShortcut(QKeySequence(QStringLiteral("Ctrl+F")));
+        setPathFocusAction->setShortcut(QKeySequence(QStringLiteral("Ctrl+L")));
+        keepTransformAction->setShortcut(QKeySequence(QStringLiteral("Ctrl+K")));
+        showHiddenFilesAction->setShortcut(QKeySequence(QStringLiteral("Ctrl+H")));
     }
 
     Settings::appSettings->endGroup();
@@ -2844,7 +2872,7 @@ void Phototonic::newImage()
         showViewer();
     }
 
-    imageViewer->loadImage("");
+    imageViewer->loadImage(QLatin1String(""));
 }
 
 void Phototonic::setDocksVisibility(bool visible)
@@ -2967,8 +2995,8 @@ void Phototonic::showViewer()
 {
     if (Settings::layoutMode == ThumbViewWidget) {
         Settings::layoutMode = ImageViewWidget;
-        Settings::appSettings->setValue("Geometry", saveGeometry());
-        Settings::appSettings->setValue("WindowState", saveState());
+        Settings::appSettings->setValue(QStringLiteral("Geometry"), saveGeometry());
+        Settings::appSettings->setValue(QStringLiteral("WindowState"), saveState());
 
         stackedLayout->setCurrentWidget(imageViewer);
         setDocksVisibility(false);
@@ -3038,7 +3066,7 @@ void Phototonic::toggleSlideShow()
         SlideShowTimer->stop();
         SlideShowTimer->deleteLater();
         slideShowAction->setIcon(
-            QIcon::fromTheme("media-playback-start", QIcon(":/images/play.png")));
+            QIcon::fromTheme(QStringLiteral("media-playback-start"), QIcon(":/images/play.png")));
     } else {
         if (thumbsViewer->thumbsViewerModel->rowCount() <= 0) {
             return;
@@ -3064,7 +3092,7 @@ void Phototonic::toggleSlideShow()
         slideShowAction->setText(tr("Stop Slide Show"));
         imageViewer->setFeedback(tr("Slide show started"));
         slideShowAction->setIcon(
-            QIcon::fromTheme("media-playback-stop", QIcon(":/images/stop.png")));
+            QIcon::fromTheme(QStringLiteral("media-playback-stop"), QIcon(":/images/stop.png")));
 
         slideShowHandler();
     }
@@ -3707,8 +3735,9 @@ void Phototonic::createSubDirectory()
     QFileInfo dirInfo = QFileInfo(fileSystemTree->fileSystemModel->filePath(selectedDirs[0]));
 
     bool ok;
-    QString newDirName = QInputDialog::getText(
-        this, tr("New Sub directory"), tr("New directory name:"), QLineEdit::Normal, "", &ok);
+    QString newDirName =
+        QInputDialog::getText(this, tr("New Sub directory"), tr("New directory name:"),
+                              QLineEdit::Normal, QLatin1String(""), &ok);
 
     if (!ok) {
         selectCurrentViewDir();
@@ -3751,7 +3780,7 @@ QString Phototonic::getSelectedPath() const
         QFileInfo dirInfo = QFileInfo(fileSystemTree->fileSystemModel->filePath(selectedDirs[0]));
         return dirInfo.absoluteFilePath();
     }
-    return "";
+    return QLatin1String("");
 }
 
 void Phototonic::wheelEvent(QWheelEvent *event)
