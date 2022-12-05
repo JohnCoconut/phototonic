@@ -31,7 +31,7 @@ public:
 
     void setImage(const QImage &i);
 
-    qreal rotation() const { return m_rotation; }
+    [[nodiscard]] qreal rotation() const { return m_rotation; }
 
     void setRotation(qreal r);
 
