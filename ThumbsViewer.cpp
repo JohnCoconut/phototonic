@@ -89,14 +89,15 @@ ThumbsViewer::ThumbsViewer(QWidget *parent, const std::shared_ptr<MetadataCache>
 void ThumbsViewer::setThumbColors()
 {
     QString backgroundColor = QStringLiteral("background: rgb(%1, %2, %3); ");
-    backgroundColor = backgroundColor.arg(Settings::thumbsBackgroundColor.red())
-                          .arg(Settings::thumbsBackgroundColor.green())
-                          .arg(Settings::thumbsBackgroundColor.blue());
+    backgroundColor = backgroundColor.arg(QString::number(Settings::thumbsBackgroundColor.red()),
+                                          QString::number(Settings::thumbsBackgroundColor.green()),
+                                          QString::number(Settings::thumbsBackgroundColor.blue()));
 
     QString itemBackgroundColor = QStringLiteral("background: rgba(%1, %2, %3, 0.5); ");
-    itemBackgroundColor = itemBackgroundColor.arg(Settings::thumbsBackgroundColor.red())
-                              .arg(Settings::thumbsBackgroundColor.green())
-                              .arg(Settings::thumbsBackgroundColor.blue());
+    itemBackgroundColor =
+        itemBackgroundColor.arg(QString::number(Settings::thumbsBackgroundColor.red()),
+                                QString::number(Settings::thumbsBackgroundColor.green()),
+                                QString::number(Settings::thumbsBackgroundColor.blue()));
 
     QString backgroundRepeat;
     if (!Settings::thumbsRepeatBackgroundImage) {
@@ -839,11 +840,11 @@ void ThumbsViewer::selectThumbByRow(int row)
 void ThumbsViewer::updateFoundDupesState(int duplicates, int filesScanned, int originalImages)
 {
     QString state;
-    state = tr("Scanned %1, displaying %2 (%3 and %4)")
-                .arg(tr("%n image(s)", "", filesScanned))
-                .arg(tr("%n image(s)", "", originalImages + duplicates))
-                .arg(tr("%n original(s)", "", originalImages))
-                .arg(tr("%n duplicate(s)", "", duplicates));
+    state =
+        tr("Scanned %1, displaying %2 (%3 and %4)")
+            .arg(tr("%n image(s)", "", filesScanned),
+                 tr("%n image(s)", "", originalImages + duplicates),
+                 tr("%n original(s)", "", originalImages), tr("%n duplicate(s)", "", duplicates));
     phototonic->setStatus(state);
 }
 

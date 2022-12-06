@@ -1276,9 +1276,9 @@ void ImageViewer::pasteImage()
 void ImageViewer::setBackgroundColor()
 {
     QString bgColor = QStringLiteral("background: rgb(%1, %2, %3); ");
-    bgColor = bgColor.arg(Settings::viewerBackgroundColor.red())
-                  .arg(Settings::viewerBackgroundColor.green())
-                  .arg(Settings::viewerBackgroundColor.blue());
+    bgColor = bgColor.arg(QString::number(Settings::viewerBackgroundColor.red()),
+                          QString::number(Settings::viewerBackgroundColor.green()),
+                          QString::number(Settings::viewerBackgroundColor.blue()));
 
     QString styleSheet = "QWidget { " + bgColor + " }";
     scrollArea->setStyleSheet(styleSheet);

@@ -113,9 +113,9 @@ void ImagePreview::resizeEvent(QResizeEvent *event)
 void ImagePreview::setBackgroundColor()
 {
     QString bgColor = QStringLiteral("background: rgb(%1, %2, %3); ");
-    bgColor = bgColor.arg(Settings::thumbsBackgroundColor.red())
-                  .arg(Settings::thumbsBackgroundColor.green())
-                  .arg(Settings::thumbsBackgroundColor.blue());
+    bgColor = bgColor.arg(QString::number(Settings::thumbsBackgroundColor.red()),
+                          QString::number(Settings::thumbsBackgroundColor.green()),
+                          QString::number(Settings::thumbsBackgroundColor.blue()));
 
     QString ss = "QWidget { " + bgColor + " }";
     scrollArea->setStyleSheet(ss);
