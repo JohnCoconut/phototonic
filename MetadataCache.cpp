@@ -55,7 +55,7 @@ long MetadataCache::getImageOrientation(const QString &imageFileName)
     return 0;
 }
 
-void MetadataCache::setImageTags(const QString &imageFileName, QSet<QString> tags)
+void MetadataCache::setImageTags(const QString &imageFileName, const QSet<QString> &tags)
 {
     ImageMetadata imageMetadata;
 

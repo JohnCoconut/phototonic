@@ -101,7 +101,7 @@ public:
 
     void setBackgroundColor();
 
-    QPoint getContextMenuPosition() { return contextMenuPosition; }
+    QPoint getContextMenuPosition() const { return contextMenuPosition; }
 
 signals:
     void toolsUpdated();

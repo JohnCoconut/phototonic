@@ -42,7 +42,7 @@ public:
 
     QSet<QString> &getImageTags(const QString &imageFileName);
 
-    void setImageTags(const QString &imageFileName, QSet<QString> tags);
+    void setImageTags(const QString &imageFileName, const QSet<QString> &tags);
 
     void clear();
 
