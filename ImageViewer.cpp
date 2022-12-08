@@ -34,12 +34,11 @@
 #include <QTimer>
 #include <QWheelEvent>
 
+#include <algorithm>
 #include <cmath>
 
 constexpr const char *CLIPBOARD_IMAGE_NAME = "clipboard.png";
 #define ROUND(x) ((int)((x) + 0.5))
-#define MAX(a, b) ((a) > (b) ? (a) : (b))
-#define MIN(a, b) ((a) < (b) ? (a) : (b))
 
 namespace { // anonymous, not visible outside of this file
 Q_DECLARE_LOGGING_CATEGORY(PHOTOTONIC_EXIV2_LOG)
@@ -488,11 +487,11 @@ void rgbToHsl(int r, int g, int b, unsigned char *hue, unsigned char *sat, unsig
     int delta;
 
     if (r > g) {
-        max = MAX(r, b);
-        min = MIN(g, b);
+        max = std::max(r, b);
+        min = std::min(g, b);
     } else {
-        max = MAX(g, b);
-        min = MIN(r, b);
+        max = std::max(g, b);
+        min = std::min(r, b);
     }
 
     l = (max + min) / 2.0;
@@ -591,7 +590,7 @@ void ImageViewer::colorize()
     }
 
     for (i = 0; i < 256; ++i) {
-        brightTransform[i] = MIN(255, (int)((255.0 * pow(i / 255.0, 1.0 / brightness)) + 0.5));
+        brightTransform[i] = std::min(255, (int)((255.0 * pow(i / 255.0, 1.0 / brightness)) + 0.5));
     }
 
     for (y = 0; y < viewerImage.height(); ++y) {
