@@ -1645,7 +1645,7 @@ void Phototonic::keepTransformClicked()
 
     if (Settings::keepTransform) {
         imageViewer->setFeedback(tr("Transformations Locked"));
-        if (cropDialog) {
+        if (cropDialog != nullptr) {
             cropDialog->applyCrop(0);
         }
     } else {
@@ -1711,7 +1711,7 @@ void Phototonic::cropImage()
         toggleSlideShow();
     }
 
-    if (!cropDialog) {
+    if (cropDialog == nullptr) {
         cropDialog = new CropDialog(this, imageViewer);
         connect(cropDialog.data(), &CropDialog::accepted, this, &Phototonic::cleanupCropDialog);
         connect(cropDialog.data(), &CropDialog::rejected, this, &Phototonic::cleanupCropDialog);
@@ -1803,7 +1803,7 @@ void Phototonic::showColorsDialog()
         toggleSlideShow();
     }
 
-    if (!colorsDialog) {
+    if (colorsDialog == nullptr) {
         colorsDialog = new ColorsDialog(this, imageViewer);
         connect(colorsDialog.data(), &ColorsDialog::accepted, this,
                 &Phototonic::cleanupColorsDialog);
@@ -1888,11 +1888,11 @@ void Phototonic::pasteThumbs()
     }
 
     QString destDir;
-    if (copyMoveToDialog) {
+    if (copyMoveToDialog != nullptr) {
         destDir = copyMoveToDialog->selectedPath;
     } else {
         if (QApplication::focusWidget() == bookmarks) {
-            if (bookmarks->currentItem()) {
+            if (bookmarks->currentItem() != nullptr) {
                 destDir = bookmarks->currentItem()->toolTip(0);
             }
         } else {
@@ -2730,7 +2730,7 @@ void Phototonic::loadShortcuts()
             }
         } else {
             for (int i = 0; i < groupKeys.size(); ++i) {
-                if (Settings::actionKeys.value(groupKeys.at(i)))
+                if (Settings::actionKeys.value(groupKeys.at(i)) != nullptr)
                     Settings::actionKeys.value(groupKeys.at(i))
                         ->setShortcut(Settings::appSettings->value(groupKeys.at(i)).toString());
             }
@@ -3334,7 +3334,7 @@ void Phototonic::dropOp(Qt::KeyboardModifiers keyMods, bool dirOp, QString copyM
     if (QObject::sender() == fileSystemTree) {
         destDir = getSelectedPath();
     } else if (QObject::sender() == bookmarks) {
-        if (bookmarks->currentItem()) {
+        if (bookmarks->currentItem() != nullptr) {
             destDir = bookmarks->currentItem()->toolTip(0);
         } else {
             addBookmark(copyMoveDirPath);
@@ -3868,7 +3868,7 @@ void Phototonic::cleanupCropDialog()
 
 void Phototonic::cleanupResizeDialog()
 {
-    if (resizeDialog) {
+    if (resizeDialog != nullptr) {
         resizeDialog->deleteLater();
     }
     resizeDialog = nullptr;

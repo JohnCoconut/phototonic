@@ -907,7 +907,7 @@ void ThumbsViewer::findDupes(bool resetCounters)
             QStandardItem *item = nullptr;
             if (dupImageHashes[imageHash].duplicates < 1) {
                 item = addThumb(dupImageHashes[imageHash].filePath);
-                if (item) {
+                if (item != nullptr) {
                     item->setData(dupImageHashes[imageHash].id, SortRole);
                 }
                 originalImages++;
@@ -916,7 +916,7 @@ void ThumbsViewer::findDupes(bool resetCounters)
             foundDups++;
             dupImageHashes[imageHash].duplicates++;
             item = addThumb(currentFilePath);
-            if (item) {
+            if (item != nullptr) {
                 item->setData(dupImageHashes[imageHash].id, SortRole);
             }
         } else {
@@ -1021,7 +1021,7 @@ void ThumbsViewer::sortBySimilarity()
         QStandardItem *item = thumbsViewerModel->item(i);
 
         Q_ASSERT(item);
-        if (!item) {
+        if (item == nullptr) {
             continue;
         }
         const QString filename = item->data(FileNameRole).toString();
@@ -1082,7 +1082,7 @@ void ThumbsViewer::sortBySimilarity()
     for (int i = 0; i < thumbFileInfoList.count(); ++i) {
         QStandardItem *item = thumbsViewerModel->item(i);
         Q_ASSERT(item);
-        if (!item) {
+        if (item == nullptr) {
             qWarning() << "Invalid item" << i;
             continue;
         }

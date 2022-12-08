@@ -228,7 +228,7 @@ void ImageTags::showSelectedImagesTags()
 
     bool imagesTagged = false, imagesTaggedMixed = false;
     QTreeWidgetItemIterator it(tagsTree);
-    while (*it) {
+    while ((*it) != nullptr) {
         QString tagName = (*it)->text(0);
         int tagCountTotal = tagsCount[tagName];
 
@@ -279,7 +279,7 @@ void ImageTags::showTagsFilter()
     setActiveViewMode(DirectoryTagsDisplay);
 
     QTreeWidgetItemIterator it(tagsTree);
-    while (*it) {
+    while ((*it) != nullptr) {
         QString tagName = (*it)->text(0);
 
         (*it)->setFlags((*it)->flags() | Qt::ItemIsUserCheckable);
@@ -342,7 +342,7 @@ QSet<QString> ImageTags::getCheckedTags(Qt::CheckState tagState)
     QSet<QString> checkedTags;
     QTreeWidgetItemIterator it(tagsTree);
 
-    while (*it) {
+    while ((*it) != nullptr) {
         if ((*it)->checkState(0) == tagState) {
             checkedTags.insert((*it)->text(0));
         }
@@ -461,7 +461,7 @@ void ImageTags::addTagsToSelection()
 void ImageTags::clearTagFilters()
 {
     QTreeWidgetItemIterator it(tagsTree);
-    while (*it) {
+    while ((*it) != nullptr) {
         (*it)->setCheckState(0, Qt::Unchecked);
         ++it;
     }

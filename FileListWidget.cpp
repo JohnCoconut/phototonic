@@ -62,7 +62,7 @@ void FileListWidget::dragMoveEvent(QDragMoveEvent *event)
 
 void FileListWidget::dropEvent(QDropEvent *event)
 {
-    if (event->source()) {
+    if (event->source() != nullptr) {
         QString fileSystemTreeStr(QStringLiteral("FileSystemTree"));
         bool dirOp = (event->source()->metaObject()->className() == fileSystemTreeStr);
         emit dropOp(event->keyboardModifiers(), dirOp,

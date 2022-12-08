@@ -78,7 +78,7 @@ QPixmap &ImagePreview::loadImage(const QString &imageFileName)
         }
         previewPixmap = QPixmap::fromImage(previewImage);
     }
-    if (animation) {
+    if (animation != nullptr) {
         imageLabel->setMovie(animation);
     } else {
         imageLabel->setPixmap(previewPixmap);

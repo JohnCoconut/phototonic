@@ -177,9 +177,9 @@ void ImageViewer::resizeImage()
         return;
     }
     QSize imageSize;
-    if (animation) {
+    if (animation != nullptr) {
         imageSize = animation->currentPixmap().size();
-    } else if (imageWidget) {
+    } else if (imageWidget != nullptr) {
         imageSize = imageWidget->imageSize();
     } else {
         return;
@@ -634,7 +634,7 @@ void ImageViewer::colorize()
 
 void ImageViewer::refresh()
 {
-    if (!imageWidget) {
+    if (imageWidget == nullptr) {
         return;
     }
 
@@ -661,7 +661,7 @@ void ImageViewer::refresh()
 
 void ImageViewer::setImage(const QImage &image)
 {
-    if (movieWidget) {
+    if (movieWidget != nullptr) {
         delete movieWidget;
         movieWidget = nullptr;
         imageWidget = new ImageWidget;
@@ -736,14 +736,14 @@ void ImageViewer::reload()
         return;
     }
     if (Settings::enableAnimations && imageReader.supportsAnimation()) {
-        if (animation) {
+        if (animation != nullptr) {
             delete animation;
             animation = nullptr;
         }
         animation = new QMovie(viewerImageFullPath);
 
         if (animation->frameCount() > 1) {
-            if (!movieWidget) {
+            if (movieWidget == nullptr) {
                 movieWidget = new QLabel();
                 movieWidget->setScaledContents(true);
                 scrollArea->setWidget(movieWidget); // deletes imageWidget
@@ -876,20 +876,20 @@ void ImageViewer::setCursorHiding(bool hide)
 void ImageViewer::mouseDoubleClickEvent(QMouseEvent *event)
 {
     QWidget::mouseDoubleClickEvent(event);
-    while (QApplication::overrideCursor()) {
+    while (QApplication::overrideCursor() != nullptr) {
         QApplication::restoreOverrideCursor();
     }
 }
 
 void ImageViewer::mousePressEvent(QMouseEvent *event)
 {
-    if (!imageWidget) {
+    if (imageWidget == nullptr) {
         return;
     }
     if (event->button() == Qt::LeftButton) {
         if (event->modifiers() == Qt::ControlModifier) {
             cropOrigin = event->pos();
-            if (!cropRubberBand) {
+            if (cropRubberBand == nullptr) {
                 cropRubberBand = new CropRubberBand(this);
                 connect(cropRubberBand, &CropRubberBand::selectionChanged, this,
                         &ImageViewer::updateRubberBandFeedback);
@@ -897,7 +897,7 @@ void ImageViewer::mousePressEvent(QMouseEvent *event)
             cropRubberBand->show();
             cropRubberBand->setGeometry(QRect(cropOrigin, event->pos()).normalized());
         } else {
-            if (cropRubberBand) {
+            if (cropRubberBand != nullptr) {
                 cropRubberBand->hide();
             }
         }
@@ -913,7 +913,7 @@ void ImageViewer::mouseReleaseEvent(QMouseEvent *event)
 {
     if (event->button() == Qt::LeftButton) {
         setMouseMoveData(false, 0, 0);
-        while (QApplication::overrideCursor()) {
+        while (QApplication::overrideCursor() != nullptr) {
             QApplication::restoreOverrideCursor();
         }
     }
@@ -923,7 +923,7 @@ void ImageViewer::mouseReleaseEvent(QMouseEvent *event)
 
 void ImageViewer::updateRubberBandFeedback(QRect geom)
 {
-    if (!imageWidget) {
+    if (imageWidget == nullptr) {
         return;
     }
 
@@ -939,12 +939,12 @@ void ImageViewer::updateRubberBandFeedback(QRect geom)
 
 void ImageViewer::applyCropAndRotation()
 {
-    if (!imageWidget) {
+    if (imageWidget == nullptr) {
         return;
     }
 
     bool didSomething = false;
-    if (cropRubberBand && cropRubberBand->isVisible()) {
+    if ((cropRubberBand != nullptr) && cropRubberBand->isVisible()) {
 
         QPoint bandTopLeft = mapToGlobal(cropRubberBand->geometry().topLeft());
         QPoint bandBottomRight = mapToGlobal(cropRubberBand->geometry().bottomRight());
@@ -988,7 +988,7 @@ void ImageViewer::applyCropAndRotation()
 
 void ImageViewer::setMouseMoveData(bool lockMove, int lMouseX, int lMouseY)
 {
-    if (!imageWidget) {
+    if (imageWidget == nullptr) {
         return;
     }
     moveImageLocked = lockMove;
@@ -1000,7 +1000,7 @@ void ImageViewer::setMouseMoveData(bool lockMove, int lMouseX, int lMouseY)
 
 void ImageViewer::mouseMoveEvent(QMouseEvent *event)
 {
-    if (!imageWidget) {
+    if (imageWidget == nullptr) {
         return;
     }
 
@@ -1068,7 +1068,7 @@ void ImageViewer::mouseMoveEvent(QMouseEvent *event)
 
 void ImageViewer::keyMoveEvent(int direction)
 {
-    if (!imageWidget) {
+    if (imageWidget == nullptr) {
         return;
     }
 
@@ -1244,7 +1244,7 @@ void ImageViewer::saveImageAs()
 
 void ImageViewer::contextMenuEvent(QContextMenuEvent *)
 {
-    while (QApplication::overrideCursor()) {
+    while (QApplication::overrideCursor() != nullptr) {
         QApplication::restoreOverrideCursor();
     }
     contextMenuPosition = QCursor::pos();
@@ -1258,7 +1258,7 @@ void ImageViewer::copyImage()
 
 void ImageViewer::pasteImage()
 {
-    if (!imageWidget) {
+    if (imageWidget == nullptr) {
         return;
     }
 
