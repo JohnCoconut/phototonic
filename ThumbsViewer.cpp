@@ -25,9 +25,23 @@
 #include "SmartCrop.h"
 #include "Tags.h"
 
+#include <QApplication>
+#include <QBitArray>
+#include <QCollator>
+#include <QColorSpace>
+#include <QCryptographicHash>
+#include <QDirIterator>
+#include <QDrag>
+#include <QElapsedTimer>
+#include <QImageReader>
+#include <QMimeData>
 #include <QMimeDatabase>
+#include <QMouseEvent>
+#include <QPainter>
 #include <QProgressDialog>
 #include <QRandomGenerator>
+#include <QScrollBar>
+#include <QStandardPaths>
 
 #define BATCH_SIZE 10
 

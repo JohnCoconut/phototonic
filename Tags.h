@@ -18,13 +18,17 @@
 
 #pragma once
 
-#include "MetadataCache.h"
+#include <QWidget>
 
-#include <QtWidgets>
+#include "MetadataCache.h"
 
 #include <exiv2/exiv2.hpp>
 
 class ThumbsViewer;
+class QMenu;
+class QTabBar;
+class QTreeWidget;
+class QTreeWidgetItem;
 
 enum TagsDisplayMode
 {

@@ -41,6 +41,23 @@
 #include "ThumbsViewer.h"
 #include "Trashcan.h"
 
+#include <QApplication>
+#include <QClipboard>
+#include <QDockWidget>
+#include <QElapsedTimer>
+#include <QFileDialog>
+#include <QInputDialog>
+#include <QMenuBar>
+#include <QMimeData>
+#include <QMovie>
+#include <QProcess>
+#include <QScrollBar>
+#include <QSignalBlocker>
+#include <QStandardItem>
+#include <QStandardPaths>
+#include <QStatusBar>
+#include <QToolBar>
+
 Phototonic::Phototonic(const QStringList &argumentsList, int filesStartAt, QWidget *parent)
     : QMainWindow(parent)
 {

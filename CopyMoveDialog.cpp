@@ -19,11 +19,13 @@
 #include "CopyMoveDialog.h"
 #include "Settings.h"
 #include "ThumbsViewer.h"
+
 #include <QApplication>
 #include <QDir>
 #include <QFile>
 #include <QHBoxLayout>
 #include <QPushButton>
+#include <QStandardItemModel>
 
 #include <limits>
 

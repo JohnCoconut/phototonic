@@ -22,6 +22,13 @@
 #include "Settings.h"
 #include "ThumbsViewer.h"
 
+#include <QApplication>
+#include <QHeaderView>
+#include <QInputDialog>
+#include <QMenu>
+#include <QTreeWidget>
+#include <QVBoxLayout>
+
 #include <unordered_map>
 
 ImageTags::ImageTags(QWidget *parent, ThumbsViewer *thumbsViewer,

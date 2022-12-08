@@ -20,13 +20,20 @@
 
 #include "MetadataCache.h"
 
-#include <QtWidgets>
+#include <QBitArray>
+#include <QDir>
+#include <QFileInfoList>
+#include <QListView>
+#include <QTimer>
 
+#include <cmath>
 #include <exiv2/exiv2.hpp>
 
 class ImagePreview;
 class ImageViewer;
 class Phototonic;
+class QStandardItem;
+class QStandardItemModel;
 
 #define BAD_IMAGE_SIZE 64
 #define WINDOW_ICON_SIZE 48

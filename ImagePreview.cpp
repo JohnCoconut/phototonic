@@ -21,7 +21,9 @@
 #include "Settings.h"
 #include "ThumbsViewer.h"
 
+#include <QHBoxLayout>
 #include <QMovie>
+#include <QScrollBar>
 
 ImagePreview::ImagePreview(QWidget *parent)
     : QWidget(parent)
