@@ -30,8 +30,6 @@
 BookMarks::BookMarks(QWidget *parent)
     : QTreeWidget(parent)
 {
-    setAcceptDrops(true);
-    setDragEnabled(false);
     setDragDropMode(QAbstractItemView::DropOnly);
 
     connect(this, &BookMarks::expanded, this, &BookMarks::resizeTreeColumn);
